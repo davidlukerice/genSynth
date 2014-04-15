@@ -93,6 +93,8 @@
 </div>
 
 <div class="floatingControls">
+  Volume {{volume}}%<br>
+  {{input type="range" value=globalGainLevel min=minGlobalGainLevel max=maxGlobalGainLevel step="0.1"}}<br>
   Inputs<br>
   <button type="button"
     {{action toggleOnscreenPiano}}

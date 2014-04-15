@@ -1,4 +1,5 @@
-var Utils = require('asNEAT/utils')['default'];
+var Utils = require('asNEAT/utils')['default'],
+    asNEAT = require('asNEAT/asNEAT')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
@@ -17,6 +18,19 @@ export default Ember.Controller.extend({
   usingMIDI: true,
 
   showHelp: false,
+
+  minGlobalGainLevel: 0,
+  maxGlobalGainLevel: 2,
+  globalGainLevel: 1.0,
+  volume: function() {
+    var max = this.get('maxGlobalGainLevel'),
+        min = this.get('minGlobalGainLevel'),
+        gain = this.get('globalGainLevel');
+    return Math.round((gain-min)/(max-min)*100);
+  }.property('minGlobalGainLevel', 'maxGlobalGainLevel', 'globalGainLevel'),
+  updateGainHandler: function() {
+    asNEAT.globalGain.gain.value = this.get('globalGainLevel');
+  }.observes('globalGainLevel').on('init'),
 
   activeInstrument: null,
 

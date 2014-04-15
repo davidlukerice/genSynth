@@ -63,10 +63,10 @@ export default Ember.Component.extend({
     this.set('lastSelectedInput', input);
 
     input.onmidimessage = function(ev) {
-      var cmd = ev.data[0] >> 4;
-      var channel = ev.data[0] & 0xf;
-      var noteNumber = ev.data[1];
-      var velocity = ev.data[2];
+      var cmd = ev.data[0] >> 4,
+          channel = ev.data[0] & 0xf,
+          noteNumber = ev.data[1],
+          velocity = ev.data[2];
 
       //Utils.log('cmd:'+cmd+' ch'+channel+' note:'+noteNumber+' Veloc:'+velocity);
 
@@ -90,6 +90,10 @@ export default Ember.Component.extend({
         // mod wheel with veloc 0-127
         else if (noteNumber === 1) {
           //controller( noteNumber, velocity/127.0);
+        }
+        // S1
+        else if (noteNumber === 22) {
+          self.changeVolume(velocity / 127.0);
         }
       } else if (cmd === 14) {
         // pitch wheel
@@ -166,6 +170,14 @@ export default Ember.Component.extend({
       handler();
       releaseHandlers[note] = false;
     }
+  },
+
+  changeVolume: function(percent) {
+    var indexController = this.get('targetObject'),
+        minGain = indexController.get('minGlobalGainLevel'),
+        maxGain = indexController.get('maxGlobalGainLevel'),
+        range = maxGain-minGain;
+    indexController.set('globalGainLevel', (percent*range)+minGain);
   },
 
   willDestroy: function() {
