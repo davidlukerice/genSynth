@@ -1,0 +1,50 @@
+<div class="onscreenKeyboardSpacer"></div>
+<div class="onscreenKeyboard" {{action "hotkeyPlayNote" on="keyDown"}}>
+  
+  <div class="onscreenPianoControls">
+    <span class="controlLabel">Hotkey Layout</span><br>
+    {{view Ember.Select
+       content=hotkeyLayouts
+       optionValuePath="content.accessor"
+       optionLabelPath="content.type"
+       value=selectedHotkeyLayout}}
+    <br>
+    <br>
+    <button type="button"
+      {{action toggleSustain}}
+      {{bind-attr class=":btn :btn-primary :btn-xs sustaining:active"}}>Sustain " "</button>
+  </div>
+
+  <div class="whiteKeys">
+    {{piano-key note="c4"  hotkey="a" colemakHotkey="a" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="d4"  hotkey="s" colemakHotkey="r" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="e4"  hotkey="d" colemakHotkey="s" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="f4"  hotkey="f" colemakHotkey="t" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="g4"  hotkey="g" colemakHotkey="d" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="a4"  hotkey="h" colemakHotkey="h" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="b4"  hotkey="j" colemakHotkey="n" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="c5"  hotkey="k" colemakHotkey="e" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="d5"  hotkey="l" colemakHotkey="i" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="e5"  hotkey=";" colemakHotkey="o" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="f5"  hotkey="'" colemakHotkey="'" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="g5"  hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="a5"  hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="b5"  hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+  </div>
+
+  <div class="blackKeys">
+    {{piano-key note="c4#" hotkey="w" colemakHotkey="w" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="d4#" hotkey="e" colemakHotkey="f" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    <span class="blank"></span>
+    {{piano-key note="f4#" hotkey="t" colemakHotkey="g" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="g4#" hotkey="y" colemakHotkey="j" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="a4#" hotkey="u" colemakHotkey="l" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    <span class="blank"></span>
+    {{piano-key note="c5#" hotkey="o" colemakHotkey="y" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="d5#" hotkey="p" colemakHotkey=";" hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    <span class="blank"></span>
+    {{piano-key note="f5#" hotkey="]"  colemakHotkey="]"  hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="g5#" hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+    {{piano-key note="a5#" hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrument=instrument sustaining=sustaining}}
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="col-md-12 ">
+  <div {{action "toggleSelected"}} {{bind-attr class=" :instrument selected"}}>
+    <span class="controls">
+      <button {{action "play" bubbles=false}} class="btn btn-success">Play</button>
+      <span {{action makeLive  bubbles=false}} class="liveToggle">
+        <span {{bind-attr class=":liveIcon instrumentModel.isLive:active"}}></span>
+        <span class="liveHotkey"></span>
+      </span>
+    </span>
+    <div class="visualizer">
+    </div>
+  </div>
+</div>

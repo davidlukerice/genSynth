@@ -1,0 +1,49 @@
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">GenSynth</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li {{bind-attr class="evolvePageIsActive:active"}}>
+          {{#link-to "index"}}
+            (+) Evolve
+          {{/link-to}}
+        </li>
+
+        {{!-- disable for submission
+        <li><a href="#">(+) Manual</a></li>
+        <li><a href="#">(?) Find</a></li>
+        <li><a href="#">(m) My Sounds</a></li>
+        <li><a href="#">Login / Register</a></li>
+        --}}
+        
+        <li {{bind-attr class="feedbackPageIsActive:active"}}>
+          {{#link-to "feedback"}}
+            Feedback
+          {{/link-to}}
+        </li>
+        {{!--
+        <li>[Fb] [G+] [Tw]</li>
+        --}}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="mainContent">
+  <div class="row">
+    <div class="col-md-12">
+      {{outlet}}
+    </div>
+  </div>
+</div>

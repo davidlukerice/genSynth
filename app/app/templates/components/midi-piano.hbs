@@ -1,0 +1,8 @@
+<div class="midiPiano">
+  MIDI Input<br>
+  {{view Ember.Select
+         content=inputList
+         optionValuePath="content.id"
+         optionLabelPath="content.name"
+         selection=selectedInput}}
+</div>

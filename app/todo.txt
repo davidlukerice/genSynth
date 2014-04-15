@@ -1,0 +1,31 @@
+Current:
+- Onscreen keyboard control
+
+Planned:
+- Better visualization?
+  -* More information on each node
+  -* Different types
+- Better sound?
+  -* ...
+
+Future:
+
+- More uniform aesthetic design
+
+- MIDI hardware keyboard control
+
+- Page: Feedback form
+- Page: Login / Register / Authentication (Google+, Facebook, Tw)
+
+- Meta tags for fb, g+, tw sharing
+- fb, g+, tw sharing
+
+- Controls
+  - Freeze topology
+  - Evolution Distance control
+  - More advanced evolution controls
+
+- Page: (+) Manual Tweaking Page
+- Page: (?) Find instruments
+- Page: (m) My Sounds
+- Page: (h) Home Page showing 'top' instruments
