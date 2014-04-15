@@ -1,3 +1,5 @@
+// jshint node:true
+
 module.exports = function(grunt) {
   // To support Coffeescript, SASS, LESS and others, just install
   // the appropriate grunt package and it will be automatically included
@@ -27,6 +29,12 @@ module.exports = function(grunt) {
   // * For EmberScript, run `npm install --save-dev grunt-ember-script`
   //
   // * for LiveReload, `npm install --save-dev connect-livereload`
+  //
+  // * for YUIDoc support, `npm install --save-dev grunt-contrib-yuidoc`
+  //   It is also nice to use a theme other than default. For example,
+  //   simply do: `npm install yuidoc-theme-blue`
+  //   Currently, only the `app` directory is used for generating docs.
+  //   When installed, visit: http[s]://[host:port]/docs
   //
   // * for displaying the execution time of the grunt tasks,
   //   `npm install --save-dev time-grunt`
@@ -162,6 +170,14 @@ module.exports = function(grunt) {
                      'htmlmin:dist' // Removes comments and whitespace
                      ]));
 
+  // Documentation
+  // -------
+  grunt.registerTask('docs', "Build YUIDoc documentation.", [
+                     'buildDocs',
+                     'server:debug'
+                     ]);
+
+
   // Parallelize most of the build process
   _.merge(config, {
     concurrent: {
@@ -201,6 +217,7 @@ module.exports = function(grunt) {
                      'emberscript',
                      'copy:javascriptToTmp',
                      'transpile',
+                     'buildDocs',
                      'concat_sourcemap'
                      ]));
 
@@ -212,6 +229,11 @@ module.exports = function(grunt) {
                      'stylus:compile',
                      'copy:cssToResult',
                      'autoprefixer:app'
+                     ]));
+
+  // Documentation
+  grunt.registerTask('buildDocs', filterAvailable([
+                     'yuidoc:debug',
                      ]));
 
   // Index HTML
