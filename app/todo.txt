@@ -1,7 +1,9 @@
 Current:
-- Onscreen keyboard control
 
 Planned:
+- MIDI hardware keyboard control
+  - Handle no midi controller case
+
 - Better visualization?
   -* More information on each node
   -* Different types
@@ -12,7 +14,7 @@ Future:
 
 - More uniform aesthetic design
 
-- MIDI hardware keyboard control
+
 
 - Page: Feedback form
 - Page: Login / Register / Authentication (Google+, Facebook, Tw)
