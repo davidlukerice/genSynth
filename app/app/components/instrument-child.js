@@ -17,6 +17,16 @@ export default InstrumentParent.extend({
 
   padding: 60,
 
+  lastMutation: function() {
+    var network = this.get('network');
+    if (!network) return;
+
+    var mutation = network.lastMutation;
+    if (mutation)
+      return mutation.changeDescription;
+    return "";
+  }.property('network'),
+
   actions: {
     
   }

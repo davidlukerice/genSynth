@@ -58,6 +58,14 @@ html, body {
     .liveToggle {
       float: right;
     }
+
+  }
+
+  .lastMutation {
+    margin: -5px 5px 5px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .instrument svg {
