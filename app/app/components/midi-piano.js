@@ -48,7 +48,7 @@ export default Ember.Component.extend({
       self.set('selectedInput', inputList[preferredIndex]);
     }
     function onError(error) {
-      throw "No MIDI? " + error.code;
+      Utils.log("No MIDI? " + error.code);
     }
 
   }.on('init'),
