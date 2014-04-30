@@ -14,7 +14,7 @@
     "asNEAT": "#master",
     "asNEAT-visualizer": "#master",
     "lodash": "~2.4.1",
-    "d3": "~3.4.3",
+    "d3": "~3.4.6",
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
     "loader.js": "git://github.com/stefanpenner/loader.js",
     "ember-load-initializers": "git://github.com/stefanpenner/ember-load-initializers.git#0.0.1"
