@@ -14,8 +14,9 @@ export default Ember.Controller.extend({
   // {networks: [[{network:asNEAT.Network, isLive, selected}, ...],[...],...]}
   content: null,
 
-  usingOnscreenPiano: true,
-  usingMIDI: true,
+  showSettings: false,
+  usingOnscreenPiano: false,
+  usingMIDI: false,
 
   showHelp: false,
 
@@ -183,6 +184,10 @@ export default Ember.Controller.extend({
 
     toggleHelp: function() {
       this.set('showHelp', !this.get('showHelp'));
+    },
+
+    toggleSettings: function() {
+      this.set('showSettings', !this.get('showSettings'));
     },
 
     makeLive: function(instrumentModel) {
