@@ -1,3 +1,5 @@
+import midiSelectable from 'appkit/mixins/midi-selectable';
+
 var Utils = require('asNEAT/utils')['default'],
     asNEAT = require('asNEAT/asNEAT')['default'];
 
@@ -6,7 +8,7 @@ var MINUS_CODE = "-".charCodeAt(),
     PLUS_CODE = "+".charCodeAt(),
     ENTER_CODE = 13;
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(midiSelectable, {
 
   // set by route
   // networks is a history of networks (list of list of networks)

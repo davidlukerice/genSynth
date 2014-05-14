@@ -5,10 +5,9 @@ var Utils = require('asNEAT/utils')['default'];
 export default Ember.Component.extend({
   // Passed in
   instrument: null,
- 
-  // list of MIDI controllers detected
-  inputList: [],
   selectedInput: null,
+
+  // list of MIDI controllers detected
   lastSelectedInput: null,
 
   // whether the sustain pedal is down or not
@@ -18,40 +17,6 @@ export default Ember.Component.extend({
   releaseHandlers: {},
   // {noteNumber: keyIsDown(bool)}
   keysAreDown: {},
-
-  setupMIDI: function() {
-    var self = this,
-        midiAccess = null;
-    navigator.requestMIDIAccess().then(onSuccess, onError);
-
-    function onSuccess(access) {
-      var preferredIndex = -1;
-
-      midiAccess = access;
-
-      var inputList=midiAccess.inputs();
-
-      // If any of the inputs have "keyboard" or "qx25" in them, selected them first
-      _.forEach(inputList, function(input, i) {
-        var str=input.name.toString();
-        if (str.toLowerCase().indexOf("keyboard") !== -1 ||
-            str.toLowerCase().indexOf("qx25") !== -1 )
-        {
-          preferredIndex=i;
-          return true;
-        }
-      });
-      if (preferredIndex === -1)
-        preferredIndex = 0;
-
-      self.set('inputList', inputList);
-      self.set('selectedInput', inputList[preferredIndex]);
-    }
-    function onError(error) {
-      Utils.log("No MIDI? " + error.code);
-    }
-
-  }.on('init'),
 
   onSelectedMIDIChange: function() {
     var self = this,

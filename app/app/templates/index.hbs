@@ -123,14 +123,20 @@
           {{action toggleMIDI}}
           {{bind-attr class=":btn :btn-primary :btn-xs usingMIDI:active"}}>MIDI</button><br>
         {{#if usingMIDI}}
-          {{midi-piano instrument=activeInstrument.network}}
+          {{midi-selector midiSelectable=this}}
         {{/if}}
-
       </div>
     </div>
   {{/if}}
 </div>
 
-{{#if  usingOnscreenPiano}}
-  {{onscreen-piano instrument=activeInstrument.network}}
+{{#if usingMIDI}}
+  {{midi-piano
+    instrument=activeInstrument.network
+    selectedInput=selectedMidiInput}}
+{{/if}}
+
+{{#if usingOnscreenPiano}}
+  {{onscreen-piano
+    instrument=activeInstrument.network}}
 {{/if}}
