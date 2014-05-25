@@ -13,8 +13,6 @@
     "bootstrap": "~3.1.1",
     "asNEAT": "#master",
     "asNEAT-visualizer": "#master",
-    "asNEAT": "~0.1.0",
-    "asNEAT-visualizer": "~0.1.0",
     "lodash": "~2.4.1",
     "d3": "~3.4.6",
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
