@@ -16,9 +16,9 @@ export default Ember.Route.extend({
       }));
     }
 
-    return {
+    return Ember.Object.create({
       networks: [networks]
-    };
+    });
   },
 
   setupController: function(controller, model) {

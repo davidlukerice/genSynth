@@ -1,12 +1,14 @@
 import midiSelectable from 'appkit/mixins/midi-selectable';
 
 var Utils = require('asNEAT/utils')['default'],
+    Network = require('asNEAT/network')['default'],
     asNEAT = require('asNEAT/asNEAT')['default'],
     Population = require('asNEAT/population')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
     PLUS_CODE = "+".charCodeAt(),
+    DEC_CODE = ".".charCodeAt(),
     ENTER_CODE = 13;
 
 export default Ember.Controller.extend(midiSelectable, {
@@ -18,8 +20,8 @@ export default Ember.Controller.extend(midiSelectable, {
   content: null,
 
   showSettings: false,
-  usingOnscreenPiano: false,
-  usingMIDI: false,
+  usingOnscreenPiano: true,
+  usingMIDI: true,
 
   showHelp: false,
 
@@ -106,8 +108,13 @@ export default Ember.Controller.extend(midiSelectable, {
         self.send('makeLive', self.get('childNetworks')[index]);
       }
 
+      // Reset parents
+      if (e.keyCode === DEC_CODE) {
+        e.preventDefault();
+        self.send('resetParents');
+      }
       // Go back a generation
-      if (e.keyCode === MINUS_CODE && !self.get('noPreviousParents')){
+      else if (e.keyCode === MINUS_CODE && !self.get('noPreviousParents')){
         e.preventDefault();
         self.send('backGeneration');
       }
@@ -141,6 +148,22 @@ export default Ember.Controller.extend(midiSelectable, {
   },
 
   actions: {
+    resetParents: function() {
+      var networks = [], numNetworks=2, numMutations=4;
+      for (var i=0; i<numNetworks; ++i) {
+        var network = new Network();
+        for (var x=0; x<numMutations; ++x)
+          network.mutate();
+        networks.push(Ember.Object.create({
+          network: network,
+          isLive: false,
+          selected: false
+        }));
+      }
+
+      this.set('content.networks', [networks]);
+    },
+
     refreshGeneration: function() {
       this.notifyPropertyChange('childNetworks');
     },
