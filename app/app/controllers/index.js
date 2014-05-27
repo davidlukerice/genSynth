@@ -1,7 +1,8 @@
 import midiSelectable from 'appkit/mixins/midi-selectable';
 
 var Utils = require('asNEAT/utils')['default'],
-    asNEAT = require('asNEAT/asNEAT')['default'];
+    asNEAT = require('asNEAT/asNEAT')['default'],
+    Population = require('asNEAT/population')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
@@ -48,20 +49,18 @@ export default Ember.Controller.extend(midiSelectable, {
 
   childNetworks: function() {
     var numChildren = 9,
-        networks = this.get('parentNetworks'),
-        weightPerNetwork = 1/networks.length,
-        children = [], i, child, selected;
+        parentNetworks = this.get('parentNetworks'),
+        newPopulation, children = [], i, child;
 
-    var selections = _.map(networks, function(network) {
-      return {
-        weight: weightPerNetwork,
-        element: network
-      };
+    newPopulation = Population.generateFromParents(
+      _.map(parentNetworks, function(element){
+        return element.network;
+      }), {
+      populationCount: numChildren
     });
 
     for (i=0; i<numChildren; ++i) {
-      selected = Utils.weightedSelection(selections);
-      child = selected.get('network').clone().mutate();
+      child = newPopulation.networks[i];
       children.push(Ember.Object.create({
         network: child,
         isLive: i===0,
