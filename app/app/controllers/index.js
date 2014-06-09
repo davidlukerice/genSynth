@@ -1,4 +1,5 @@
-import midiSelectable from 'appkit/mixins/midi-selectable';
+import MidiSelectable from 'appkit/mixins/midi-selectable';
+import MIDISelector from 'appkit/components/midi-selector';
 
 var Utils = require('asNEAT/utils')['default'],
     Network = require('asNEAT/network')['default'],
@@ -11,7 +12,7 @@ var MINUS_CODE = "-".charCodeAt(),
     DEC_CODE = ".".charCodeAt(),
     ENTER_CODE = 13;
 
-export default Ember.Controller.extend(midiSelectable, {
+export default Ember.Controller.extend(MidiSelectable, {
 
   // set by route
   // networks is a history of networks (list of list of networks)
@@ -34,9 +35,23 @@ export default Ember.Controller.extend(midiSelectable, {
         gain = this.get('globalGainLevel');
     return Math.round((gain-min)/(max-min)*100);
   }.property('minGlobalGainLevel', 'maxGlobalGainLevel', 'globalGainLevel'),
+  
   updateGainHandler: function() {
     asNEAT.globalGain.gain.value = this.get('globalGainLevel');
   }.observes('globalGainLevel').on('init'),
+
+  /**
+    If using MIDI, select the default input
+  */
+  selectDefaultMIDIInput: function() {
+    if (!this.get('usingMIDI'))
+      return;
+
+    var self = this;
+    MIDISelector.setupMIDI.call(this, function(inputs) {
+      self.set('selectedMidiInput', inputs.selectedInput);
+    });
+  }.on('init'),
 
   activeInstrument: null,
 
