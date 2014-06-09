@@ -1,13 +1,16 @@
 
 var Network = require('asNEAT/network')['default'];
 
+var numInitialNetworks = 0;
+var numInitialMutations = 4;
+
 export default Ember.Route.extend({
   model: function() {
     
-    var networks = [], numNetworks=2, numMutations=4;
-    for (var i=0; i<numNetworks; ++i) {
+    var networks = [];
+    for (var i=0; i<numInitialNetworks; ++i) {
       var network = new Network();
-      for (var x=0; x<numMutations; ++x)
+      for (var x=0; x<numInitialMutations; ++x)
         network.mutate();
       networks.push(Ember.Object.create({
         network: network,

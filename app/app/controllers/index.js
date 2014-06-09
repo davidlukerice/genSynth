@@ -73,7 +73,9 @@ export default Ember.Controller.extend(MidiSelectable, {
       _.map(parentNetworks, function(element){
         return element.network;
       }), {
-      populationCount: numChildren
+      populationCount: numChildren,
+      numberOfNewParentMutations: 4,
+      crossoverRate: 0.2
     });
 
     for (i=0; i<numChildren; ++i) {
@@ -164,19 +166,7 @@ export default Ember.Controller.extend(MidiSelectable, {
 
   actions: {
     resetParents: function() {
-      var networks = [], numNetworks=2, numMutations=4;
-      for (var i=0; i<numNetworks; ++i) {
-        var network = new Network();
-        for (var x=0; x<numMutations; ++x)
-          network.mutate();
-        networks.push(Ember.Object.create({
-          network: network,
-          isLive: false,
-          selected: false
-        }));
-      }
-
-      this.set('content.networks', [networks]);
+      this.set('content.networks', [[]]);
     },
 
     refreshGeneration: function() {
