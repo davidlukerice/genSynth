@@ -11,12 +11,13 @@
     "ic-ajax": "~1.0.4",
     "ember-testing-httpRespond": "~0.1.1",
     "bootstrap": "~3.1.1",
-    "asNEAT": "~0.1.0",
-    "asNEAT-visualizer": "~0.1.0",
+    "asNEAT": "#master",
+    "asNEAT-visualizer": "#master",
     "lodash": "~2.4.1",
     "d3": "~3.4.6",
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
     "loader.js": "git://github.com/stefanpenner/loader.js",
-    "ember-load-initializers": "git://github.com/stefanpenner/ember-load-initializers.git#0.0.1"
+    "ember-load-initializers": "git://github.com/stefanpenner/ember-load-initializers.git#0.0.1",
+    "chroma-js": "~0.5.6"
   }
 }

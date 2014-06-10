@@ -1,14 +1,18 @@
-import midiSelectable from 'appkit/mixins/midi-selectable';
+import MidiSelectable from 'appkit/mixins/midi-selectable';
+import MIDISelector from 'appkit/components/midi-selector';
 
 var Utils = require('asNEAT/utils')['default'],
-    asNEAT = require('asNEAT/asNEAT')['default'];
+    Network = require('asNEAT/network')['default'],
+    asNEAT = require('asNEAT/asNEAT')['default'],
+    Population = require('asNEAT/population')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
     PLUS_CODE = "+".charCodeAt(),
+    DEC_CODE = ".".charCodeAt(),
     ENTER_CODE = 13;
 
-export default Ember.Controller.extend(midiSelectable, {
+export default Ember.Controller.extend(MidiSelectable, {
 
   // set by route
   // networks is a history of networks (list of list of networks)
@@ -17,8 +21,8 @@ export default Ember.Controller.extend(midiSelectable, {
   content: null,
 
   showSettings: false,
-  usingOnscreenPiano: false,
-  usingMIDI: false,
+  usingOnscreenPiano: true,
+  usingMIDI: true,
 
   showHelp: false,
 
@@ -31,9 +35,23 @@ export default Ember.Controller.extend(midiSelectable, {
         gain = this.get('globalGainLevel');
     return Math.round((gain-min)/(max-min)*100);
   }.property('minGlobalGainLevel', 'maxGlobalGainLevel', 'globalGainLevel'),
+  
   updateGainHandler: function() {
     asNEAT.globalGain.gain.value = this.get('globalGainLevel');
   }.observes('globalGainLevel').on('init'),
+
+  /**
+    If using MIDI, select the default input
+  */
+  selectDefaultMIDIInput: function() {
+    if (!this.get('usingMIDI'))
+      return;
+
+    var self = this;
+    MIDISelector.setupMIDI.call(this, function(inputs) {
+      self.set('selectedMidiInput', inputs.selectedInput);
+    });
+  }.on('init'),
 
   activeInstrument: null,
 
@@ -48,20 +66,20 @@ export default Ember.Controller.extend(midiSelectable, {
 
   childNetworks: function() {
     var numChildren = 9,
-        networks = this.get('parentNetworks'),
-        weightPerNetwork = 1/networks.length,
-        children = [], i, child, selected;
+        parentNetworks = this.get('parentNetworks'),
+        newPopulation, children = [], i, child;
 
-    var selections = _.map(networks, function(network) {
-      return {
-        weight: weightPerNetwork,
-        element: network
-      };
+    newPopulation = Population.generateFromParents(
+      _.map(parentNetworks, function(element){
+        return element.network;
+      }), {
+      populationCount: numChildren,
+      numberOfNewParentMutations: 4,
+      crossoverRate: 0.2
     });
 
     for (i=0; i<numChildren; ++i) {
-      selected = Utils.weightedSelection(selections);
-      child = selected.get('network').clone().mutate();
+      child = newPopulation.networks[i];
       children.push(Ember.Object.create({
         network: child,
         isLive: i===0,
@@ -107,8 +125,13 @@ export default Ember.Controller.extend(midiSelectable, {
         self.send('makeLive', self.get('childNetworks')[index]);
       }
 
+      // Reset parents
+      if (e.keyCode === DEC_CODE) {
+        e.preventDefault();
+        self.send('resetParents');
+      }
       // Go back a generation
-      if (e.keyCode === MINUS_CODE && !self.get('noPreviousParents')){
+      else if (e.keyCode === MINUS_CODE && !self.get('noPreviousParents')){
         e.preventDefault();
         self.send('backGeneration');
       }
@@ -142,6 +165,10 @@ export default Ember.Controller.extend(midiSelectable, {
   },
 
   actions: {
+    resetParents: function() {
+      this.set('content.networks', [[]]);
+    },
+
     refreshGeneration: function() {
       this.notifyPropertyChange('childNetworks');
     },

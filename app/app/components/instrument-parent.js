@@ -28,16 +28,26 @@ export default Ember.Component.extend({
 
   initVisualization: function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
-      var visualization = Visualizer.createForceVisualization({
+      var visualization = Visualizer.createMultiVisualization({
         network: this.get('instrumentModel.network'),
         selector: this.get('selector'),
         width: this.get('width'),
-        height: this.get('height')
+        height: this.get('height'),
+        // white, green, yellow, Orange, red, purple, black
+        colorScaleColors: ['#ffffff', '#308014', '#b2b200', '#cc8400', '#cc0000', '#660066', '#000000'],
+        // following y=sqrt(x) for x_delta = 0.166667
+        colorScalePositions: [0,0.40824829,0.577350269,0.707106781,0.816496581,0.912870929,1]
       });
-
+      visualization.init();
+      visualization.start();
       this.set('visualization', visualization);
     });
   }.on('init'),
+
+  willDestroy: function() {
+    this._super();
+    this.get('visualization').stop();
+  },
 
   actions: {
     play: function() {
@@ -53,6 +63,10 @@ export default Ember.Component.extend({
       var makeLiveHandler = this.get('makeLiveHandler'),
           instrumentModel = this.get('instrumentModel');
       this.get('targetObject').send(makeLiveHandler, instrumentModel);
+    },
+
+    nextVisualization: function() {
+      this.get('visualization').nextVisualization();
     }
   }
 });
