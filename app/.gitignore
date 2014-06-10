@@ -2,6 +2,7 @@
 
 # compiled output
 /dist/public
+/dist/node_modules
 /tmp
 /docs
 
