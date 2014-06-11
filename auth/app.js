@@ -23,7 +23,7 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'my_precious' }));
+  app.use(express.session({ secret: config.sessionSecret }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
