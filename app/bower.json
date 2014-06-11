@@ -7,7 +7,7 @@
     "ember": "~1.6.0-beta.3",
     "ember-qunit": "https://github.com/rpflorence/ember-qunit.git#master",
     "ember-data": "~1.0.0-beta.7",
-    "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
+    "ember-resolver": "~0.1.1",
     "ic-ajax": "~1.0.4",
     "ember-testing-httpRespond": "~0.1.1",
     "bootstrap": "~3.1.1",

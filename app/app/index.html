@@ -81,6 +81,7 @@
 
     <script src="/vendor/ember-data/ember-data.js"></script>
     <script src="/vendor/ember-resolver/dist/ember-resolver.js"></script>
+    <script src="/vendor/ember-shim.js"></script>
     <script src="/vendor/ic-ajax/dist/named-amd/main.js"></script>
     <script src="/vendor/ember-load-initializers/ember-load-initializers.js"></script>
 
@@ -139,7 +140,7 @@
 
   <!-- @if tests=false -->
   <script>
-    window.App = require('appkit/app')['default'].create();
+    window.App = require('appkit/app')['default'].create(ENV.APP);
   </script>
   <!-- @endif -->
 
