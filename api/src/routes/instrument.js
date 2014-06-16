@@ -35,22 +35,18 @@ module.exports.createRoute = function(app) {
   // PUT Update
   app.put(path+'/:id', function(req, res) {
     var params = req.body[prefixSlashedName],
-        id = req.params.id,
-        procParameters;
-    // Inject the ID into the params
-    params.id = id;
-    procParameters = buildParameters(params);
+        id = req.params.id;
 
     Instrument.findOne({ 'id' : id }, function(err, instrument) {
-      if (err || !user)
-        res.json(error);
+      if (err || !instrument)
+        res.json(err);
       else {
         instrument.userId = params.userId;
         instrument.json = params.json;
         instrument.created = params.created;
         instrument.save(function(err) {
           if (err)
-            res.json(error);
+            res.json(err);
           else
             res.json( {
               dasherizedPrefixSlashedName: instrument
