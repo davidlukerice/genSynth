@@ -39,6 +39,7 @@ var fs = require('fs');
 walk('./src/routes', function(error, file) {
   // require works on a local path, so remove /src/
   file = '.'+file.substring(5);
+  console.log('building route: '+file.startup);
   require(file).createRoute(app);
 });
 

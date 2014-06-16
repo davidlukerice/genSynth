@@ -1,12 +1,68 @@
 var mongoose = require('mongoose'),
-    Model = require('../models/instrument'),
-    path = '/api/instrument';
+    Utils = require('../utils'),
+    Instrument = require('../models/instrument');
+
+// ex name: someName, ns = nameSpace (false to not use)
+// someName
+var name = "instrument",
+    namespace = false;
+
+// nameSpace-
+var dashedPrefix = namespace ? (namespace+'-') : '',
+// nameSpace/
+    slashedPrefix = namespace ? (namespace+'/') : '',
+// nameSpace/someName
+    prefixSlashedName = slashedPrefix+name,
+// name-space/some-name
+    dasherizedPrefixSlashedName = Utils.convertCamelToDasherized(prefixSlashedName),
+// nameSpace-someName
+    prefixedName = dashedPrefix+name,
+// NameSpace-someName
+    upName = Utils.upperCaseFirstLetter(prefixedName),
+// NameSpaceSomeName
+    upNameCamel = Utils.convertDasherizedToCamel(upName),
+// SomeNames
+    pluralName = name+'s',
+// nameSpace-SomeNames
+    prefixPluralName = prefixedName+'s',
+// NameSpaceSomeName
+    prefixedPluralNameCamel = Utils.convertDasherizedToCamel(prefixPluralName),
+// /api/nameSpace/
+    path = '/api/' + slashedPrefix;
 
 module.exports.createRoute = function(app) {
 
+  // PUT Update
+  app.put(path+'/:id', function(req, res) {
+    var params = req.body[prefixSlashedName],
+        id = req.params.id,
+        procParameters;
+    // Inject the ID into the params
+    params.id = id;
+    procParameters = buildParameters(params);
+
+    Instrument.findOne({ 'id' : id }, function(err, instrument) {
+      if (err || !user)
+        res.json(error);
+      else {
+        instrument.userId = params.userId;
+        instrument.json = params.json;
+        instrument.created = params.created;
+        instrument.save(function(err) {
+          if (err)
+            res.json(error);
+          else
+            res.json( {
+              dasherizedPrefixSlashedName: instrument
+            });
+        });
+      }
+    });
+  });
+
   // POST Create
   app.post(path, function(req, res) {
-    var instrument = new Model({
+    var instrument = new Instrument({
       userId: '00000',
       json: '{}',
       created: Date.now()
