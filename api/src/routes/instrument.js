@@ -8,7 +8,7 @@ module.exports.createRoute = function(app) {
   app.post(path, function(req, res) {
     var instrument = new Model({
       userId: '00000',
-      json: '{}'
+      json: '{}',
       created: Date.now()
     });
     instrument.save(function(err) {
@@ -18,7 +18,7 @@ module.exports.createRoute = function(app) {
         console.log("saving instrument ...");
         
         //TODO: Return the newly created thing
-      };
+      }
     });
   });
 

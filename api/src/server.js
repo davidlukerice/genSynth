@@ -15,9 +15,6 @@ colors.setTheme({
   error: 'red'
 });
 
-var dbClient = new DBClient();
-dbClient.testConnection();
-
 // Create the API bindings
 console.log('Starting up express server'.startup);
 var app = express();
