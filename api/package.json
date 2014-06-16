@@ -9,7 +9,7 @@
     "express": "~3.4.7",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-express": "~1.2.1",
-    "mongoose": "~0.1.5 ",
+    "mongoose": "~3.8.12 ",
     "moment": "~2.5.0",
     "colors": "~0.6.2"
   }
