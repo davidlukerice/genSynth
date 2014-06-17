@@ -47,13 +47,14 @@ module.exports.createRoute = function(app) {
         instrument.userId = params.userId;
         instrument.json = params.json;
         instrument.created = params.created;
-        instrument.save(function(err) {
+        instrument.save(function(err, instrument) {
           if (err)
             res.json(err);
-          else
-            res.json( {
-              dasherizedPrefixSlashedName: instrument
-            });
+          else {
+            var out = {};
+            out[dasherizedPrefixSlashedName] = instrument;
+            res.json(out);
+          }
         });
       }
     });
@@ -70,9 +71,9 @@ module.exports.createRoute = function(app) {
       if(err) {
         res.json(err);
       } else {
-        res.json( {
-          dasherizedPrefixSlashedName: instrument
-        });
+        var out = {};
+        out[dasherizedPrefixSlashedName] = instrument;
+        res.json(out);
       }
     });
   });
@@ -85,24 +86,25 @@ module.exports.createRoute = function(app) {
     Instrument.findByIdAndRemove(id, function(err, instrument) {
       if (err || !instrument)
         res.json(err);
-      else
-        res.json({
-          dasherizedPrefixSlashedName: instrument
-        });
+      else {
+        var out = {};
+        out[dasherizedPrefixSlashedName] = instrument;
+        res.json(out);
+      }
     });
   });
 
   // GET Find All
   app.get(path, function(req, res) {
     var params = req.body[prefixSlashedName];
-
     Instrument.find(params, function(err, instruments) {
       if (err || !instruments)
         res.json(err);
-      else 
-        res.json( {
-          dasherizedPrefixSlashedName: instruments
-        });
+      else {
+        var out = {};
+        out[dasherizedPrefixSlashedName] = instruments;
+        res.json(out);
+      }
     });
   });
 
@@ -113,10 +115,11 @@ module.exports.createRoute = function(app) {
     Instrument.findById(params, function(err, instrument) {
       if (err || !instrument)
         res.json(err);
-      else 
-        res.json( {
-          dasherizedPrefixSlashedName: instrument
-        });
+      else {
+        var out = {};
+        out[dasherizedPrefixSlashedName] = instrument;
+        res.json(out);
+      }
     });
   });
 };
