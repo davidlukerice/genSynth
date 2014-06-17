@@ -1,10 +1,17 @@
 
-var Visualizer = require('asNEAT/asNEAT-visualizer')['default'];
+var Visualizer = require('asNEAT/asNEAT-visualizer')['default'],
+    Instrument = require('asNEAT/models/instrument')['default'];
 
 export default Ember.Component.extend({
   // passed in
   // {network, selected, isLive, index}
+  instrumentNetwork: null,
+  selected: false,
+  isLive: false,
+  index: 0,
+
   instrumentModel: null,
+
   makeLiveHandler: null,
 
   network: function() {
@@ -52,6 +59,14 @@ export default Ember.Component.extend({
   actions: {
     play: function() {
       this.get('instrumentModel.network').play();
+    },
+
+    save: function() {
+      var instrument = this.store('instrument', {
+        userId: 0,
+        json: this.get('instrumentModel.network').toJSON()
+      });
+      instrument.save();
     },
 
     toggleSelected: function() {
