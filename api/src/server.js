@@ -15,6 +15,9 @@ colors.setTheme({
   error: 'red'
 });
 
+// connect to the database
+mongoose.connect('mongodb://localhost/genSynthApi');
+
 // Create the API bindings
 console.log('Starting up express server'.startup);
 var app = express();
