@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    _ = require('lodash'),
     Utils = require('../utils'),
     Instrument = require('../models/instrument');
 
@@ -28,16 +29,18 @@ var dashedPrefix = namespace ? (namespace+'-') : '',
 // NameSpaceSomeName
     prefixedPluralNameCamel = Utils.convertDasherizedToCamel(prefixPluralName),
 // /api/nameSpace/
-    path = '/api/' + slashedPrefix;
+    path = '/api/' + prefixSlashedName;
 
 module.exports.createRoute = function(app) {
+
+  console.log('path: '+ path.info);
 
   // PUT Update
   app.put(path+'/:id', function(req, res) {
     var params = req.body[prefixSlashedName],
         id = req.params.id;
 
-    Instrument.findOne({ 'id' : id }, function(err, instrument) {
+    Instrument.findById(id, function(err, instrument) {
       if (err || !instrument)
         res.json(err);
       else {
@@ -58,34 +61,62 @@ module.exports.createRoute = function(app) {
 
   // POST Create
   app.post(path, function(req, res) {
-    var instrument = new Instrument({
-      userId: '00000',
-      json: '{}',
+    var params = req.body[prefixSlashedName];
+    var instrument = new Instrument(
+      _.extend(params, {
       created: Date.now()
-    });
+    }));
     instrument.save(function(err) {
       if(err) {
-        console.log(err);
+        res.json(err);
       } else {
-        console.log("saving instrument ...");
-        
-        //TODO: Return the newly created thing
+        res.json( {
+          dasherizedPrefixSlashedName: instrument
+        });
       }
     });
   });
 
   // DELETE Delete
   app.delete(path+'/:id', function(req, res) {
-    //TODO: 
+    var params = req.body[prefixSlashedName],
+        id = req.params.id;
+
+    Instrument.findByIdAndRemove(id, function(err, instrument) {
+      if (err || !instrument)
+        res.json(err);
+      else
+        res.json({
+          dasherizedPrefixSlashedName: instrument
+        });
+    });
   });
 
   // GET Find All
   app.get(path, function(req, res) {
-    //TODO: 
+    var params = req.body[prefixSlashedName];
+
+    Instrument.find(params, function(err, instruments) {
+      if (err || !instruments)
+        res.json(err);
+      else 
+        res.json( {
+          dasherizedPrefixSlashedName: instruments
+        });
+    });
   });
 
   // GET Find
   app.get(path+'/:id', function(req, res) {
-    //TODO: 
+    var params = req.body[prefixSlashedName],
+        id = req.params.id;
+    Instrument.findById(params, function(err, instrument) {
+      if (err || !instrument)
+        res.json(err);
+      else 
+        res.json( {
+          dasherizedPrefixSlashedName: instrument
+        });
+    });
   });
 };

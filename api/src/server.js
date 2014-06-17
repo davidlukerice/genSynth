@@ -37,6 +37,10 @@ app.use(express.bodyParser());
 var fs = require('fs');
 // Include all the routes
 walk('./src/routes', function(error, file) {
+  if (error) {
+    console.log(('error: '+error).error);
+    return;
+  }
   // require works on a local path, so remove /src/
   file = '.'+file.substring(5);
   console.log('building route: '+file.startup);
@@ -45,7 +49,7 @@ walk('./src/routes', function(error, file) {
 
 function walk(dir, action) {
   fs.readdir(dir, function(err, list){
-    if (err) return action();
+    if (err) return action(err, list);
     var i=0;
     list.forEach(function(file) {
       file = dir+'/'+file;
