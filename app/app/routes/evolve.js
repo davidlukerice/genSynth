@@ -7,20 +7,20 @@ var numInitialMutations = 4;
 export default Ember.Route.extend({
   model: function() {
     
-    var networks = [];
+    var instrumentParams = [];
     for (var i=0; i<numInitialNetworks; ++i) {
-      var network = new Network();
+      var instrumentNetwork = new Network();
       for (var x=0; x<numInitialMutations; ++x)
-        network.mutate();
-      networks.push(Ember.Object.create({
-        network: network,
+        instrumentNetwork.mutate();
+      instrumentParams.push(Ember.Object.create({
+        instrumentNetwork: instrumentNetwork,
         isLive: false,
         selected: false
       }));
     }
 
     return Ember.Object.create({
-      networks: [networks]
+      instrumentParams: [instrumentParams]
     });
   },
 

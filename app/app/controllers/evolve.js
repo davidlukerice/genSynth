@@ -17,7 +17,7 @@ export default Ember.Controller.extend(MidiSelectable, {
   // set by route
   // networks is a history of networks (list of list of networks)
   // and the top one is currently the parent set
-  // {networks: [[{network:asNEAT.Network, isLive, selected}, ...],[...],...]}
+  // {instrumentParams: [[{instrumentNetwork:asNEAT.Network, isLive, selected}, ...],[...],...]}
   content: null,
 
   showSettings: false,
@@ -56,22 +56,22 @@ export default Ember.Controller.extend(MidiSelectable, {
   activeInstrument: null,
 
   noPreviousParents: function() {
-    return this.get('content.networks').length <= 1;
-  }.property('content.networks.@each'),
+    return this.get('content.instrumentParams').length <= 1;
+  }.property('content.instrumentParams.@each'),
 
-  parentNetworks: function() {
-    var networks = this.get('content.networks');
+  parentInstrumentParams: function() {
+    var networks = this.get('content.instrumentParams');
     return networks[networks.length-1];
-  }.property('content.networks.@each'),
+  }.property('content.instrumentParams.@each'),
 
-  childNetworks: function() {
+  childInstrumentParams: function() {
     var numChildren = 9,
-        parentNetworks = this.get('parentNetworks'),
+        parentInstrumentParams = this.get('parentInstrumentParams'),
         newPopulation, children = [], i, child;
 
     newPopulation = Population.generateFromParents(
-      _.map(parentNetworks, function(element){
-        return element.network;
+      _.map(parentInstrumentParams, function(element){
+        return element.instrumentNetwork;
       }), {
       populationCount: numChildren,
       numberOfNewParentMutations: 4,
@@ -81,7 +81,7 @@ export default Ember.Controller.extend(MidiSelectable, {
     for (i=0; i<numChildren; ++i) {
       child = newPopulation.networks[i];
       children.push(Ember.Object.create({
-        network: child,
+        instrumentNetwork: child,
         isLive: i===0,
         selected: false,
         index: i
@@ -90,13 +90,13 @@ export default Ember.Controller.extend(MidiSelectable, {
     this.set('activeInstrument', children[0]);
 
     return children;
-  }.property('parentNetworks.@each'),
+  }.property('parentInstrumentParams.@each'),
 
   selectedNetworks: function() {
-    var selectedParents = _.filter(this.get('parentNetworks'), 'selected');
-    var selectedChildren = _.filter(this.get('childNetworks'), 'selected');
+    var selectedParents = _.filter(this.get('parentInstrumentParams'), 'selected');
+    var selectedChildren = _.filter(this.get('childInstrumentParams'), 'selected');
     return _.union(selectedParents, selectedChildren);
-  }.property('parentNetworks.@each.selected', 'childNetworks.@each.selected'),
+  }.property('parentInstrumentParams.@each.selected', 'childInstrumentParams.@each.selected'),
 
   noNetworksSelected: function() {
     return this.get('selectedNetworks').length <= 0;
@@ -122,7 +122,7 @@ export default Ember.Controller.extend(MidiSelectable, {
 
       if (index>=0) {
         e.preventDefault();
-        self.send('makeLive', self.get('childNetworks')[index]);
+        self.send('makeLive', self.get('childInstrumentParams')[index]);
       }
 
       // Reset parents
@@ -166,16 +166,15 @@ export default Ember.Controller.extend(MidiSelectable, {
 
   actions: {
     resetParents: function() {
-      this.set('content.networks', [[]]);
+      this.set('content.instrumentParams', [[]]);
     },
 
     refreshGeneration: function() {
-      this.notifyPropertyChange('childNetworks');
+      this.notifyPropertyChange('childInstrumentParams');
     },
 
     backGeneration: function() {
-      // TODO: Confirm box
-      this.get('content.networks').popObject();
+      this.get('content.instrumentParams').popObject();
       scrollToBottom();
     },
 
@@ -188,7 +187,7 @@ export default Ember.Controller.extend(MidiSelectable, {
       });
 
       // push the currently selected networks on top
-      this.get('content.networks').pushObject(selected);
+      this.get('content.instrumentParams').pushObject(selected);
       scrollToBottom();
     },
 

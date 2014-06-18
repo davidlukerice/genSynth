@@ -1,7 +1,7 @@
 
 export default Ember.Component.extend({
   // Passed in
-  instrument: null,
+  instrumentNetwork: null,
 
   hotkeyLayouts: [
     {type: "querty", accessor: "hotkey"},

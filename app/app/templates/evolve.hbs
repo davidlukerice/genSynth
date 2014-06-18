@@ -10,20 +10,18 @@
     </div>
   </div>
   <div class="row instruments">
-    {{#each parentNetworks}}
+    {{#each parentInstrumentParams}}
       {{instrument-parent
-        instrumentModel=this
+        instrumentNetwork=this.instrumentNetwork
+        selected=this.selected
+        isLive=this.isLive
+        index=this.index
         makeLiveHandler="makeLive"}}
     {{else}}
       <div class="col-md-12">
         No Parent Instruments
       </div>
     {{/each}}
-    {{!--
-    <div class="col-md-12">
-      <button class="btn btn-primary" disabled>Load from saved Engines</button>
-    </div>
-    --}}
   </div>
 
   <br>
@@ -51,9 +49,12 @@
   </div>
 
   <div class="row children">
-    {{#each childNetworks}}
+    {{#each childInstrumentParams}}
       {{instrument-child
-        instrumentModel=this
+        instrumentNetwork=this.instrumentNetwork
+        selected=this.selected
+        isLive=this.isLive
+        index=this.index
         makeLiveHandler="makeLive"}}
     {{else}}
       <div class="col-md-4">
@@ -128,11 +129,11 @@
 
 {{#if usingMIDI}}
   {{midi-piano
-    instrument=activeInstrument.network
+    instrumentNetwork=activeInstrument.instrumentNetwork
     selectedInput=selectedMidiInput}}
 {{/if}}
 
 {{#if usingOnscreenPiano}}
   {{onscreen-piano
-    instrument=activeInstrument.network}}
+    instrumentNetwork=activeInstrument.instrumentNetwork}}
 {{/if}}

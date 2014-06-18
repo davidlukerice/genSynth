@@ -1,10 +1,9 @@
 
 var Visualizer = require('asNEAT/asNEAT-visualizer')['default'],
-    Instrument = require('asNEAT/models/instrument')['default'];
+    Instrument = require('appkit/models/instrument')['default'];
 
 export default Ember.Component.extend({
   // passed in
-  // {network, selected, isLive, index}
   instrumentNetwork: null,
   selected: false,
   isLive: false,
@@ -13,10 +12,6 @@ export default Ember.Component.extend({
   instrumentModel: null,
 
   makeLiveHandler: null,
-
-  network: function() {
-    return this.get('instrumentModel.network');
-  }.property('instrumentModel.network'),
 
   width: "100%",
   height: "100%",
@@ -28,15 +23,10 @@ export default Ember.Component.extend({
     return "#"+this.elementId+' .visualizer';
   }.property('elementId'),
 
-  // shadow element of network
-  selected: function() {
-    return this.get('instrumentModel.selected');
-  }.property('instrumentModel.selected'),
-
   initVisualization: function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
       var visualization = Visualizer.createMultiVisualization({
-        network: this.get('instrumentModel.network'),
+        network: this.get('instrumentNetwork'),
         selector: this.get('selector'),
         width: this.get('width'),
         height: this.get('height'),
@@ -58,26 +48,25 @@ export default Ember.Component.extend({
 
   actions: {
     play: function() {
-      this.get('instrumentModel.network').play();
+      this.get('instrumentNetwork').play();
     },
 
     save: function() {
       var instrument = this.store('instrument', {
         userId: 0,
-        json: this.get('instrumentModel.network').toJSON()
+        json: this.get('instrumentNetwork').toJSON()
       });
       instrument.save();
     },
 
     toggleSelected: function() {
-      this.set('instrumentModel.selected',
-        !this.get('instrumentModel.selected'));
+      this.set('selected',
+        !this.get('selected'));
     },
 
     makeLive: function() {
-      var makeLiveHandler = this.get('makeLiveHandler'),
-          instrumentModel = this.get('instrumentModel');
-      this.get('targetObject').send(makeLiveHandler, instrumentModel);
+      var makeLiveHandler = this.get('makeLiveHandler');
+      this.get('targetObject').send(makeLiveHandler, this);
     },
 
     nextVisualization: function() {

@@ -4,7 +4,7 @@
       <button {{action "play" bubbles=false}} class="btn btn-success">Play</button>
       <button {{action "nextVisualization" bubbles=false}} class="btn">Next Vis</button>
       <span {{action makeLive  bubbles=false}} class="liveToggle">
-        <span {{bind-attr class=":liveIcon instrumentModel.isLive:active"}}></span>
+        <span {{bind-attr class=":liveIcon isLive:active"}}></span>
         <span class="liveHotkey">{{liveHotkey}}</span>
       </span>
     </span>
