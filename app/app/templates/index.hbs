@@ -12,9 +12,12 @@
     </div>
   </div>
   <div class="row instruments">
-    {{#each content.networks}}
+    {{#each instrumentParams}}
       {{instrument-parent
-        instrumentModel=this
+        instrumentNetwork=this.instrumentNetwork
+        selected=this.selected
+        isLive=this.isLive
+        index=this.index
         makeLiveHandler="makeLive"}}
     {{else}}
       <div class="col-md-12">

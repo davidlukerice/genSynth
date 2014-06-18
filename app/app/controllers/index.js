@@ -6,6 +6,19 @@ var Utils = require('asNEAT/utils')['default'],
 export default Ember.Controller.extend({
 
   // set by route
-  // {networks: []}
+  // {instruments: []}
   content: null,
+
+  instrumentParams: function() {
+    return _.map(this.get('content.instruments').toArray(),
+      function(instrument) {
+        return {
+          instrumentNetwork: Network.createFromJSON(instrument.get('json')),
+          selected: false,
+          isLive: false,
+          index: 0,
+          instrumentsModel: instrument
+        };
+    });
+  }.property('content.instruments.@each')
 });

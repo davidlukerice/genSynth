@@ -102,7 +102,7 @@ module.exports.createRoute = function(app) {
         res.json(err);
       else {
         var out = {};
-        out[dasherizedPrefixSlashedName] = instruments;
+        out[dasherizedPrefixSlashedName] = toObjects(instruments);
         res.json(out);
       }
     });
@@ -123,3 +123,11 @@ module.exports.createRoute = function(app) {
     });
   });
 };
+
+function toObjects(arr) {
+  var objs = [];
+  _.forEach(arr, function(item) {
+    objs.push(item.toObject({virtuals: true}));
+  });
+  return objs;
+}
