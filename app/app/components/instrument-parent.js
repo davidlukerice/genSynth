@@ -19,6 +19,10 @@ export default Ember.Component.extend({
   // created on init
   visualization: null,
 
+  isSaved: function() {
+    return this.get('instrumentModel') !== null;
+  }.property('instrumentModel'),
+
   selector: function() {
     return "#"+this.elementId+' .visualizer';
   }.property('elementId'),
@@ -52,7 +56,7 @@ export default Ember.Component.extend({
     },
 
     save: function() {
-      var instrument = this.store('instrument', {
+      var instrument = this.store.createRecord('instrument', {
         userId: 0,
         json: this.get('instrumentNetwork').toJSON()
       });

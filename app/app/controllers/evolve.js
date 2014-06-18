@@ -218,11 +218,11 @@ export default Ember.Controller.extend(MidiSelectable, {
       this.set('showSettings', !this.get('showSettings'));
     },
 
-    makeLive: function(instrumentModel) {
+    makeLive: function(instrumentParentContent) {
       // turn off old instrument and setup the new selected one
       this.get('activeInstrument').set('isLive', false);
-      instrumentModel.set('isLive', true);
-      this.set('activeInstrument', instrumentModel);
+      instrumentParentContent.set('isLive', true);
+      this.set('activeInstrument', instrumentParentContent);
     }
   }
 });

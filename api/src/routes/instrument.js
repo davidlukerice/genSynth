@@ -28,8 +28,8 @@ var dashedPrefix = namespace ? (namespace+'-') : '',
     prefixPluralName = prefixedName+'s',
 // NameSpaceSomeName
     prefixedPluralNameCamel = Utils.convertDasherizedToCamel(prefixPluralName),
-// /api/nameSpace/
-    path = '/api/' + prefixSlashedName;
+// /api/nameSpace/someNames
+    path = '/api/' + slashedPrefix + pluralName;
 
 module.exports.createRoute = function(app) {
 
