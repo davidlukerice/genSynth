@@ -20,7 +20,8 @@ export default Ember.Component.extend({
   visualization: null,
 
   isSaved: function() {
-    return this.get('instrumentModel') !== null;
+    var model = this.get('instrumentModel');
+    return model !== null && model !== undefined;
   }.property('instrumentModel'),
 
   selector: function() {
@@ -56,11 +57,18 @@ export default Ember.Component.extend({
     },
 
     save: function() {
+      // TODO: Start spinner?
+      var self = this;
       var instrument = this.store.createRecord('instrument', {
         userId: 0,
         json: this.get('instrumentNetwork').toJSON()
       });
-      instrument.save();
+      instrument.save().then(function(instrument) {
+        self.set('instrumentModel', instrument);
+      }, function() {
+        // TODO: Show error?
+        console.log('error saving');
+      });
     },
 
     toggleSelected: function() {

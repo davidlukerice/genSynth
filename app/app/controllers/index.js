@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
           selected: false,
           isLive: false,
           index: 0,
-          instrumentsModel: instrument
+          instrumentModel: instrument
         };
     });
   }.property('content.instruments.@each')
