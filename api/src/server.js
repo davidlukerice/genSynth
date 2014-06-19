@@ -2,7 +2,8 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     colors = require('colors'),
-    config = require('../config/expressConfig');
+    config = require('../config/expressConfig'),
+    apiBuilder = require('./apiBuilder');
 
 // setting up custom log colors
 colors.setTheme({
@@ -47,7 +48,7 @@ walk('./src/routes', function(error, file) {
   // require works on a local path, so remove /src/
   file = '.'+file.substring(5);
   console.log('building route: '+file.startup);
-  require(file).createRoute(app);
+  apiBuilder.createRoute(app, require(file));
 });
 
 function walk(dir, action) {
