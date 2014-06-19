@@ -84,9 +84,7 @@ module.exports.createRoute = function(app) {
 
   // DELETE Delete
   app.delete(path+'/:id', function(req, res) {
-    var params = req.body[prefixSlashedName],
-        id = req.params.id;
-
+    var id = req.params.id;
     scaffold.Model.findByIdAndRemove(id, function(err, model) {
       if (err || !model)
         res.json(err);
@@ -100,8 +98,8 @@ module.exports.createRoute = function(app) {
 
   // GET Find All
   app.get(path, function(req, res) {
-    var params = req.body[prefixSlashedName];
-    scaffold.Model.find(params, function(err, models) {
+    var query = req.query;
+    scaffold.Model.find(query, function(err, models) {
       if (err || !models)
         res.json(err);
       else {
@@ -114,9 +112,8 @@ module.exports.createRoute = function(app) {
 
   // GET Find
   app.get(path+'/:id', function(req, res) {
-    var params = req.body[prefixSlashedName],
-        id = req.params.id;
-    scaffold.Model.findById(params, function(err, model) {
+    var id = req.params.id;
+    scaffold.Model.findById(id, function(err, model) {
       if (err || !model)
         res.json(err);
       else {
