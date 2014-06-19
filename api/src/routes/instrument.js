@@ -4,26 +4,30 @@ var mongoose = require('mongoose'),
     Instrument = require('../models/instrument');
 
 // ex name: someName, ns = nameSpace (false to not use)
-// someName
-var name = "instrument",
-    namespace = false;
+var scaffold = {
+  name: 'instrument',
+  namespace: false,
+  Model: Instrument,
+  params: ['userId', 'json', 'created']
+};
+
 
 // nameSpace-
-var dashedPrefix = namespace ? (namespace+'-') : '',
+var dashedPrefix = scaffold.namespace ? (scaffold.namespace+'-') : '',
 // nameSpace/
-    slashedPrefix = namespace ? (namespace+'/') : '',
+    slashedPrefix = scaffold.namespace ? (scaffold.namespace+'/') : '',
 // nameSpace/someName
-    prefixSlashedName = slashedPrefix+name,
+    prefixSlashedName = slashedPrefix+scaffold.name,
 // name-space/some-name
     dasherizedPrefixSlashedName = Utils.convertCamelToDasherized(prefixSlashedName),
 // nameSpace-someName
-    prefixedName = dashedPrefix+name,
+    prefixedName = dashedPrefix+scaffold.name,
 // NameSpace-someName
     upName = Utils.upperCaseFirstLetter(prefixedName),
 // NameSpaceSomeName
     upNameCamel = Utils.convertDasherizedToCamel(upName),
 // SomeNames
-    pluralName = name+'s',
+    pluralName = scaffold.name+'s',
 // nameSpace-SomeNames
     prefixPluralName = prefixedName+'s',
 // NameSpaceSomeName
@@ -40,19 +44,19 @@ module.exports.createRoute = function(app) {
     var params = req.body[prefixSlashedName],
         id = req.params.id;
 
-    Instrument.findById(id, function(err, instrument) {
-      if (err || !instrument)
+    scaffold.Model.findById(id, function(err, model) {
+      if (err || !model)
         res.json(err);
       else {
-        instrument.userId = params.userId;
-        instrument.json = params.json;
-        instrument.created = params.created;
-        instrument.save(function(err, instrument) {
+        _.forEach(scaffold.params, function(name) {
+          model[name] = params[name];
+        });
+        model.save(function(err, model) {
           if (err)
             res.json(err);
           else {
             var out = {};
-            out[dasherizedPrefixSlashedName] = instrument;
+            out[dasherizedPrefixSlashedName] = model;
             res.json(out);
           }
         });
@@ -63,16 +67,16 @@ module.exports.createRoute = function(app) {
   // POST Create
   app.post(path, function(req, res) {
     var params = req.body[prefixSlashedName];
-    var instrument = new Instrument(
+    var model = new scaffold.Model(
       _.extend(params, {
       created: Date.now()
     }));
-    instrument.save(function(err) {
+    model.save(function(err) {
       if(err) {
         res.json(err);
       } else {
         var out = {};
-        out[dasherizedPrefixSlashedName] = instrument;
+        out[dasherizedPrefixSlashedName] = model;
         res.json(out);
       }
     });
@@ -83,12 +87,12 @@ module.exports.createRoute = function(app) {
     var params = req.body[prefixSlashedName],
         id = req.params.id;
 
-    Instrument.findByIdAndRemove(id, function(err, instrument) {
-      if (err || !instrument)
+    scaffold.Model.findByIdAndRemove(id, function(err, model) {
+      if (err || !model)
         res.json(err);
       else {
         var out = {};
-        out[dasherizedPrefixSlashedName] = instrument;
+        out[dasherizedPrefixSlashedName] = model;
         res.json(out);
       }
     });
@@ -97,12 +101,12 @@ module.exports.createRoute = function(app) {
   // GET Find All
   app.get(path, function(req, res) {
     var params = req.body[prefixSlashedName];
-    Instrument.find(params, function(err, instruments) {
-      if (err || !instruments)
+    scaffold.Model.find(params, function(err, models) {
+      if (err || !models)
         res.json(err);
       else {
         var out = {};
-        out[dasherizedPrefixSlashedName] = toObjects(instruments);
+        out[dasherizedPrefixSlashedName] = toObjects(models);
         res.json(out);
       }
     });
@@ -112,12 +116,12 @@ module.exports.createRoute = function(app) {
   app.get(path+'/:id', function(req, res) {
     var params = req.body[prefixSlashedName],
         id = req.params.id;
-    Instrument.findById(params, function(err, instrument) {
-      if (err || !instrument)
+    scaffold.Model.findById(params, function(err, model) {
+      if (err || !model)
         res.json(err);
       else {
         var out = {};
-        out[dasherizedPrefixSlashedName] = instrument;
+        out[dasherizedPrefixSlashedName] = model;
         res.json(out);
       }
     });
