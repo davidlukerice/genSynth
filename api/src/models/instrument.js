@@ -1,9 +1,14 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    User = require('');
 
 var schema = new mongoose.Schema({
-  userId: String,
+  user: String,
   json: String,
-  created: Date
+  created: Date,
+  branchedParent: String,
+  isPrivate: Boolean,
+  likes: [User],
+  tags: String
 });
 schema.virtual('id').get(function() {
   return this._id;
