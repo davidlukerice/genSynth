@@ -1,19 +1,18 @@
 var mongoose = require('mongoose'),
-    User = require('');
+    Schema = mongoose.Schema,
+    User = require('./user');
 
-var schema = new mongoose.Schema({
-  user: String,
+var schema = new Schema({
+  user: {type: Schema.ObjectId, res: 'User'},
   json: String,
   created: Date,
-  branchedParent: String,
+  branchedParent: {type: Schema.ObjectId, res: 'Instrument'},
   isPrivate: Boolean,
-  likes: [User],
+  likes: [User.Schema],
   tags: String
-});
-schema.virtual('id').get(function() {
-  return this._id;
 });
 
 var model = mongoose.model('Instrument', schema);
 
-module.exports = model;
+module.exports.Schema = schema;
+module.exports.Model = model;
