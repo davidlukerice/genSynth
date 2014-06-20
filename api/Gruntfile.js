@@ -19,14 +19,14 @@ module.exports = function(grunt) {
         options: {
           port: expressConfig.port,
           hostname: expressConfig.hostname,
-          server: path.resolve('./src/server')
+          server: path.resolve('./src/app')
         }
       },
       devServer: {
         options: {
           port: expressConfig.port,
           hostname: expressConfig.hostname,
-          server: path.resolve('./src/server'),
+          server: path.resolve('./src/app'),
           serverreload: true,
           showStack: true,
           watcherOptions: {
