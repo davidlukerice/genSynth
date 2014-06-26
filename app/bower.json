@@ -4,9 +4,9 @@
     "handlebars": "~1.3.0",
     "jquery": "~1.11.1",
     "qunit": "~1.12.0",
-    "ember": "~1.6.0-beta.3",
+    "ember": "~1.6.0-beta.5",
     "ember-qunit": "https://github.com/rpflorence/ember-qunit.git#master",
-    "ember-data": "~1.0.0-beta.7",
+    "ember-data": "~1.0.0-beta.8",
     "ember-resolver": "~0.1.1",
     "ic-ajax": "~1.0.4",
     "ember-testing-httpRespond": "~0.1.1",
@@ -18,6 +18,7 @@
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
     "loader.js": "git://github.com/stefanpenner/loader.js",
     "ember-load-initializers": "git://github.com/stefanpenner/ember-load-initializers.git#0.0.1",
-    "chroma-js": "~0.5.6"
+    "chroma-js": "~0.5.6",
+    "ember-simple-auth": "~0.6.2"
   }
 }
