@@ -33,7 +33,7 @@ export default Ember.Component.extend({
           noteNumber = ev.data[1],
           velocity = ev.data[2];
 
-      //Utils.log('cmd:'+cmd+' ch'+channel+' note:'+noteNumber+' Veloc:'+velocity);
+      Utils.log('cmd:'+cmd+' ch'+channel+' note:'+noteNumber+' Veloc:'+velocity);
 
       if (channel === 9)
         return;
@@ -100,7 +100,7 @@ export default Ember.Component.extend({
     return typeof this.get('releaseHandlers')[note] === 'function';
   },
 
-  turnOnNote: function(note, velocity) {
+  turnOnNote: function(note) {//, velocity) {
     var instrumentNetwork = this.get('instrumentNetwork'),
         A4NUMBER = 69,
         steps = note - A4NUMBER,

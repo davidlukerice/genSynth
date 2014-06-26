@@ -1,12 +1,4 @@
-
-@import "compass/css3/user-interface";
-
-@mixin pointer-events($type: none) {
-  $type: unquote($type);
-  @include experimental(pointer-events, $type,
-    -moz, -webkit, not -o, not -ms, -khtml, official
-  );
-}
+@import "vendor/bourbon/app/assets/stylesheets/bourbon";
 
 $selectedColor: #158cba;
 $hoverColor: #15b5ba;
@@ -166,7 +158,7 @@ $halfControlsWidth: $controlsWidth / 2;
     position:absolute;
     top:0;
     left: $controlsWidth + 20px;
-    @include pointer-events(none);
+    pointer-events: none;
 
     .key {
       height: 60px;
@@ -174,7 +166,7 @@ $halfControlsWidth: $controlsWidth / 2;
       margin: 0 5px 0 5px;
       background: rgb(100, 100, 100);
       margin-right: 0px;
-      @include pointer-events(auto);
+      pointer-events: auto;
 
       &:hover {
         background: rgb(50, 50, 50);

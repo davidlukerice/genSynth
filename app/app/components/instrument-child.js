@@ -1,5 +1,5 @@
 
-import InstrumentParent from 'appkit/components/instrument-parent';
+import InstrumentParent from 'gen-synth/components/instrument-parent';
 
 export default InstrumentParent.extend({
 

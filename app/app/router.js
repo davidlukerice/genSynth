@@ -1,4 +1,8 @@
-var Router = Ember.Router.extend(); // ensure we don't share routes between all Router instances
+import Ember from 'ember';
+
+var Router = Ember.Router.extend({
+  location: GenSynthENV.locationType
+});
 
 Router.map(function() {
   this.route('index', {path: '/'});

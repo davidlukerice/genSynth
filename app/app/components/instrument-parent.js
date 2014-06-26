@@ -1,6 +1,5 @@
 
-var Visualizer = require('asNEAT/asNEAT-visualizer')['default'],
-    Instrument = require('appkit/models/instrument')['default'];
+var Visualizer = require('asNEAT/asNEAT-visualizer')['default'];
 
 export default Ember.Component.extend({
   // passed in

@@ -1,7 +1,9 @@
-import Application from 'appkit/app';
-import Router from 'appkit/router';
+/* global require */
 
-function startApp(attrs) {
+var Application = require('gen-synth/app')['default'];
+var Router = require('gen-synth/router')['default'];
+
+export default function startApp(attrs) {
   var App;
 
   var attributes = Ember.merge({
@@ -25,5 +27,3 @@ function startApp(attrs) {
 
   return App;
 }
-
-export default startApp;
