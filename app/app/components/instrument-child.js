@@ -7,25 +7,25 @@ export default InstrumentParent.extend({
     Maps the instruments index to the numpad hotkey
   */
   liveHotkey: function() {
-    var i = this.get('instrumentModel.index'),
+    var i = this.get('index'),
         rowCount = 3,
         numChildren = 9;
     return numChildren -
           ((rowCount-1)-i%rowCount) -
           Math.floor(i/rowCount)*rowCount;
-  }.property('instrumentModel.index'),
+  }.property('index'),
 
   padding: 60,
 
   lastMutation: function() {
-    var network = this.get('network');
+    var network = this.get('instrumentNetwork');
     if (!network) return;
 
     var mutation = network.lastMutation;
     if (mutation)
       return mutation.changeDescription;
     return "";
-  }.property('network'),
+  }.property('instrumentNetwork'),
 
   actions: {
     

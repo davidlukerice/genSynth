@@ -3,8 +3,13 @@
     <span class="controls">
       <button {{action "play" bubbles=false}} class="btn btn-success">Play</button>
       <button {{action "nextVisualization" bubbles=false}} class="btn">Next Vis</button>
+      {{#if isSaved}}
+        [inst link]
+      {{else}}
+        <button {{action "save" bubbles=false}} class="btn">Save</button>
+      {{/if}}
       <span {{action makeLive  bubbles=false}} class="liveToggle">
-        <span {{bind-attr class=":liveIcon instrumentModel.isLive:active"}}></span>
+        <span {{bind-attr class=":liveIcon isLive:active"}}></span>
         <span class="liveHotkey"></span>
       </span>
     </span>

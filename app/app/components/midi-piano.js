@@ -4,7 +4,7 @@ var Utils = require('asNEAT/utils')['default'];
 // influenced from midi.js at https://github.com/cwilso/midi-synth
 export default Ember.Component.extend({
   // Passed in
-  instrument: null,
+  instrumentNetwork: null,
   selectedInput: null,
 
   // list of MIDI controllers detected
@@ -101,7 +101,7 @@ export default Ember.Component.extend({
   },
 
   turnOnNote: function(note, velocity) {
-    var instrument = this.get('instrument'),
+    var instrumentNetwork = this.get('instrumentNetwork'),
         A4NUMBER = 69,
         steps = note - A4NUMBER,
         releaseHandlers = this.get('releaseHandlers'),
@@ -110,15 +110,15 @@ export default Ember.Component.extend({
     if (typeof releaseHandler === 'function')
       releaseHandler();
 
-    if (!instrument)
-      throw "No Instrument to Play";
+    if (!instrumentNetwork)
+      throw "No instrumentNetwork to Play";
 
-    var noteOscillators = instrument.getNoteOscillatorNodes();
+    var noteOscillators = instrumentNetwork.getNoteOscillatorNodes();
     _.forEach(noteOscillators, function(node) {
       node.stepFromRootNote = steps;
     });
 
-    releaseHandler = instrument.playHold();
+    releaseHandler = instrumentNetwork.playHold();
     releaseHandlers[note] = releaseHandler;
   },
 

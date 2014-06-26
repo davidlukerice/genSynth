@@ -1,0 +1,22 @@
+{
+  "name": "genSynthAPI",
+  "description": "A restful API for genSynth",
+  "version": "0.0.1",
+  "private": true,
+  "author": "David Luke Rice",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "express": "~3.4.7",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-qunit": "~0.4.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-concurrent": "~0.4.3",
+    "grunt-express": "~1.2.1",
+    "mongoose": "~3.8.12 ",
+    "moment": "~2.5.0",
+    "colors": "~0.6.2"
+  },
+  "dependencies": {
+    "lodash": "~2.4.1"
+  }
+}

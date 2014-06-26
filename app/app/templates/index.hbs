@@ -1,142 +1,29 @@
 
-<div class="evolver">
+<div class="index">
   <p>
     GenSynth is a proof of concept platform for evolving new synthetic instruments.<br>
     Each new generation of instruments is a mixture of children bred and mutated from the previous generation.<br>
     <br>
-
-    <span class="label label-warning">Warning</span> You may want to turn down the volume at first. Some of the sounds can be loud and harsh to listen to!
   </p>
 
   <div class="row">
     <div class="col-md-12">
-      <h3>Parent Instruments <button {{action "resetParents"}} class="btn btn-primary" >Reset</button></h3>
+      <h3>Top Instruments</h3>
     </div>
   </div>
   <div class="row instruments">
-    {{#each parentNetworks}}
+    {{#each instrumentParams}}
       {{instrument-parent
-        instrumentModel=this
+        instrumentNetwork=this.instrumentNetwork
+        selected=this.selected
+        isLive=this.isLive
+        index=this.index
+        instrumentModel=this.instrumentModel
         makeLiveHandler="makeLive"}}
     {{else}}
       <div class="col-md-12">
-        No Networks
-      </div>
-    {{/each}}
-    {{!--
-    <div class="col-md-12">
-      <button class="btn btn-primary" disabled>Load from saved Engines</button>
-    </div>
-    --}}
-  </div>
-
-  <br>
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Children Instruments <small>Select at least one to evolve next generation</small></h3>
-    </div>
-  </div>
-
-  <div class="row controls">
-    <div class="col-md-12">
-      <button class="btn btn-primary" {{action "backGeneration"}} {{bind-attr disabled="noPreviousParents"}}><span class="glyphicon glyphicon-step-backward"></span> BACK</button>
-      <button class="btn btn-primary" {{action "refreshGeneration"}}><span class="glyphicon glyphicon-refresh"></span> REFRESH</button>
-      <button class="btn btn-primary" {{action "nextGeneration"}} {{bind-attr disabled="noNetworksSelected"}}>NEXT <span class="glyphicon glyphicon-step-forward"></span></button>
-      <br>
-      {{!--
-      Evolution Step Size <input type="range" min="0" max="1" disabled><br>
-      Freeze Topology <input type="checkbox" disabled><br>
-      <div class="input-group">
-        <button class="btn btn-primary" disabled>Simple</button>
-        <button class="btn btn-default" disabled>Advance</button>
-      </div>
-      --}}
-    </div>
-  </div>
-
-  <div class="row children">
-    {{#each childNetworks}}
-      {{instrument-child
-        instrumentModel=this
-        makeLiveHandler="makeLive"}}
-    {{else}}
-      <div class="col-md-4">
-        <div class="child">
-          No children
-        </div>
+        None
       </div>
     {{/each}}
   </div>
-
-  <div class="floatingControls">
-    <span class="toggleIcon" {{action "toggleHelp"}}>
-      <span class="glyphicon glyphicon-question-sign"></span>
-    </span>
-    <span class="toggleIcon" {{action "toggleSettings"}}>
-      <span class="glyphicon glyphicon-cog"></span>
-    </span>
-  </div>
-  {{#if showHelp}}
-    <div class="genSynthModal">
-      <div class="modalContent">
-        <span class="toggleText pull-right" {{action "toggleHelp"}}>Close</span>
-        <h4>
-          <span class="glyphicon glyphicon-question-sign"></span> Help
-        </h4>
-
-        Click [<span class="glyphicon glyphicon-refresh"></span> REFRESH] to regenerate the current generation.<br>
-        Select the children or parents instruments that you like and click [NEXT <span class="glyphicon glyphicon-step-forward"></span>] to create the next generation based on your selection.<br>
-        [<span class="glyphicon glyphicon-step-backward"></span> BACK] will return to the previous set of parents but will delete the current parents.<br>
-        Pressing the <span class="liveToggle"><span class="liveIcon"></span></span> for an instrument makes it Live <span class="liveToggle"><span class="liveIcon active"></span></span>, letting you play that instrument with either the onscreen piano or through MIDI.<br>
-        Both the onscreen piano and MIDI can be turned on in settings <span class="toggleIcon" {{action "toggleSettings"}}><span class="glyphicon glyphicon-cog"></span></span>.<br>
-
-        <h4>Hotkeys</h4>
-        - : Back<br>
-        * : Refresh<br>
-        + : Next<br>
-        "Enter" : Select Current Live Instrument<br>
-        1-9 : Select Child Instrument as Live <span class="liveToggle"><span class="liveIcon active"></span></span><br>
-        "Spacebar" : Sustain Onscreen Piano<br>
-        a,s,d... : Onscreen Piano notes (written on each key)<br>
-      </div>
-    </div>
-  {{/if}}
-
-  {{#if showSettings}}
-    <div class="genSynthModal">
-      <div class="modalContent">
-        <span class="toggleText pull-right" {{action "toggleSettings"}}>Close</span>
-        <h4>
-          <span class="glyphicon glyphicon-cog"></span> Settings
-        </h4>
-
-        Volume {{volume}}%<br>
-        {{input type="range" value=globalGainLevel min=minGlobalGainLevel max=maxGlobalGainLevel step="0.1"}}<br>
-        Inputs<br>
-        <button type="button"
-          {{action toggleOnscreenPiano}}
-          {{bind-attr class=":btn :btn-primary :btn-xs usingOnscreenPiano:active"}}>Onscreen Piano</button><br>
-
-        <br>
-        
-        <button type="button"
-          {{action toggleMIDI}}
-          {{bind-attr class=":btn :btn-primary :btn-xs usingMIDI:active"}}>MIDI</button><br>
-        {{#if usingMIDI}}
-          {{midi-selector midiSelectable=this}}
-        {{/if}}
-      </div>
-    </div>
-  {{/if}}
 </div>
-
-{{#if usingMIDI}}
-  {{midi-piano
-    instrument=activeInstrument.network
-    selectedInput=selectedMidiInput}}
-{{/if}}
-
-{{#if usingOnscreenPiano}}
-  {{onscreen-piano
-    instrument=activeInstrument.network}}
-{{/if}}

@@ -1,7 +1,7 @@
 
 export default Ember.Controller.extend({
   evolvePageIsActive: function() {
-    return this.get('currentPath') === 'index';
+    return this.get('currentPath') === 'evolve';
   }.property('currentPath'),
   
   feedbackPageIsActive: function() {

@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   note: "a4",
   hotkey: "q",
   colemakHotkey: "q",
-  instrument: null,
+  instrumentNetwork: null,
   hotkeyLayout: "colemakHotkey",
   sustaining: false,
 
@@ -78,7 +78,7 @@ export default Ember.Component.extend({
   }.on('init'),
 
   playNote: function() {
-    var instrument = this.get('instrument'),
+    var instrumentNetwork = this.get('instrumentNetwork'),
         note = this.get('note'),
         releaseHandler = this.get('releaseHandler');
 
@@ -86,19 +86,19 @@ export default Ember.Component.extend({
     if (typeof releaseHandler === "function")
       releaseHandler();
 
-    if (!instrument) {
-      throw 'No instrument to play!';
+    if (!instrumentNetwork) {
+      throw 'No instrumentNetwork to play!';
     }
 
     var steps = Utils.stepsFromRootNote(note);
     Utils.log('Playing note: '+note+' ('+steps+')');
 
-    var noteOscillators = instrument.getNoteOscillatorNodes();
+    var noteOscillators = instrumentNetwork.getNoteOscillatorNodes();
     _.forEach(noteOscillators, function(node) {
       node.stepFromRootNote = steps;
     });
 
-    releaseHandler = instrument.playHold();
+    releaseHandler = instrumentNetwork.playHold();
     this.set('releaseHandler', releaseHandler);
   },
 
