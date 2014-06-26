@@ -1,9 +1,7 @@
-import MidiSelectable from 'appkit/mixins/midi-selectable';
-import MIDISelector from 'appkit/components/midi-selector';
+import MidiSelectable from 'gen-synth/mixins/midi-selectable';
+import MIDISelector from 'gen-synth/components/midi-selector';
 
-var Utils = require('asNEAT/utils')['default'],
-    Network = require('asNEAT/network')['default'],
-    asNEAT = require('asNEAT/asNEAT')['default'],
+var asNEAT = require('asNEAT/asNEAT')['default'],
     Population = require('asNEAT/population')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),

@@ -2,24 +2,20 @@
   "predef": {
     "document": true,
     "window": true,
-    "location": true,
+    "GenSynthENV": true,
     "setTimeout": true,
     "require": true,
     "Ember": true,
-    "Em": true,
     "DS": true,
     "$": true,
     "_": true,
     "navigator": true
   },
-  "node" : false,
-  "browser" : false,
+  "browser" : true,
   "boss" : true,
   "curly": false,
-  
-  "debug": true,
-
-  "devel": false,
+  "debug": false,
+  "devel": true,
   "eqeqeq": true,
   "evil": true,
   "forin": false,
@@ -38,5 +34,6 @@
   "strict": false,
   "white": false,
   "eqnull": true,
-  "esnext": true
+  "esnext": true,
+  "unused": true
 }

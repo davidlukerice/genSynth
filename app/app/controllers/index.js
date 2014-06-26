@@ -1,7 +1,5 @@
 
-var Utils = require('asNEAT/utils')['default'],
-    Network = require('asNEAT/network')['default'],
-    asNEAT = require('asNEAT/asNEAT')['default'];
+var Network = require('asNEAT/network')['default'];
 
 export default Ember.Controller.extend({
 
