@@ -4,43 +4,6 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp();
 
-/*
-var compileCompass = require('broccoli-compass'),
-    pickFiles = require('broccoli-static-compiler'),
-    mergeTrees = require('broccoli-merge-trees');
-
-app.styles = function() {
-  var addonTrees = this.addonTreesFor('styles');
-  var vendor = this._processedVendorTree();
-  var styles = pickFiles(this.trees.styles, {
-    srcDir: '/',
-    destDir: '/app/styles'
-  });
-
-  var trees = [vendor];
-  trees.concat(addonTrees);
-  trees.push(styles);
-  var stylesAndVendor = mergeTrees(trees, {
-    description: 'TreeMerger (stylesAndVendor)'
-  });
-
-  //var stylesAndVendor = mergeTrees([vendor, styles, 'public']);
-
-  return compileCompass(stylesAndVendor, 'app' + '/styles/gen-synth.scss', {
-    outputStyle: 'expanded',
-    require: 'sass-css-importer',
-    sassDir: 'app' + '/styles',
-    imagesDir: 'images',
-    fontsDir: 'fonts',
-    cssDir: '/assets'
-  });
-};
-
-*/
-
-
-
-
 // Use `app.import` to add additional libraries to the generated
 // output files.
 //
