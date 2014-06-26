@@ -49,5 +49,6 @@ app.import({
   development: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.js',
   production: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
 });
+app.import('vendor/ember-simple-auth/simple-auth.amd.js');
 
 module.exports = app.toTree();
