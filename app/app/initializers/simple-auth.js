@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
-
 require('torii/load-initializers')['default']();
 var SimpleAuthSetup = require('simple-auth/setup').default;
 var SimpleAuthAuthenticatorsBase = require('simple-auth/authenticators/base').default;
 var configuration = require('torii/configuration').default;
-
+var AuthProviders = require('gen-synth/config/auth-providers').default;
 
 //configuration.providers['linked-in-oauth2'] = {
 //  apiKey: '772yus6d70pf11',
@@ -16,7 +15,7 @@ var configuration = require('torii/configuration').default;
 //  apiKey:      '139338504777-321kme2daihrj8kr8g739ntne4h2bghk.apps.googleusercontent.com'
 //};
 configuration.providers['facebook-connect'] = {
-  appId:      '744221908941738'
+  appId: AuthProviders.facebookConnect.appId
 };
 //configuration.providers['facebook-oauth2'] = {
 //  apiKey:      '744221908941738',
