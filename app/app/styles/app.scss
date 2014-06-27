@@ -302,3 +302,14 @@ $halfControlsWidth: $controlsWidth / 2;
     z-index: 1100;
   }
 }
+
+.navbar-nav {
+  li {
+    cursor: pointer;
+  }
+}
+
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.4);
+}

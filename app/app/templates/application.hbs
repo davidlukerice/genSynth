@@ -36,10 +36,22 @@
         {{!--
         <li>[Fb] [G+] [Tw]</li>
         --}}
+
+        {{#if session.isAuthenticated}}
+          <li>
+            <a {{ action 'invalidateSession' }}>Logout</a>
+          </li>
+        {{else}}
+          <li>
+            <a {{ action 'showLogin' }}>Login</a>
+          </li>
+        {{/if}}
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
 <div class="mainContent">
   <div class="row">
     <div class="col-md-12">
@@ -47,3 +59,22 @@
     </div>
   </div>
 </div>
+
+{{#if showLogin}}
+  <div class="modal" {{action 'hideLogin' bubbles=false}}>
+    <div class="modal-dialog" {{action 'showLogin' bubbles=false}}>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" {{action 'hideLogin'}}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body">
+          <p>Login Options</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" {{action 'hideLogin'}}>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}

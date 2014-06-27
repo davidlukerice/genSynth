@@ -7,4 +7,15 @@ export default Ember.Controller.extend({
   feedbackPageIsActive: function() {
     return this.get('currentPath') === 'feedback';
   }.property('currentPath'),
+
+  showingLogin: false,
+
+  actions: {
+    showLogin: function() {
+      this.set('showLogin', true);
+    },
+    hideLogin: function() {
+      this.set('showLogin', false);
+    }
+  }
 });
