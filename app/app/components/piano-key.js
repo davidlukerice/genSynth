@@ -1,3 +1,4 @@
+import Ember from 'ember';
 var Utils = require('asNEAT/utils')['default'];
 
 export default Ember.Component.extend({

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import MidiSelectable from 'gen-synth/mixins/midi-selectable';
 import MIDISelector from 'gen-synth/components/midi-selector';
 

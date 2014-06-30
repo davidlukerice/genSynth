@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 require('torii/load-initializers')['default']();
-var SimpleAuthSetup = require('simple-auth/setup').default;
+var simpleAuthSetup = require('simple-auth/setup').default;
 var SimpleAuthAuthenticatorsBase = require('simple-auth/authenticators/base').default;
 var configuration = require('torii/configuration').default;
 var AuthProviders = require('gen-synth/config/auth-providers').default;
@@ -54,6 +54,6 @@ export default {
   initialize: function(container, application) {
     // register the Torii authenticator so the session can find them
     container.register('authenticator:torii', ToriiAuthenticator);
-    SimpleAuthSetup(container, application);
+    simpleAuthSetup(container, application);
   }
 };

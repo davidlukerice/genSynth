@@ -1,4 +1,4 @@
-
+import Ember from 'ember';
 var Network = require('asNEAT/network')['default'];
 
 export default Ember.Controller.extend({

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 var Utils = require('asNEAT/utils')['default'];
 
 // requires chrome 33 with chrome://flags/#enable-web-midi enabled

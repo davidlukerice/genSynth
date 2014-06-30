@@ -1,5 +1,6 @@
-// Can hold a current midi input
+import Ember from 'ember';
 
+// Can hold a current midi input
 export default Ember.Mixin.create({
   selectedMidiInput: null,
   actions: {
