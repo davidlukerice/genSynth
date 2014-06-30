@@ -7,6 +7,9 @@ $hoverColor: #15b5ba;
 $borderColor: #e7e7e7;
 $backgroundColor: #f8f8f8;
 
+$controlsWidth: 100px;
+$halfControlsWidth: $controlsWidth / 2;
+
 html, body {
   overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;
@@ -23,43 +26,6 @@ html, body {
     padding: 5px;
   }
 
-  .instrument {
-    position: relative;
-    padding: 5px;
-    margin: 5px;
-
-    height: 250px;
-    width: 100%;
-    border: 2px $borderColor solid;
-    cursor: pointer;
-
-    .controls {
-      position: absolute;
-      width: 100%;
-      text-align: left;
-      border: 0;
-      padding: 0 10px 0 0;
-      pointer-events: none;
-
-      & * {
-        pointer-events: auto;
-      }
-    }
-
-    &:hover {
-      background: $hoverColor;
-    }
-
-    &.selected {
-      background: $selectedColor;
-    }
-
-    .liveToggle {
-      float: right;
-    }
-
-  }
-
   .lastMutation {
     margin: -5px 5px 5px 5px;
     overflow: hidden;
@@ -67,57 +33,90 @@ html, body {
     white-space: nowrap;
   }
 
-  .instrument svg {
-    border-width: 0 1px 4px 1px;
-    background-color: #f8f8f8;
-    border-color: #e7e7e7;
-  }
-
   .controls {
     text-align: center;
     margin-bottom: 5px;
   }
-  
-  .liveToggle {
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-    border-radius: 25px;
-    width: 25px;
-    height: 25px;
-    background: white;
-    border: 1px solid black;
-    margin: 5px;
-
-    &:hover .liveIcon{
-      background: lightcoral;
-    }
-
-    .liveHotkey {
-      position: absolute;
-      font-weight: bold;
-      left: 8px;
-      top: 1px;
-    }
-    .liveIcon {
-      display: inline-block;
-      top: 4px;
-      left: 4px;
-      width: 15px;
-      height: 15px;
-      position: relative;
-      border-radius: 15px;
-      
-      &.active {
-        background: red;
-      }
-    }
-  }
 
 } // eo .evolver
 
-$controlsWidth: 100px;
-$halfControlsWidth: $controlsWidth / 2;
+.instrument {
+  position: relative;
+  padding: 5px;
+  margin: 5px;
+
+  height: 250px;
+  width: 100%;
+  border: 2px $borderColor solid;
+  cursor: pointer;
+
+  .controls {
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    border: 0;
+    padding: 0 10px 0 0;
+    pointer-events: none;
+
+    & * {
+      pointer-events: auto;
+    }
+  }
+
+  svg {
+    border-width: 0 1px 4px 1px;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+  }
+  
+  &:hover {
+    background: $hoverColor;
+  }
+
+  &.selected {
+    background: $selectedColor;
+  }
+
+  .liveToggle {
+    float: right;
+  }
+}
+
+.liveToggle {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 25px;
+  width: 25px;
+  height: 25px;
+  background: white;
+  border: 1px solid black;
+  margin: 5px;
+
+  &:hover .liveIcon{
+    background: lightcoral;
+  }
+
+  .liveHotkey {
+    position: absolute;
+    font-weight: bold;
+    left: 8px;
+    top: 1px;
+  }
+  .liveIcon {
+    display: inline-block;
+    top: 4px;
+    left: 4px;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    border-radius: 15px;
+    
+    &.active {
+      background: red;
+    }
+  }
+}
 
 .onscreenKeyboardSpacer {
   height:100px;
