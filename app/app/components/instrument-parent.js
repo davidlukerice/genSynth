@@ -57,8 +57,9 @@ export default Ember.Component.extend({
 
     save: function() {
       // TODO: Start spinner?
-      var self = this;
-      var instrument = this.store.createRecord('instrument', {
+      var self = this,
+          store = this.get('targetObject.store');
+      var instrument = store.createRecord('instrument', {
         userId: 0,
         json: this.get('instrumentNetwork').toJSON()
       });
