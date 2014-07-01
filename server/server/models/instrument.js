@@ -4,44 +4,38 @@
 var mongoose = require('mongoose'),
   config = require('../config/config'),
   Schema = mongoose.Schema,
-  ObjectId = Schema.ObjectId;
+  ObjectId = Schema.ObjectId,
+  UserSchema = require('./user').Schema;
 
 /**
- * Article Schema
+ * Instrument Schema
  */
-var ArticleSchema = new Schema({
+var InstrumentSchema = new Schema({
     created: {
       type: Date,
       default: Date.now
     },
-    title: {
-      type: String,
-      default: '',
-      trim: true
-    },
-    template:  {
-      type: Schema.ObjectId,
-      ref: 'Template'
-    },        
-    articleContent: {
-      type: Object,
-      default: {}
-    },
-    urlSegment : {
-      type: String,
-      default: '',
-      trim: true
-    },
     user: {
-      type: Schema.ObjectId,
+      type: ObjectId,
       ref: 'User'
     },
-    type: {
+    name: {
       type: String,
+      default: '',
       trim: true
-    },          
+    },
+    branchedParent: {
+      type: ObjectId,
+      ref: 'Instrument'
+    },
+    isPrivate: {
+      type: Boolean
+    },
+    likes: [UserSchema],
+    tags: [String],
     id: {
       type: ObjectId,
+      unique: true,
       trim: true
     }
   },
@@ -54,15 +48,17 @@ var ArticleSchema = new Schema({
 /**
  * Validations
  */
-ArticleSchema.path('title').validate(function(title) {
+ /*
+InstrumentSchema.path('title').validate(function(title) {
   return title.length;
 }, 'Title cannot be blank');
+*/
 
 /**
  * Statics
  */
- 
-ArticleSchema.statics = {
+/*
+InstrumentSchema.statics = {
   // Load static finds by id, populates user nested object
   load: function(id, cb) {
     this.findOne({
@@ -74,5 +70,8 @@ ArticleSchema.statics = {
      this.findOne(query).populate('user', 'name username').exec(cb);
   }
 };
+*/
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('Instrument', InstrumentSchema);
+
+exports.Schema = InstrumentSchema;

@@ -5,13 +5,13 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
   _ = require('lodash'),
-  authTypes = ['github', 'twitter', 'facebook', 'google'];
+  authTypes = ['github', 'twitter', 'facebook', 'google'],
+  InstrumentSchema = require('./instrument').Schema;
 
 /**
  * User Schema
  */
 var UserSchema = new Schema({
-  name: String,
   email: String,
   username: {
     type: String,
@@ -23,7 +23,14 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   github: {},
-  google: {}
+  google: {},
+
+  instruments: [InstrumentSchema],
+  likes: [InstrumentSchema],
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 /**
@@ -44,13 +51,7 @@ var validatePresenceOf = function(value) {
   return value && value.length;
 };
 
-// the below 4 validations only apply if you are signing up traditionally
-UserSchema.path('name').validate(function(name) {
-  // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) return true;
-  return name.length;
-}, 'Name cannot be blank');
-
+// the below 3 validations only apply if you are signing up traditionally
 UserSchema.path('email').validate(function(email) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
@@ -121,3 +122,5 @@ UserSchema.methods = {
 };
 
 mongoose.model('User', UserSchema);
+
+exports.Schema = UserSchema;
