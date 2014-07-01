@@ -17,6 +17,14 @@ export default Ember.Controller.extend({
     },
     hideLogin: function() {
       this.set('showLogin', false);
+    },
+
+    sessionAuthenticationSucceeded: function(){
+      this.send('hideLogin');
+    },
+
+    sessionAuthenticationFailed: function(error) {
+      console.log('auth failed: '+error);
     }
   }
 });

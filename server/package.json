@@ -3,7 +3,17 @@
   "description": "A restful API for genSynth",
   "version": "0.0.2",
   "private": true,
-  "author": "David Luke Rice",
+  "author": "David Luke Rice, based on the server parts of MEEN stack by Martin Genev",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "scripts": {
+  },
   "dependencies": {
     "express": "3.5",
     "hbs" : "latest",
@@ -22,8 +32,11 @@
     "view-helpers": "latest",
     "mean-logger": "latest",
     "forever": "latest",
+
     "grunt": "latest",
+    "grunt-cli": "latest",
     "grunt-env": "latest",
+
     "moment": "~2.5.0",
     "colors": "~0.6.2"
   },
@@ -35,12 +48,9 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-coffee": "~0.7.0",
     "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-compass": "~0.5.0",
     "grunt-contrib-jshint": "~0.6.3",
     "grunt-contrib-connect": "~0.3.0",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-htmlmin": "~0.1.3",
-    "grunt-contrib-imagemin": "~0.2.0",
     "grunt-contrib-watch": "~0.5.2",
     "grunt-mocha-test" : "*",
     "grunt-nodemon" : "*",
@@ -50,8 +60,7 @@
     "grunt-open": "~0.2.0",
     "grunt-concurrent": "~0.3.0",
     "load-grunt-tasks": "~0.1.0",
-
-    "grunt-ember-templates": "latest",
+    "connect-livereload": "~0.2.0",
     "time-grunt": "~0.1.1",
     "grunt-text-replace" : "latest"
   }

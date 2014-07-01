@@ -1,4 +1,0 @@
-$(function() {
-    console.log( "ready!" );
-});
-

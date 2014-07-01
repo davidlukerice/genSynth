@@ -1,7 +1,3 @@
 {
-  "port": 8000,
-  "host": "0.0.0.0",
-  "live-reload": false,
-  "proxy": "http://localhost:3000",
-  "environment": "development"
+  "port": 8000
 }

@@ -19,15 +19,13 @@
       <ul class="nav navbar-nav">
         <li {{bind-attr class="evolvePageIsActive:active"}}>
           {{#link-to "evolve"}}
-            (+) Evolve
+            <span class="glyphicon glyphicon-plus-sign"></span> Evolve
           {{/link-to}}
         </li>
 
         {{!-- disable for submission
-        <li><a href="#">(+) Manual</a></li>
         <li><a href="#">(?) Find</a></li>
         <li><a href="#">(m) My Sounds</a></li>
-        <li><a href="#">Login / Register</a></li>
         --}}
         
         <li {{bind-attr class="feedbackPageIsActive:active"}}>

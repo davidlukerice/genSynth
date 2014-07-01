@@ -1,14 +1,14 @@
 'use strict';
 
-var path = require('path'),
-    expressConfig = require('./config/expressConfig').config;
+var config = {
+  app: 'public',
+  dist: 'dist'
+};
 
 module.exports = function(grunt) {
+  // Project Configuration
   grunt.initConfig({
-    config: {
-      app: 'public',
-      dist: 'dist'
-    },
+    config: config,
     pkg: grunt.file.readJSON('package.json'),
     watch: {
       neuter: {
@@ -20,7 +20,14 @@ module.exports = function(grunt) {
         options: {
           livereload: true,
         }
-      }
+      },
+      js: {
+        files: ['server/**/*.js'],
+        // tasks: ['jshint'],
+        options: {
+          livereload: true
+        }
+      },
     },
     nodemon: {
       dev: {
@@ -31,10 +38,10 @@ module.exports = function(grunt) {
       }
     },
     concurrent: {
+      tasks: ['nodemon', 'watch'],
       options: {
         logConcurrentOutput: true
-      },
-      tasks: ['nodemon', 'watch']
+      }
     },
     env: {
       test: {
@@ -47,27 +54,15 @@ module.exports = function(grunt) {
         reporter: 'spec',
         require: 'server.js'
       }
-    }, 
+    },
     clean: {
       server: '.tmp'
-    }
-
-    jshint: {
-      files: [
-        'Gruntfile.js',
-        'config/**/*.js',
-        'src/**/*.js'
-      ],
-      options: {
-        jshintrc: '.jshintrc'
-      }
     }
   });
 
   require('time-grunt')(grunt);
   require('load-grunt-tasks')(grunt);
 
-  //Load NPM tasks 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-test');
@@ -77,12 +72,12 @@ module.exports = function(grunt) {
 
   grunt.option('force', true);
 
-  // Servers
+  //Default task(s).
   grunt.registerTask('default', [
-      'clean:server',
-      'replace:sourceMap',
-      'concurrent'
+    'clean:server',
+    'concurrent'
   ]);
 
+  //Test task.
   grunt.registerTask('test', ['env:test', 'mochaTest']);
 };

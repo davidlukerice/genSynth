@@ -1,0 +1,16 @@
+.DS_Store
+.nodemonignore
+.sass-cache/
+npm-debug.log
+node_modules/
+public/lib
+public/img/uploads
+package_bak.json
+
+npm-debug.log
+
+public/compiled-templates.js
+public/combined-scripts.js.map
+public/combined-scripts.js
+public/css/main.css
+uploads

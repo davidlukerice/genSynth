@@ -4,4 +4,4 @@ exports.config = {
   hostname: '*'
 };
 
-exports.AccessControlAllowOrigin = 'http://localhost:8000';
+exports.AccessControlAllowOrigin = 'http://localhost:4200';
