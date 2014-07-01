@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
   _ = require('lodash'),
   authTypes = ['github', 'twitter', 'facebook', 'google'];
 
-
 /**
  * User Schema
  */

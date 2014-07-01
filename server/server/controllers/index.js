@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('lodash');
 
-
 exports.render = function(req, res) {
   console.log('request user');
   console.log(req.user);
