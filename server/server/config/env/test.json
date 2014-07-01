@@ -1,5 +1,5 @@
 {
-  "db": "mongodb://localhost/nodember-test",
+  "db": "mongodb://localhost/genSynth-test",
   "port": 3001,
   "app": {
     "name": "GenSynth Server - Test"

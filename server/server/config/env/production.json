@@ -1,5 +1,5 @@
 {
-  "db": "mongodb://localhost/nodember",
+  "db": "mongodb://localhost/genSynth",
   "app": {
     "name": "GenSynth Server - Production"
   },
