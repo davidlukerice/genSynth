@@ -6,8 +6,7 @@ var express = require('express'),
   flash = require('connect-flash'),
   helpers = require('view-helpers'),
   config = require('./config'),
-  root = require('../../root'),
-  serverConf = require('./environment');
+  root = require('../../root');
 
 module.exports = function(app, passport, db) {
   app.set('showStackError', true);    

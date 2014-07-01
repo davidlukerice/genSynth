@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose'),
     async = require('async'),
-    _ = require('underscore');
+    _ = require('lodash');
 
 
 exports.render = function(req, res) {

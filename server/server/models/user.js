@@ -4,7 +4,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
-  _ = require('underscore'),
+  _ = require('lodash'),
   authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 
