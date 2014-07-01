@@ -36,6 +36,13 @@ module.exports = function(app, passport, db) {
     //cookieParser should be above session
     app.use(express.cookieParser());
 
+    app.use(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', config.accessControlAllowOrigin);
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      next();
+    });
+
     //bodyParser should be above methodOverride
     app.use(express.bodyParser());
     app.use(express.methodOverride());

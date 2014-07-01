@@ -110,7 +110,7 @@ exports.index = function(req, res, next) {
       if (!instruments)  {
         res.send({error: new Error('Failed to load instrument for query')});
       } else {
-        res.send({instruments: [instruments]});    
+        res.send({instruments: toObjects([instruments])});    
       }
       
     });
@@ -124,9 +124,21 @@ exports.index = function(req, res, next) {
         });
       } else {
         res.send({
-          instruments: instruments
+          instruments: toObjects(instruments)
         });
       }
     });
   }
 };
+
+function toObjects(arr) {
+  var objs = [];
+  _.forEach(arr, function(item) {
+    objs.push(toObject(item));
+  });
+  return objs;
+}
+
+function toObject(obj) {
+  return obj.toObject({virtuals: true});
+}

@@ -1,9 +1,10 @@
 {
-  "db": "mongodb://localhost/genSynth",
+  "db": "mongodb://localhost/genSynthPro",
   "app": {
     "name": "GenSynth Server - Production"
   },
   "session": "SESSION_SERCRET",
+  "accessControlAllowOrigin": "http://localhost:4200",
   "facebook": {
     "clientID": "APP_ID",
     "clientSecret": "APP_SECRET",

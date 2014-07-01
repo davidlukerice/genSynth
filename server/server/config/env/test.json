@@ -5,6 +5,7 @@
     "name": "GenSynth Server - Test"
   },
   "session": "SESSION_SERCRET",
+  "accessControlAllowOrigin": "http://localhost:4200",
   "facebook": {
     "clientID": "APP_ID",
     "clientSecret": "APP_SECRET",

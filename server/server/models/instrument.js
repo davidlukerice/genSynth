@@ -24,6 +24,10 @@ var InstrumentSchema = new Schema({
       default: '',
       trim: true
     },
+    json: {
+      type: String,
+      trim: true
+    },
     branchedParent: {
       type: ObjectId,
       ref: 'Instrument'
@@ -32,12 +36,7 @@ var InstrumentSchema = new Schema({
       type: Boolean
     },
     likes: [UserSchema],
-    tags: [String],
-    id: {
-      type: ObjectId,
-      unique: true,
-      trim: true
-    }
+    tags: [String]
   },
   {
     versionKey: false,
