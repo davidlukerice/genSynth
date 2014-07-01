@@ -1,6 +1,0 @@
-/log/*.log
-/tmp
-*~
-node_modules
-*.out
-C
