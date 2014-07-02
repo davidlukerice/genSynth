@@ -28,16 +28,30 @@ module.exports = function(grunt) {
     },
     nodemon: {
       dev: {
-        script: 'server.js'
-      },
-      options: {
-        ignore: ['node_modules/**'],
+        script: 'server.js',
+        options: {
+          nodeArgs: ['--debug'],
+          ignore: ['node_modules/**']
+        }
       }
     },
     concurrent: {
-      tasks: ['nodemon', 'watch'],
+      tasks: ['nodemon', 'node-inspector', 'watch'],
       options: {
         logConcurrentOutput: true
+      }
+    },
+    'node-inspector': {
+      custom: {
+        options: {
+          'web-port': 1337,
+          'web-host': 'localhost',
+          'debug-port': 5858,
+          'save-live-edit': true,
+          'no-preload': true,
+          'stack-trace-limit': 50,
+          'hidden': []
+        }
       }
     },
     env: {
@@ -66,6 +80,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-node-inspector');
 
   grunt.option('force', true);
 

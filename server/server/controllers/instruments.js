@@ -13,7 +13,7 @@ exports.instrument = function(req, res, next, id) {
     if (err) return next(err);
     if (!instrument) return next(new Error('Failed to load instrument ' + id));
 
-    req.instrument = instrument;
+    req.instrument = toObject(instrument);
     next();
   });
 };
@@ -33,7 +33,7 @@ exports.create = function(req, res) {
     if (err) {
       return res.send('users/signup', {
         errors: err.errors,
-        instrument: instrument
+        instrument: toObject(instrument)
       });
     } else {
       res.jsonp(formattedInstrument);
@@ -59,7 +59,7 @@ exports.update = function(req, res) {
       });
     } else {
       res.send({
-        instrument: instrument
+        instrument: toObject(instrument)
       });
     }
   });
@@ -77,7 +77,7 @@ exports.destroy = function(req, res) {
         status: 500
       });
     } else {
-      res.jsonp(instrument);
+      res.jsonp(toObject(instrument));
     }
   });
 };
@@ -87,7 +87,7 @@ exports.destroy = function(req, res) {
  */
 exports.show = function(req, res) {
   res.send({
-    instrument: req.instrument
+    instrument: toObject(req.instrument)
   });
 };
 
