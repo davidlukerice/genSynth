@@ -4,7 +4,7 @@ export default Ember.Route.extend({
 
   model: function(params) {
     return Ember.Object.create({
-      instruments: this.store.find('instrument', params.user_id)
+      instruments: this.store.find('instrument', {user: params.user_id})
     });
   },
 

@@ -60,14 +60,17 @@ export default Ember.Component.extend({
       var self = this,
           store = this.get('targetObject.store');
       var instrument = store.createRecord('instrument', {
-        userId: 0,
-        json: this.get('instrumentNetwork').toJSON()
+        created: Date.now(),
+        user: 0,
+        name: 'new Instr',
+        json: this.get('instrumentNetwork').toJSON(),
+        isPrivate: true
       });
       instrument.save().then(function(instrument) {
         self.set('instrumentModel', instrument);
-      }, function() {
+      }, function(error) {
         // TODO: Show error?
-        console.log('error saving');
+        console.log('error saving: '+error);
       });
     },
 
