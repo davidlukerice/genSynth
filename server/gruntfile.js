@@ -1,4 +1,3 @@
-'use strict';
 
 var config = {
   app: 'public',
@@ -10,22 +9,20 @@ module.exports = function(grunt) {
   grunt.initConfig({
     config: config,
     pkg: grunt.file.readJSON('package.json'),
+    jshint: {
+      files: [
+        'gruntfile.js',
+        'server/**/*.js'
+      ],
+      options: {
+        jshintrc: '.jshintrc'
+      }
+    },
     watch: {
-      neuter: {
-        files: ['<%= config.app %>/ember/{,*/}*.js'],
-        tasks: ['neuter', 'replace:sourceMap']
-      },
-      serverTemplates: {
-        files: ['server/views/**'],
-        options: {
-          livereload: false,
-        }
-      },
-      js: {
+      scripts: {
         files: ['server/**/*.js'],
-        // tasks: ['jshint'],
+        tasks: ['jshint'],
         options: {
-          livereload: false
         }
       },
     },
@@ -74,6 +71,7 @@ module.exports = function(grunt) {
 
   //Default task(s).
   grunt.registerTask('default', [
+    'jshint',
     'clean:server',
     'concurrent'
   ]);

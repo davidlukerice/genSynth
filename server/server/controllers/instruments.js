@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    async = require('async'),
     Instrument = mongoose.model('Instrument'),
     _ = require('lodash');
 
@@ -59,9 +58,6 @@ exports.update = function(req, res) {
         status: 500
       });
     } else {
-      var instrumentObj = {
-        instrument: instrument
-      };
       res.send({
         instrument: instrument
       });

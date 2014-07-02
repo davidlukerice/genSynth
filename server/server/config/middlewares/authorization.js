@@ -1,4 +1,4 @@
-var userIsAdmin = require('./admins.js').userIsAdmin;
+//var userIsAdmin = require('./admins.js').userIsAdmin;
 
 /**
  * Generic require login routing middleware
@@ -15,7 +15,7 @@ exports.requiresLogin = function(req, res, next) {
  */
 exports.user = {
   hasAuthorization: function(req, res, next) {
-    if (req.profile.id != req.user.id) {
+    if (req.profile.id !== req.user.id) {
       return res.send(401, 'User is not authorized');
     }
     next();
@@ -27,7 +27,7 @@ exports.user = {
  */
 exports.instrument = {
   hasAuthorization: function(req, res, next) {
-    if (req.instrument.user.id != req.user.id) {
+    if (req.instrument.user.id !== req.user.id) {
       return res.send(401, 'User is not authorized');
     }
     next();

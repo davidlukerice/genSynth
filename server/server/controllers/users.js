@@ -2,12 +2,12 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  User = mongoose.model('User');
+    User = mongoose.model('User');
 
 /**
  * Auth callback
  */
-exports.authCallback = function(req, res, next) {
+exports.authCallback = function(req, res) {
   res.redirect('/');
 };
 
@@ -62,7 +62,7 @@ exports.create = function(req, res) {
         user: user
       });
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, function(err, next) {
       if (err) return next(err);
       return res.redirect('/');
     });
