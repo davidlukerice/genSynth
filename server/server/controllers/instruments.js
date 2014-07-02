@@ -94,37 +94,18 @@ exports.show = function(req, res) {
 /**
  * List of Instruments
  */
-exports.index = function(req, res, next) {
-
-  if (!_.isEmpty(req.query))  {
-
-    // req.query is the exact type of object which mongoose can use to query
-    //  so we  send it to a querying static method in the model
-
-    Instrument.query(req.query, function(err, instruments) {
-      if (err) return next(err);
-      if (!instruments)  {
-        res.send({error: new Error('Failed to load instrument for query')});
-      } else {
-        res.send({instruments: toObjects([instruments])});    
-      }
-      
-    });
-  } else {
-    // else we find all
-    Instrument.find().sort('-created').populate('user', 'name username').exec(function(err, instruments) {
-
-      if (err) {
-        res.render('error', {
-          status: 500
-        });
-      } else {
-        res.send({
-          instruments: toObjects(instruments)
-        });
-      }
-    });
-  }
+exports.index = function(req, res) {
+  Instrument.find(req.query).sort('-created').populate('user', 'name username').exec(function(err, instruments) {
+    if (err) {
+      res.render('500', {
+        status: 500
+      });
+    } else {
+      res.send({
+        instruments: toObjects(instruments)
+      });
+    }
+  });
 };
 
 function toObjects(arr) {
