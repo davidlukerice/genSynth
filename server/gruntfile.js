@@ -18,14 +18,14 @@ module.exports = function(grunt) {
       serverTemplates: {
         files: ['server/views/**'],
         options: {
-          livereload: true,
+          livereload: false,
         }
       },
       js: {
         files: ['server/**/*.js'],
         // tasks: ['jshint'],
         options: {
-          livereload: true
+          livereload: false
         }
       },
     },
