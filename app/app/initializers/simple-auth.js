@@ -40,7 +40,11 @@ var ToriiAuthenticator = SimpleAuthAuthenticatorsBase.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       options.torii.open(options.provider).then(function(authData) {
         console.log(authData);
-        resolve({ token: authData.authorizationCode });
+        resolve({
+          id: authData.userId,
+          token: authData.accessToken
+          //token: authData.authorizationCode
+        });
       }, function(error) {
         reject(error);
       });

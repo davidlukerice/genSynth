@@ -61,7 +61,7 @@ export default Ember.Component.extend({
           store = this.get('targetObject.store');
       var instrument = store.createRecord('instrument', {
         created: Date.now(),
-        user: 0,
+        user: '000000000000000000000000',
         name: 'new Instr',
         json: this.get('instrumentNetwork').toJSON(),
         isPrivate: true

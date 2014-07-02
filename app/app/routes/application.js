@@ -14,12 +14,32 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       });
     },
 
+    createUser: function() {
+
+    },
+
     invalidateSession: function() {
       this.get('session').invalidate();
     },
 
     sessionAuthenticationSucceeded: function(){
-      console.log('authSucceeded: route');
+      console.log('sessionAuthenticationSucceeded: route');
     },
+
+    sessionAuthenticationFailed: function(error) {
+      console.log('sessionAuthenticationFailed: route: '+error.message);
+    },
+
+    sessionInvalidationSucceeded: function() {
+      console.log('sessionInvalidationSucceeded: route');
+    },
+
+    sessionInvalidationFailed: function(error) {
+      console.log('sessionInvalidationFailed: route: '+error.message);
+    },
+
+    authorizationFailed: function() {
+      console.log('authorizationFailed: route');
+    }
   }
 });
