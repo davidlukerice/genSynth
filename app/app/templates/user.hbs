@@ -1,0 +1,23 @@
+
+<div class="index">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>User [id?] Instruments</h3>
+    </div>
+  </div>
+  <div class="row instruments">
+    {{#each instrumentParams}}
+      {{instrument-parent
+        instrumentNetwork=this.instrumentNetwork
+        selected=this.selected
+        isLive=this.isLive
+        index=this.index
+        instrumentModel=this.instrumentModel
+        makeLiveHandler="makeLive"}}
+    {{else}}
+      <div class="col-md-12">
+        None
+      </div>
+    {{/each}}
+  </div>
+</div>

@@ -20,6 +20,7 @@ export default Ember.Controller.extend({
     },
 
     sessionAuthenticationSucceeded: function(){
+      console.log('sessionAuthSucceeded-Controller');
       this.send('hideLogin');
     },
 

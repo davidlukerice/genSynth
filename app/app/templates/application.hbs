@@ -22,6 +22,11 @@
             <span class="glyphicon glyphicon-plus-sign"></span> Evolve
           {{/link-to}}
         </li>
+        <li {{bind-attr class="userPageIsActive:active"}}>
+          {{#link-to "user" 0}}
+            <span class="glyphicon glyphicon-plus-user"></span> My Instruments
+          {{/link-to}}
+        </li>
 
         {{!-- disable for submission
         <li><a href="#">(?) Find</a></li>

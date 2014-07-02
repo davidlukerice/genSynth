@@ -25,6 +25,7 @@ configuration.providers['facebook-oauth2'] = {
 
 var ToriiAuthenticator = SimpleAuthAuthenticatorsBase.extend({
   restore: function(properties) {
+    console.log('ToriiAuthenticator restore');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (!Ember.isEmpty(properties.token)) {
         resolve(properties);
@@ -35,6 +36,7 @@ var ToriiAuthenticator = SimpleAuthAuthenticatorsBase.extend({
   },
 
   authenticate: function(options) {
+    console.log('ToriiAuthenticator authenticate');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       options.torii.open(options.provider).then(function(authData) {
         console.log(authData);
@@ -46,6 +48,7 @@ var ToriiAuthenticator = SimpleAuthAuthenticatorsBase.extend({
   },
 
   invalidate: function() {
+    console.log('ToriiAuthenticator Invalidate');
     return Ember.RSVP.resolve();
   }
 });
