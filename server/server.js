@@ -20,24 +20,24 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
 //Bootstrap db connection
 var db = mongoose.connect(config.db);
 
-var walk = function(path) {
-    fs.readdirSync(path).forEach(function(file) {
-        var newPath = path + '/' + file;
-        var stat = fs.statSync(newPath);
-        if (stat.isFile()) {
-            if (/(.*)\.(js|coffee)$/.test(file)) {
-                require(newPath);
-            }
-        } else if (stat.isDirectory()) {
-            walk(newPath);
-        }
-    });
+var walk = function(path, handler) {
+  fs.readdirSync(path).forEach(function(file) {
+    var newPath = path + '/' + file;
+    var stat = fs.statSync(newPath);
+    if (stat.isFile()) {
+      if (/(.*)\.(js|coffee)$/.test(file)) {
+        handler(newPath);
+      }
+    } else if (stat.isDirectory()) {
+      walk(newPath);
+    }
+  });
 };
 
 //Bootstrap models
 var models_path = __dirname + '/server/models';
 walk(models_path, function(path) {
-    require(path);
+  require(path);
 });
 
 //bootstrap passport config
@@ -49,9 +49,9 @@ var app = express();
 require('./server/config/express')(app, passport, db);
 
 //Bootstrap routes
-var routes_path = __dirname + '/routes';
+var routes_path = __dirname + '/server/routes';
 walk(routes_path, function(path) {
-    require(path)(app, passport, auth);
+  require(path)(app, passport, auth);
 });
 
 //Start the app by listening on <port>
