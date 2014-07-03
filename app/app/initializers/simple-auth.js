@@ -4,6 +4,7 @@ require('torii/load-initializers')['default']();
 
 var simpleAuthSetup = require('simple-auth/setup').default;
 var SimpleAuthAuthenticatorsBase = require('simple-auth/authenticators/base').default;
+var SimpleAuthAuthorizersBase = require('simple-auth/authorizers/base').default;
 var configuration = require('torii/configuration').default;
 var AuthProviders = require('gen-synth/config/auth-providers').default;
 
@@ -16,12 +17,13 @@ var AuthProviders = require('gen-synth/config/auth-providers').default;
 //  apiKey:      '139338504777-321kme2daihrj8kr8g739ntne4h2bghk.apps.googleusercontent.com'
 //};
 configuration.providers['facebook-connect'] = {
-  appId: AuthProviders.facebookConnect.appId
+  appId: AuthProviders.facebookConnect.appId,
+  scope: 'email'
 };
-configuration.providers['facebook-oauth2'] = {
-  apiKey: AuthProviders.facebookOAuth2.apiKey,
-  redirectUri: AuthProviders.facebookOAuth2.redirectUri
-};
+//configuration.providers['facebook-oauth2'] = {
+//  apiKey: AuthProviders.facebookOAuth2.apiKey,
+//  redirectUri: AuthProviders.facebookOAuth2.redirectUri
+//};
 
 var ToriiAuthenticator = SimpleAuthAuthenticatorsBase.extend({
   restore: function(properties) {
@@ -57,12 +59,32 @@ var ToriiAuthenticator = SimpleAuthAuthenticatorsBase.extend({
   }
 });
 
+// Setup global env variables
+window.ENV = window.ENV || {};
+window.ENV['simple-auth'] = {
+  store: 'simple-auth-session-store:local-storage',
+  authorizer: 'authorizer:custom',
+  crossOriginWhitelist: ['http://localhost:3000']
+};
+
+var CustomAuthorizer = SimpleAuthAuthorizersBase.extend({
+  authorize: function(jqXHR, requestOptions) {
+    console.log('CustomAuthorizer: authorize: '+requestOptions);
+    if (this.get('session.isAuthenticated') && !Ember.isEmpty(this.get('session.token'))) {
+      jqXHR.setRequestHeader('Authorization', 'Token: ' + this.get('session.token'));
+    }
+  }
+});
+
+//'/auth/facebook'
 export default {
   name: 'authentication',
   //before: 'simple-auth',
   initialize: function(container, application) {
     // register the Torii authenticator so the session can find them
     container.register('authenticator:torii', ToriiAuthenticator);
+    container.register('authorizer:custom', CustomAuthorizer);
+
     simpleAuthSetup(container, application);
   }
 };
