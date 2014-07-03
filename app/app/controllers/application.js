@@ -9,6 +9,12 @@ export default Ember.Controller.extend({
     return this.get('currentPath') === 'feedback';
   }.property('currentPath'),
 
+  userPageIsActive: function() {
+    return this.get('currentPath') === 'user';
+  }.property('currentPath'),
+
+  currentUser: null,
+
   showingLogin: false,
 
   actions: {
@@ -17,15 +23,6 @@ export default Ember.Controller.extend({
     },
     hideLogin: function() {
       this.set('showLogin', false);
-    },
-
-    sessionAuthenticationSucceeded: function(){
-      console.log('sessionAuthSucceeded-Controller');
-      this.send('hideLogin');
-    },
-
-    sessionAuthenticationFailed: function(error) {
-      console.log('auth failed: '+error);
     }
   }
 });
