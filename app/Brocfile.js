@@ -50,6 +50,7 @@ app.import({
   production: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
 });
 app.import('vendor/ember-simple-auth/simple-auth.amd.js');
+app.import('vendor/ember-simple-auth/simple-auth-torii.amd.js');
 app.import('vendor/torii/dist/torii.amd.js');
 
 module.exports = app.toTree();

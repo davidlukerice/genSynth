@@ -1,5 +1,4 @@
 import Ember from 'ember';
-//var ApplicationRouteMixin = require('simple-auth/mixins/application-route-mixin').default;
 
 export default Ember.Route.extend({
   
@@ -20,24 +19,9 @@ export default Ember.Route.extend({
     });
   },
 
-  // TODO: ... fix this... really
-  //setupEvents: function() {
-  //  var self = this;
-  //  this.get('session').on('sessionAuthenticationSucceeded', function() {
-  //    self.send('sessionAuthenticationSucceeded');
-  //  });
-  //}.on('init'),
-
   actions: {
     authenticate: function(provider) {
-      var controller = this.controller;
-      this.get('session').authenticate('authenticator:torii', {
-        torii: this.get('torii'),
-        provider: provider
-      }).then(null, function(error) {
-        console.log('error: '+error);
-        controller.set('errorMessage', error);
-      });
+      this.get('session').authenticate('simple-auth-authenticator:torii', provider);
     },
 
     createUser: function() {

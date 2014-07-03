@@ -56,7 +56,7 @@ export default Ember.Component.extend({
     },
 
     save: function() {
-      var controller = this.get('targetObject')
+      var controller = this.get('targetObject');
 
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
