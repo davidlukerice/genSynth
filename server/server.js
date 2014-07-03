@@ -20,8 +20,6 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
 //Bootstrap db connection
 var db = mongoose.connect(config.db);
 
-//Bootstrap models
-var models_path = __dirname + '/server/models';
 var walk = function(path) {
     fs.readdirSync(path).forEach(function(file) {
         var newPath = path + '/' + file;
@@ -35,7 +33,12 @@ var walk = function(path) {
         }
     });
 };
-walk(models_path);
+
+//Bootstrap models
+var models_path = __dirname + '/server/models';
+walk(models_path, function(path) {
+    require(path);
+});
 
 //bootstrap passport config
 require('./server/config/passport')(passport);
@@ -46,7 +49,10 @@ var app = express();
 require('./server/config/express')(app, passport, db);
 
 //Bootstrap routes
-require('./server/routes/routes')(app, passport, auth);
+var routes_path = __dirname + '/routes';
+walk(routes_path, function(path) {
+    require(path)(app, passport, auth);
+});
 
 //Start the app by listening on <port>
 var port = process.env.PORT || config.port;
