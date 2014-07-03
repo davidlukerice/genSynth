@@ -4,6 +4,6 @@ export default {
   },
   facebookOAuth2: {
     apiKey:      '246499025545134',
-    redirectUri: 'http://localhost/auth/facebook/callback'
+    redirectUri: 'http://localhost:4200'
   }
 };
