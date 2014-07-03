@@ -36,6 +36,22 @@ export default Ember.Route.extend({
       console.log('sessionAuthenticationSucceeded: route');
       this.get('controller').send('hideLogin');
 
+      var sessionContent = this.get('session.content');
+      var accessToken = sessionContent.accessToken;
+      var provider = sessionContent.provider;
+      var userId = sessionContent.userId;
+
+      //Ember.$.ajax({
+      //  url: 'http://localhost:3000/auth/facebook',
+      //  type: 'GET',
+      //  data: JSON.stringify({
+//
+      //  })
+      //}).then(function(response) {
+      //  console.log('response: '+response);
+      //}, function(xhr, status, error) {
+      //  console.log('error: '+error.message);
+      //});
       //TODO: Create new user here?... and set current user?
 
       //getUser: function() {

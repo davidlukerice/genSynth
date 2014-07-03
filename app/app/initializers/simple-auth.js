@@ -37,10 +37,10 @@ require('simple-auth-torii/ember');
 var SimpleAuthAuthorizersBase = require('simple-auth/authorizers/base').default;
 var CustomAuthorizer = SimpleAuthAuthorizersBase.extend({
   authorize: function(jqXHR, requestOptions) {
-    console.log('CustomAuthorizer: authorize: '+requestOptions);
-    if (this.get('session.isAuthenticated') && !Ember.isEmpty(this.get('session.token'))) {
-      jqXHR.setRequestHeader('Authorization', 'Token: ' + this.get('session.token'));
-    }
+    console.log('CustomAuthorizer: authorize: '+JSON.stringify(requestOptions));
+    //if (this.get('session.isAuthenticated') && !Ember.isEmpty(this.get('session.token'))) {
+    //  jqXHR.setRequestHeader('Authorization', 'Token: ' + this.get('session.token'));
+    //}
     //'/auth/facebook'
   }
 });

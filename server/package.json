@@ -12,18 +12,16 @@
     "node": "0.10.x",
     "npm": "1.2.x"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "express": "3.5",
-    "hbs" : "latest",
+    "hbs": "latest",
     "mongoose": "latest",
     "connect-mongo": "latest",
     "connect-flash": "latest",
     "crypto": "latest",
     "passport": "latest",
     "passport-local": "latest",
-    "passport-facebook": "latest",
     "passport-twitter": "latest",
     "passport-github": "latest",
     "passport-google-oauth": "latest",
@@ -32,13 +30,12 @@
     "view-helpers": "latest",
     "mean-logger": "latest",
     "forever": "latest",
-
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-env": "latest",
-
     "moment": "~2.5.0",
-    "colors": "~0.6.2"
+    "colors": "~0.6.2",
+    "passport-facebook-token": "~0.3.1"
   },
   "devDependencies": {
     "supertest": "latest",
@@ -52,8 +49,8 @@
     "grunt-contrib-connect": "~0.3.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-watch": "~0.5.2",
-    "grunt-mocha-test" : "*",
-    "grunt-nodemon" : "*",
+    "grunt-mocha-test": "*",
+    "grunt-nodemon": "*",
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~0.1.12",
     "grunt-mocha": "~0.4.1",
@@ -62,7 +59,7 @@
     "load-grunt-tasks": "~0.1.0",
     "connect-livereload": "~0.2.0",
     "time-grunt": "~0.1.1",
-    "grunt-text-replace" : "latest",
+    "grunt-text-replace": "latest",
     "grunt-node-inspector": "~0.1.5"
   }
 }

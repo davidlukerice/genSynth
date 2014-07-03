@@ -25,6 +25,7 @@ module.exports = function(app, passport) {
     failureRedirect: '/signin'
   }), users.signin);
 
+  /*
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/signin'
   }), users.authCallback);
@@ -59,5 +60,5 @@ module.exports = function(app, passport) {
   app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/signin'
   }), users.authCallback);
-
+*/
 };
