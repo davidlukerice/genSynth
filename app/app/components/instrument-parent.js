@@ -56,12 +56,21 @@ export default Ember.Component.extend({
     },
 
     save: function() {
+      var controller = this.get('targetObject')
+
+      // Check if user is logged in first
+      if (!controller.get('session').get('isAuthenticated')) {
+        controller.get('controllers.application').send('showLogin');
+        return;
+      }
+
       // TODO: Start spinner?
+      // TODO: Check if user is logged in (or just have a button that looks like save, but logs in first)
       var self = this,
-          store = this.get('targetObject.store');
+          store = controller.get('.store');
       var instrument = store.createRecord('instrument', {
         created: Date.now(),
-        user: '000000000000000000000000',
+        user: controller.get('application.currentUser'),
         name: 'new Instr',
         json: this.get('instrumentNetwork').toJSON(),
         isPrivate: true

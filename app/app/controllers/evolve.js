@@ -13,6 +13,8 @@ var MINUS_CODE = "-".charCodeAt(),
 
 export default Ember.Controller.extend(MidiSelectable, {
 
+  needs: ['application'],
+
   // set by route
   // networks is a history of networks (list of list of networks)
   // and the top one is currently the parent set
@@ -26,8 +28,8 @@ export default Ember.Controller.extend(MidiSelectable, {
   showHelp: false,
 
   minGlobalGainLevel: 0,
-  maxGlobalGainLevel: 2,
-  globalGainLevel: 1.0,
+  maxGlobalGainLevel: 1,
+  globalGainLevel: 0.1,
   volume: function() {
     var max = this.get('maxGlobalGainLevel'),
         min = this.get('minGlobalGainLevel'),
