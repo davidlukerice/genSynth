@@ -41,11 +41,13 @@ export default Ember.Route.extend({
       var provider = sessionContent.provider;
       var userId = sessionContent.userId;
 
+      console.log('content: '+JSON.stringify(sessionContent));
+
       //Ember.$.ajax({
       //  url: 'http://localhost:3000/auth/facebook',
-      //  type: 'GET',
+      //  type: 'POST',
       //  data: JSON.stringify({
-//
+      //    access_token: accessToken
       //  })
       //}).then(function(response) {
       //  console.log('response: '+response);
