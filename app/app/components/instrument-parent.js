@@ -70,7 +70,7 @@ export default Ember.Component.extend({
           store = controller.get('.store');
       var instrument = store.createRecord('instrument', {
         created: Date.now(),
-        user: controller.get('application.currentUser'),
+        user: controller.get('controllers.application.currentUser'),
         name: 'new Instr',
         json: this.get('instrumentNetwork').toJSON(),
         isPrivate: true
