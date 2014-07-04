@@ -35,7 +35,7 @@ export default Ember.Route.extend({
     sessionAuthenticationSucceeded: function(){
       console.log('sessionAuthenticationSucceeded: route');
       this.get('controller').send('hideLogin');
-
+      var self = this;
       var sessionContent = this.get('session.content');
       var accessToken = sessionContent.accessToken;
       var provider = sessionContent.provider;
@@ -50,36 +50,11 @@ export default Ember.Route.extend({
           access_token: accessToken
         }
       }).then(function(response) {
-        console.log('response: '+response);
+        console.log('response: '+JSON.stringify(response));
+        self.set('currentUser', self.store.find('user', response.user));
       }, function(xhr, status, error) {
         console.log('error: '+error.message);
       });
-      //TODO: Create new user here?... and set current user?
-
-      //getUser: function() {
-      //  var self = this;
-      //  this.store.find('user', '000000000000000000000001').then(function(user) {
-      //    if (user) {
-      //      self.set('currentUser', users);
-      //    } else {
-      //      createNewUser();
-      //    }
-      //  }, function() {
-      //    createNewUser();
-      //  });
-      //
-      //  function createNewUser() {
-      //    var user = self.store.createRecord('user', {
-      //      id: '000000000000000000000001',
-      //      email: 'me@email.com',
-      //      username: 'testUser',
-      //      created: Date.now()
-      //    });
-      //    user.save(function(user) {
-      //      self.set('currentUser', user);
-      //    });
-      //  }
-      //}.on('init'),
 
     }.on('sessionAuthenticationSucceeded'),
 

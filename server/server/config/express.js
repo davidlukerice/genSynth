@@ -68,23 +68,17 @@ module.exports = function(app, passport, db) {
     app.use(app.router);
 
     //Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
-    app.use(function(err, req, res, next) {
-      //Treat as 404
-      if (~err.message.indexOf('not found')) return next();
-
-      //Log it
-      console.error(err.stack);
-
-      //Error page
-      res.status(500).render('500', {
-        error: err.stack
-      });
-    });
-
-    //Assume 404 since no middleware responded
-     //Here Express captures 404s and sends the url to Ember to look for articles        
-    app.use(function(req, res) {
-      res.status(404).redirect('/#' + req.originalUrl);
-    });
+    //app.use(function(err, req, res, next) {
+    //  //Treat as 404
+    //  if (~err.message.indexOf('not found')) return next();
+//
+    //  //Log it
+    //  console.error(err.stack);
+//
+    //  //Error page
+    //  res.status(500).render('500', {
+    //    error: err.stack
+    //  });
+    //});
   });
 };

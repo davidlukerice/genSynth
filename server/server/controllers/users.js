@@ -74,9 +74,7 @@ exports.create = function(req, res) {
  */
 exports.show = function(req, res) {
   var user = req.profile;
-
-  res.render('users/show', {
-    title: user.name,
+  res.jsonp({
     user: user
   });
 };
@@ -99,14 +97,33 @@ exports.user = function(req, res, next, id) {
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next(new Error('Failed to load User ' + id));
-      req.profile = user;
+      req.profile = toObject(user);
       next();
     });
 };
 
-exports.succeeded = function(req, res, user) {
+exports.succeeded = function(req, res) {
   res.jsonp({
     succeeded: true,
-    user: user
+    user: req.session.passport.user
   });
 };
+
+//function toObjects(arr) {
+//  var objs = [];
+//  _.forEach(arr, function(item) {
+//    objs.push(toObject(item));
+//  });
+//  return objs;
+//}
+
+function toObject(obj) {
+  // Only expose certain parameters
+  return {
+    id: obj._id,
+    username: obj.username,
+    created: obj.created,
+    likes: obj.likes,
+    instruments: obj.instruments
+  };
+}
