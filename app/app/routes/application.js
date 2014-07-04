@@ -46,9 +46,9 @@ export default Ember.Route.extend({
       Ember.$.ajax({
         url: 'http://localhost:3000/auth/facebook',
         type: 'GET',
-        data: JSON.stringify({
+        data: {
           access_token: accessToken
-        })
+        }
       }).then(function(response) {
         console.log('response: '+response);
       }, function(xhr, status, error) {
