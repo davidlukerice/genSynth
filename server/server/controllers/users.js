@@ -103,3 +103,10 @@ exports.user = function(req, res, next, id) {
       next();
     });
 };
+
+exports.succeeded = function(req, res, user) {
+  res.jsonp({
+    succeeded: true,
+    user: user
+  });
+};

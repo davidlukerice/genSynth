@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
   //Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook-token', {
     scope: ['email']
-  }), users.signin);
+  }), users.succeeded);
 
   /*
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {

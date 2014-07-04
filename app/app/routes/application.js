@@ -43,17 +43,17 @@ export default Ember.Route.extend({
 
       console.log('content: '+JSON.stringify(sessionContent));
 
-      //Ember.$.ajax({
-      //  url: 'http://localhost:3000/auth/facebook',
-      //  type: 'POST',
-      //  data: JSON.stringify({
-      //    access_token: accessToken
-      //  })
-      //}).then(function(response) {
-      //  console.log('response: '+response);
-      //}, function(xhr, status, error) {
-      //  console.log('error: '+error.message);
-      //});
+      Ember.$.ajax({
+        url: 'http://localhost:3000/auth/facebook',
+        type: 'GET',
+        data: JSON.stringify({
+          access_token: accessToken
+        })
+      }).then(function(response) {
+        console.log('response: '+response);
+      }, function(xhr, status, error) {
+        console.log('error: '+error.message);
+      });
       //TODO: Create new user here?... and set current user?
 
       //getUser: function() {
