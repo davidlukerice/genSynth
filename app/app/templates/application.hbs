@@ -53,6 +53,11 @@
         {{/if}}
 
       </ul>
+      
+      {{#if session.isAuthenticated}}
+        <span class="pull-right">Logged in as {{currentUser.username}}</span>
+      {{/if}}
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
