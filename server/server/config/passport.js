@@ -96,7 +96,7 @@ module.exports = function(passport) {
           user = new User({
             name: profile.displayName,
             email: profile.emails[0].value,
-            username: profile.name.givenName[0]+"***"+profile.name.familyName[0]+profile.id.substr(-3),
+            username: profile.name.givenName[0]+profile.name.familyName[0]+profile.id.substr(-3),
             provider: 'facebook',
             facebook: profile._json
           });
