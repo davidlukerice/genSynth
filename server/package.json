@@ -18,7 +18,6 @@
     "hbs": "latest",
     "mongoose": "latest",
     "connect-mongo": "latest",
-    "connect-flash": "latest",
     "crypto": "latest",
     "passport": "latest",
     "passport-local": "latest",

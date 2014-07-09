@@ -3,7 +3,6 @@
  */
 var express = require('express'),
   mongoStore = require('connect-mongo')(express),
-  flash = require('connect-flash'),
   helpers = require('view-helpers'),
   config = require('./config');
 
@@ -62,8 +61,6 @@ module.exports = function(app, passport, db) {
     app.use(passport.initialize());
     app.use(passport.session());
     
-    //connect flash for flash messages
-    app.use(flash());
     //routes should be at the last
     app.use(app.router);
 
