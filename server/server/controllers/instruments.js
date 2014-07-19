@@ -31,9 +31,8 @@ exports.create = function(req, res) {
     formattedInstrument.instrument = instrument;
 
     if (err) {
-      return res.send('users/signup', {
-        errors: err.errors,
-        instrument: toObject(instrument)
+      res.render('error', {
+        status: 500
       });
     } else {
       res.jsonp(formattedInstrument);
