@@ -116,6 +116,17 @@ function toObjects(arr) {
   return objs;
 }
 
-function toObject(obj) {
-  return obj.toObject({virtuals: true});
+function toObject(item) {
+  var obj = item.toObject({virtuals: true});
+
+  // quick compressing of relationships down to their ids
+  // TODO: Sideload
+  if (obj.user)
+    obj.user = obj.user._id;
+  if (obj.likes.length > 0)
+    obj.likes = _.map(obj.likes, function(item) {
+      return item._id;
+    });
+
+  return obj;
 }
