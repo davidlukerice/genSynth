@@ -13,11 +13,15 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   email: {
     type: String,
-    unique: true
+    unique: true,
+    required: true,
+    sparse: true
   },
   username: {
     type: String,
-    unique: true
+    unique: true,
+    required: true,
+    sparse: true
   },
   provider: String,
   hashed_password: String,
