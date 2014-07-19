@@ -4,7 +4,7 @@
     "handlebars": "~1.3.0",
     "jquery": "^1.11.1",
     "qunit": "~1.12.0",
-    "ember": "~1.6.0-beta.5",
+    "ember": "~1.7.0-beta.2",
     "ember-qunit": "~0.1.8",
     "ember-data": "~1.0.0-beta.8",
     "ember-resolver": "~0.1.1",
@@ -21,7 +21,7 @@
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
     "chroma-js": "~0.5.6",
     "bourbon": "~3.1.8",
-    "ember-simple-auth": "~0.6.3",
-    "torii": "~0.1.0"
+    "ember-simple-auth": "https://github.com/simplabs/ember-simple-auth.git#a67d9efc507f45616000e52f8397b9bb6191cc38",
+    "torii": "https://github.com/Vestorly/torii.git#e293691e25db1db08212571e5588c979fd31d419"
   }
 }
