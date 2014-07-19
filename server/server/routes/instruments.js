@@ -4,7 +4,7 @@ module.exports = function(app, passport, auth) {
   app.get('/instruments', instruments.index);
   // app.post('/instruments', auth.requiresLogin, instruments.create);
   
-  app.post('/instruments', auth.requiresLogin, auth.instrument.hasAuthorization, instruments.create);
+  app.post('/instruments', auth.requiresLogin, instruments.create);
   
   app.get('/instruments/:instrumentId', instruments.show);
   // app.put('/instruments/:instrumentId', auth.requiresLogin, auth.instrument.hasAuthorization, instruments.update);
