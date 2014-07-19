@@ -26,16 +26,14 @@ exports.create = function(req, res) {
 
   instrument.user = req.user;
   instrument.save(function(err) {
-
-    var formattedInstrument = {};
-    formattedInstrument.instrument = instrument;
-
     if (err) {
       res.render('error', {
         status: 500
       });
     } else {
-      res.jsonp(formattedInstrument);
+      res.send({
+        instrument: toObject(instrument)
+      });
     }
   });
 };
