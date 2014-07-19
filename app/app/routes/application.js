@@ -49,6 +49,10 @@ export default Ember.Route.extend({
         type: 'GET',
         data: {
           access_token: accessToken
+        },
+        //crossDomain: true,
+        xhrFields: {
+          withCredentials: true
         }
       }).then(function(response) {
         console.log('response: '+JSON.stringify(response));

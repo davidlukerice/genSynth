@@ -1,5 +1,3 @@
-import Ember from 'ember';
-
 var AuthProviders = require('gen-synth/config/auth-providers').default;
 
 // Setup global env variables
@@ -34,21 +32,9 @@ require('torii/load-initializers').default();
 require('simple-auth/ember');
 require('simple-auth-torii/ember');
 
-var SimpleAuthAuthorizersBase = require('simple-auth/authorizers/base').default;
-var CustomAuthorizer = SimpleAuthAuthorizersBase.extend({
-  authorize: function(jqXHR, requestOptions) {
-    console.log('CustomAuthorizer: authorize: '+JSON.stringify(requestOptions));
-    //if (this.get('session.isAuthenticated') && !Ember.isEmpty(this.get('session.token'))) {
-    //  jqXHR.setRequestHeader('Authorization', 'Token: ' + this.get('session.token'));
-    //}
-    //'/auth/facebook'
-  }
-});
-
 export default {
   name: 'authentication',
   before: 'simple-auth',
-  initialize: function(container) {
-    container.register('authorizer:custom', CustomAuthorizer);
+  initialize: function() {
   }
 };
