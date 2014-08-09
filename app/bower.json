@@ -20,7 +20,6 @@
     "loader": "stefanpenner/loader.js#1.0.1",
     "lodash": "~2.4.1",
     "qunit": "~1.12.0",
-    "torii": "https://github.com/Vestorly/torii.git#e773862007f0e5a9f27c9df488f23b0064f2ac45",
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages"
   }
 }

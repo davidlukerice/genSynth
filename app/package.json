@@ -28,6 +28,7 @@
     "ember-cli-simple-auth": "~0.6.4-1",
     "ember-cli": "0.0.40",
     "express": "^4.1.1",
-    "glob": "^3.2.9"
+    "glob": "^3.2.9",
+    "torii": "~0.1.3"
   }
 }

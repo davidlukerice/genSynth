@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   facebookConnect: {
     appId: '246499025545134'
   },
