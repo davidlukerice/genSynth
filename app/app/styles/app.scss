@@ -50,6 +50,10 @@ html, body {
   border: 2px $borderColor solid;
   cursor: pointer;
 
+  .visualizer {
+    height: 100%;
+  }
+
   .controls {
     position: absolute;
     width: 100%;
@@ -57,6 +61,7 @@ html, body {
     border: 0;
     padding: 0 10px 0 0;
     pointer-events: none;
+    z-index: 100;
 
     & * {
       pointer-events: auto;

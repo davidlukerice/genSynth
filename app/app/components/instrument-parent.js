@@ -17,6 +17,7 @@ export default Ember.Component.extend({
 
   // created on init
   visualization: null,
+  isShowingNetwork: false,
 
   isSaved: function() {
     var model = this.get('instrumentModel');
@@ -29,7 +30,7 @@ export default Ember.Component.extend({
 
   initVisualization: function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
-      var visualization = Visualizer.createMultiVisualization({
+      var visualization = Visualizer.createInstrumentVisualization({
         network: this.get('instrumentNetwork'),
         selector: this.get('selector'),
         width: this.get('width'),
@@ -92,8 +93,16 @@ export default Ember.Component.extend({
       this.get('targetObject').send(makeLiveHandler, this);
     },
 
-    nextVisualization: function() {
-      this.get('visualization').nextVisualization();
+    toggleNetwork: function() {
+      var vis = this.get('visualization');
+      if (vis.isShowingNetwork) {
+        vis.hideNetwork();
+        this.set('isShowingNetwork', false);
+      }
+      else {
+        vis.showNetwork();
+        this.set('isShowingNetwork', true);
+      }
     }
   }
 });
