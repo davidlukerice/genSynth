@@ -17,40 +17,37 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-app.import('vendor/bootstrap/dist/css/bootstrap.min.css');
-app.import('vendor/asNEAT-visualizer/dist/asNEAT-visualizer.css');
+app.import('bower_components/bootstrap/dist/css/bootstrap.min.css');
+app.import('bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.css');
 
-app.import('vendor/WebMIDIAPIShim/WebMIDIAPI.js');
+app.import('bower_components/WebMIDIAPIShim/WebMIDIAPI.js');
 app.import({
-  development: 'vendor/jquery/dist/jquery.js',
-  production: 'vendor/jquery/dist/jquery.min.js'
+  development: 'bower_components/jquery/dist/jquery.js',
+  production: 'bower_components/jquery/dist/jquery.min.js'
 });
 app.import({
-  development: 'vendor/bootstrap/dist/js/bootstrap.js',
-  production: 'vendor/bootstrap/dist/js/bootstrap.min.js'
+  development: 'bower_components/bootstrap/dist/js/bootstrap.js',
+  production: 'bower_components/bootstrap/dist/js/bootstrap.min.js'
 });
 app.import({
-  development: 'vendor/lodash/dist/lodash.js',
-  production: 'vendor/lodash/dist/lodash.min.js'
+  development: 'bower_components/lodash/dist/lodash.js',
+  production: 'bower_components/lodash/dist/lodash.min.js'
 });
 app.import({
-  development: 'vendor/d3/d3.js',
-  production: 'vendor/d3/d3.min.js'
+  development: 'bower_components/d3/d3.js',
+  production: 'bower_components/d3/d3.min.js'
 });
 app.import({
-  development: 'vendor/chroma-js/chroma.js',
-  production: 'vendor/chroma-js/chroma.min.js'
+  development: 'bower_components/chroma-js/chroma.js',
+  production: 'bower_components/chroma-js/chroma.min.js'
 });
 app.import({
-  development: 'vendor/asNEAT/dist/asNEAT.js',
-  production: 'vendor/asNEAT/dist/asNEAT.min.js'
+  development: 'bower_components/asNEAT/dist/asNEAT.js',
+  production: 'bower_components/asNEAT/dist/asNEAT.min.js'
 });
 app.import({
-  development: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.js',
-  production: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
+  development: 'bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.js',
+  production: 'bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
 });
-app.import('vendor/ember-simple-auth/dist/bower/simple-auth.amd.js');
-app.import('vendor/ember-simple-auth/dist/bower/simple-auth-torii.amd.js');
-app.import('vendor/torii/dist/torii.amd.js');
 
 module.exports = app.toTree();

@@ -18,13 +18,14 @@
       ga('create', 'UA-49487341-1', 'davidlukerice.github.io');
       ga('send', 'pageview');
     </script>
-    
+
     <link rel="stylesheet" href="assets/vendor.css">
     <link rel="stylesheet" href="assets/gen-synth.css">
   </head>
   <body>
     <script>
       window.GenSynthENV = {{ENV}};
+      window.ENV = window.GenSynthENV;
       window.EmberENV = window.GenSynthENV.EmberENV;
     </script>
     <script src="assets/vendor.js"></script>

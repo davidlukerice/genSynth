@@ -1,5 +1,5 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans:400,700");
-@import "vendor/bourbon/app/assets/stylesheets/bourbon";
+@import "bower_components/bourbon/dist/bourbon";
 
 $selectedColor: #158cba;
 $hoverColor: #15b5ba;
@@ -68,7 +68,7 @@ html, body {
     background-color: #f8f8f8;
     border-color: #e7e7e7;
   }
-  
+
   &:hover {
     background: $hoverColor;
   }
@@ -111,7 +111,7 @@ html, body {
     height: 15px;
     position: relative;
     border-radius: 15px;
-    
+
     &.active {
       background: red;
     }
@@ -247,7 +247,7 @@ html, body {
   top: 0px;
   right: 0px;
   padding: 5px;
-  
+
   border: $borderColor 1px solid;
   border-top: 0;
   border-right: 0;
