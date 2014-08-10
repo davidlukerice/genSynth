@@ -8,6 +8,8 @@ export default Ember.Component.extend({
   isLive: false,
   index: 0,
 
+  showAdvanced: false,
+
   instrumentModel: null,
 
   makeLiveHandler: null,
