@@ -1,0 +1,19 @@
+
+<div class="index">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{user.username}}</h3>
+    </div>
+  </div>
+  <div class="row instruments">
+    {{#if instrumentParams}}
+      {{instrument-parent
+        instrumentNetwork=instrumentParams.instrumentNetwork
+        selected=instrumentParams.selected
+        isLive=instrumentParams.isLive
+        index=instrumentParams.index
+        instrumentModel=instrumentParams.instrumentModel
+        makeLiveHandler="makeLive"}}
+    {{/if}}
+  </div>
+</div>
