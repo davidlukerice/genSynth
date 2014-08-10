@@ -9,13 +9,18 @@ var mongoose = require('mongoose'),
  * Find instrument by id
  */
 exports.instrument = function(req, res, next, id) {
-  Instrument.load(id, function(err, instrument) {
-    if (err) return next(err);
-    if (!instrument) return next(new Error('Failed to load instrument ' + id));
+  Instrument.findOne({
+      _id: id
+    })
+    .exec(function(err, instrument) {
+      if (err)
+        return next(err);
+      if (!instrument)
+        return next(new Error('Failed to load instrument ' + id));
 
-    req.instrument = toObject(instrument);
-    next();
-  });
+      req.instrument = toObject(instrument);
+      next();
+    });
 };
 
 /**
@@ -83,8 +88,8 @@ exports.destroy = function(req, res) {
  * Show an instrument
  */
 exports.show = function(req, res) {
-  res.send({
-    instrument: toObject(req.instrument)
+  res.jsonp({
+    instrument: req.instrument
   });
 };
 
