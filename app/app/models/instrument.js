@@ -1,10 +1,11 @@
 
 export default DS.Model.extend({
+  created: DS.attr('date'),
   user: DS.belongsTo('user', {
     inverse: 'instruments'
   }),
+  name: DS.attr('string'),
   json: DS.attr('string'),
-  created: DS.attr('date'),
   branchedParent: DS.belongsTo('instrument'),
   isPrivate: DS.attr('boolean'),
   likes: DS.hasMany('user', {

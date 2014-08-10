@@ -5,15 +5,19 @@
       <h3>{{user.username}}</h3>
     </div>
   </div>
-  <div class="row instruments">
-    {{#if instrumentParams}}
-      {{instrument-parent
-        instrumentNetwork=instrumentParams.instrumentNetwork
-        selected=instrumentParams.selected
-        isLive=instrumentParams.isLive
-        index=instrumentParams.index
-        instrumentModel=instrumentParams.instrumentModel
-        makeLiveHandler="makeLive"}}
-    {{/if}}
-  </div>
+  <h3>{{model.instrument.name}} <small>by: {{model.instrument.user.username}}</small></h3>
+
+  {{#if instrumentParams}}
+    {{instrument-parent
+      instrumentNetwork=instrumentParams.instrumentNetwork
+      selected=instrumentParams.selected
+      isLive=instrumentParams.isLive
+      index=instrumentParams.index
+      instrumentModel=instrumentParams.instrumentModel
+      makeLiveHandler="makeLive"}}
+  {{/if}}
+
+  {{#if isCreator}}
+    <button class="btn">Publish</button>
+  {{/if}}
 </div>

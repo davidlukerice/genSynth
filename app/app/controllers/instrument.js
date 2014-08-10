@@ -3,6 +3,15 @@ var Network = require('asNEAT/network')['default'];
 
 export default Ember.Controller.extend({
   needs: ['application'],
+
+  isCreator: function() {
+    var application = this.get('controllers.application');
+    return this.get('model.instrument.user.id') ===
+      application.get('currentUser.id');
+  }.property(
+    'model.instrument.user.id',
+    'controllers.application.currentUser.id'),
+
   instrumentParams: function() {
     var instrument = this.get('model.instrument');
     if (!instrument.isFulfilled)

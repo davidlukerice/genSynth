@@ -12,6 +12,7 @@ exports.instrument = function(req, res, next, id) {
   Instrument.findOne({
       _id: id
     })
+    .populate('user')
     .exec(function(err, instrument) {
       if (err)
         return next(err);
@@ -123,8 +124,7 @@ function toObject(item) {
 
   // quick compressing of relationships down to their ids
   // TODO: Sideload
-  if (obj.user)
-    obj.user = obj.user._id;
+  obj.user = obj.user.id;
   if (obj.likes.length > 0)
     obj.likes = _.map(obj.likes, function(item) {
       return item._id;
