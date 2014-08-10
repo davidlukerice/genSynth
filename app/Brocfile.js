@@ -18,44 +18,44 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-app.import('bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.css');
+app.import('vendor/asNEAT-visualizer/dist/asNEAT-visualizer.css');
 
-app.import('bower_components/WebMIDIAPIShim/WebMIDIAPI.js');
+app.import('vendor/WebMIDIAPIShim/WebMIDIAPI.js');
 app.import({
-  development: 'bower_components/jquery/dist/jquery.js',
-  production: 'bower_components/jquery/dist/jquery.min.js'
+  development: 'vendor/jquery/dist/jquery.js',
+  production: 'vendor/jquery/dist/jquery.min.js'
 });
 app.import({
-  development: 'bower_components/bootstrap/dist/js/bootstrap.js',
-  production: 'bower_components/bootstrap/dist/js/bootstrap.min.js',
+  development: 'vendor/bootstrap/dist/js/bootstrap.js',
+  production: 'vendor/bootstrap/dist/js/bootstrap.min.js',
 });
 app.import({
-  development: 'bower_components/lodash/dist/lodash.js',
-  production: 'bower_components/lodash/dist/lodash.min.js'
+  development: 'vendor/lodash/dist/lodash.js',
+  production: 'vendor/lodash/dist/lodash.min.js'
 });
 app.import({
-  development: 'bower_components/d3/d3.js',
-  production: 'bower_components/d3/d3.min.js'
+  development: 'vendor/d3/d3.js',
+  production: 'vendor/d3/d3.min.js'
 });
 app.import({
-  development: 'bower_components/chroma-js/chroma.js',
-  production: 'bower_components/chroma-js/chroma.min.js'
+  development: 'vendor/chroma-js/chroma.js',
+  production: 'vendor/chroma-js/chroma.min.js'
 });
 app.import({
-  development: 'bower_components/asNEAT/dist/asNEAT.js',
-  production: 'bower_components/asNEAT/dist/asNEAT.min.js'
+  development: 'vendor/asNEAT/dist/asNEAT.js',
+  production: 'vendor/asNEAT/dist/asNEAT.min.js'
 });
 app.import({
-  development: 'bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.js',
-  production: 'bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
+  development: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.js',
+  production: 'vendor/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
 });
 
-var awesomeFontTree = pickFiles('bower_components/font-awesome/fonts', {
+var awesomeFontTree = pickFiles('vendor/font-awesome/fonts', {
   srcDir: '/',
   files: ['*'],
   destDir: '/assets/fonts'
 });
-var bootstrapFontTree = pickFiles('bower_components/bootstrap-sass-official/assets/fonts/bootstrap', {
+var bootstrapFontTree = pickFiles('vendor/bootstrap-sass-official/assets/fonts/bootstrap', {
   srcDir: '/',
   files: ['*'],
   destDir: '/assets/fonts'

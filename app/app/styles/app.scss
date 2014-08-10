@@ -1,9 +1,9 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans:400,700");
-@import "bower_components/bourbon/dist/bourbon";
+@import "vendor/bourbon/dist/bourbon";
 $icon-font-path: "/assets/fonts/" !default;
-@import "bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import "vendor/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
 $fa-font-path: "/assets/fonts" !default;
-@import "bower_components/font-awesome/scss/font-awesome.scss";
+@import "vendor/font-awesome/scss/font-awesome.scss";
 
 $selectedColor: #158cba;
 $hoverColor: #15b5ba;
