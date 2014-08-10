@@ -3,7 +3,7 @@
   "dependencies": {
     "asNEAT-visualizer": "#master",
     "asNEAT": "#master",
-    "bootstrap": "~3.2.0",
+    "bootstrap-sass-official": "~3.2.0",
     "bourbon": "3.2.1",
     "chroma-js": "~0.5.6",
     "d3": "~3.4.11",
@@ -15,6 +15,7 @@
     "ember-qunit": "~0.1.8",
     "ember-resolver": "~0.1.7",
     "ember": "~1.7.0-beta.4",
+    "font-awesome": "~4.1.0",
     "handlebars": "~1.3.0",
     "jquery": "^1.11.1",
     "loader": "stefanpenner/loader.js#1.0.1",

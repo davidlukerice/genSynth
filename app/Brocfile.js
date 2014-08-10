@@ -1,5 +1,6 @@
 /* global require, module */
-
+var pickFiles = require('broccoli-static-compiler');
+var mergeTrees = require('broccoli-merge-trees');
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp();
@@ -17,7 +18,6 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-app.import('bower_components/bootstrap/dist/css/bootstrap.min.css');
 app.import('bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.css');
 
 app.import('bower_components/WebMIDIAPIShim/WebMIDIAPI.js');
@@ -26,8 +26,8 @@ app.import({
   production: 'bower_components/jquery/dist/jquery.min.js'
 });
 app.import({
-  development: 'bower_components/bootstrap/dist/js/bootstrap.js',
-  production: 'bower_components/bootstrap/dist/js/bootstrap.min.js'
+  development: 'bower_components/bootstrap-sass-official/assets/js/bootstrap.js',
+  production: 'bower_components/bootstrap-sass-official/assets/js/bootstrap.js',
 });
 app.import({
   development: 'bower_components/lodash/dist/lodash.js',
@@ -50,4 +50,17 @@ app.import({
   production: 'bower_components/asNEAT-visualizer/dist/asNEAT-visualizer.min.js'
 });
 
-module.exports = app.toTree();
+var awesomeFontTree = pickFiles('bower_components/font-awesome/fonts', {
+  srcDir: '/',
+  files: ['*'],
+  destDir: '/assets/fonts'
+});
+var bootstrapFontTree = pickFiles('bower_components/bootstrap-sass-official/assets/fonts/bootstrap', {
+  srcDir: '/',
+  files: ['*'],
+  destDir: '/assets/fonts'
+});
+
+var fontTree = mergeTrees([awesomeFontTree, bootstrapFontTree]);
+
+module.exports = mergeTrees([app.toTree(), fontTree]);
