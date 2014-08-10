@@ -6,17 +6,14 @@ export default Ember.Controller.extend({
 
   isCreator: function() {
     var application = this.get('controllers.application');
-    return this.get('model.instrument.user.id') ===
+    return this.get('instrument.user.id') ===
       application.get('currentUser.id');
   }.property(
-    'model.instrument.user.id',
+    'instrument.user.id',
     'controllers.application.currentUser.id'),
 
   instrumentParams: function() {
-    var instrument = this.get('model.instrument');
-    if (!instrument.isFulfilled)
-      return;
-
+    var instrument = this.get('instrument');
     var instrumentParams = {
           instrumentNetwork: Network.createFromJSON(instrument.get('json')),
           selected: false,
@@ -29,12 +26,12 @@ export default Ember.Controller.extend({
         .set('activeInstrument', instrumentParams);
 
     return instrumentParams;
-  }.property('model.instrument.json'),
+  }.property('instrument.json'),
 
   actions: {
     publish: function() {
       // TODO: Check for name
-      this.get('model.instrument.content')
+      this.get('instrument.content')
           .set('isPrivate', false)
           .save();
     }

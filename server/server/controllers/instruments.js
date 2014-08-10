@@ -33,14 +33,22 @@ exports.create = function(req, res) {
   instrument.user = req.user;
   instrument.save(function(err) {
     if (err) {
-      res.render('error', {
+      res.render('error saving', {
         status: 500
       });
-    } else {
+      return;
+    }
+    Instrument.populate(instrument, {path:'user'}, function(err, instrument) {
+      if (err) {
+        res.render('error populating', {
+          status: 500
+        });
+        return;
+      }
       res.send({
         instrument: toObject(instrument)
       });
-    }
+    });
   });
 };
 

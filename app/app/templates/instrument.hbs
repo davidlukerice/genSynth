@@ -5,8 +5,8 @@
       <h3>{{user.username}}</h3>
     </div>
   </div>
-  <h3>{{model.instrument.name}}
-    <small> by: {{model.instrument.user.username}} {{#if model.instrument.isPrivate}}(private){{/if}}
+  <h3>{{instrument.name}}
+    <small> by: {{instrument.user.username}} {{#if instrument.isPrivate}}(private){{/if}}
     </small>
   </h3>
 
@@ -21,7 +21,7 @@
   {{/if}}
 
   {{#if isCreator}}
-    {{#if model.instrument.isPrivate}}
+    {{#if instrument.isPrivate}}
       <button {{action 'publish'}} class="btn">Publish</button>
     {{else}}
       <button class="btn" disabled>Already Published</button>
