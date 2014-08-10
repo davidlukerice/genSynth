@@ -8,7 +8,7 @@
       {{else}}
         <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control"></i>
       {{/if}}
-      <span {{action makeLive  bubbles=false}} class="liveToggle">
+      <span {{action makeLive bubbles=false}} class="liveToggle">
         <span {{bind-attr class=":liveIcon isLive:active"}}></span>
         <span class="liveHotkey">{{liveHotkey}}</span>
       </span>
