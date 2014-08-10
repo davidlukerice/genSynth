@@ -47,7 +47,7 @@
 
         {{#if session.isAuthenticated}}
           <li>
-            <a {{ action 'invalidateSession' }}>Logout</a>
+            <a {{ action 'invalidateSession' }}>Logout ({{currentUser.username}})</a>
           </li>
         {{else}}
           <li>
@@ -55,19 +55,17 @@
           </li>
         {{/if}}
 
+        <li>
+          <a {{action "toggleHelp"}} class="topLinkIcon">
+            <i class="fa fa-question-circle fa-2x fa-fw"></i>
+          </a>
+        </li>
+        <li>
+          <a {{action "toggleSettings"}} class="topLinkIcon">
+            <i class="fa fa-gear fa-2x fa-fw"></i>
+          </a>
+        </li>
       </ul>
-
-      <div class="pull-right">
-        <span class="toggleIcon" {{action "toggleHelp"}}>
-          <span class="glyphicon glyphicon-question-sign"></span>
-        </span>
-        <span class="toggleIcon" {{action "toggleSettings"}}>
-          <span class="glyphicon glyphicon-cog"></span>
-        </span>
-      </div>
-      {{#if session.isAuthenticated}}
-        <span class="pull-right">Logged in as {{currentUser.username}}</span>
-      {{/if}}
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
