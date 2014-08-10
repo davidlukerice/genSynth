@@ -26,8 +26,8 @@ app.import({
   production: 'bower_components/jquery/dist/jquery.min.js'
 });
 app.import({
-  development: 'bower_components/bootstrap-sass-official/assets/js/bootstrap.js',
-  production: 'bower_components/bootstrap-sass-official/assets/js/bootstrap.js',
+  development: 'bower_components/bootstrap/dist/js/bootstrap.js',
+  production: 'bower_components/bootstrap/dist/js/bootstrap.min.js',
 });
 app.import({
   development: 'bower_components/lodash/dist/lodash.js',
