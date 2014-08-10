@@ -34,35 +34,7 @@ export default Ember.Route.extend({
 
     sessionAuthenticationSucceeded: function(){
       console.log('sessionAuthenticationSucceeded: route');
-      var controller = this.get('controller');
-      controller.send('hideLogin');
-      var self = this;
-      var sessionContent = this.get('session.content');
-      var accessToken = sessionContent.accessToken;
-      //var provider = sessionContent.provider;
-      //var userId = sessionContent.userId;
-
-      console.log('content: '+JSON.stringify(sessionContent));
-
-      Ember.$.ajax({
-        url: 'http://localhost:3000/auth/facebook',
-        type: 'GET',
-        data: {
-          access_token: accessToken
-        },
-        //crossDomain: true,
-        xhrFields: {
-          withCredentials: true
-        }
-      }).then(function(response) {
-        console.log('response: '+JSON.stringify(response));
-        self.store.find('user', response.user).then(function(user) {
-          controller.set('currentUser', user);
-        });
-      }, function(xhr, status, error) {
-        console.log('error: '+error.message);
-      });
-
+      this.get('controller').send('hideLogin');
     }.on('sessionAuthenticationSucceeded'),
 
     sessionAuthenticationFailed: function(error) {
