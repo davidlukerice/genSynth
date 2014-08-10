@@ -1,18 +1,12 @@
 <div class="col-md-4 col-sm-4">
   <div {{action "toggleSelected"}} {{bind-attr class=":child :instrument selected"}}>
     <span class="controls">
-      <button {{action "play" bubbles=false}} class="btn btn-success">Play</button>
-      <button {{action "toggleNetwork" bubbles=false}} class="btn">
-        {{#if isShowingNetwork}}
-          Hide
-        {{else}}
-          Network
-        {{/if}}
-      </button>
+      <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control"></i>
+      <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-sitemap :fa-2x :fa-fw :control isShowingNetwork:active"}}></i>
       {{#if isSaved}}
         [inst link]
       {{else}}
-        <button {{action "save" bubbles=false}} class="btn">Save</button>
+        <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control"></i>
       {{/if}}
       <span {{action makeLive  bubbles=false}} class="liveToggle">
         <span {{bind-attr class=":liveIcon isLive:active"}}></span>

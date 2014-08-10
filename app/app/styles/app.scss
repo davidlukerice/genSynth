@@ -40,6 +40,15 @@ html, body {
   .controls {
     text-align: center;
     margin-bottom: 5px;
+
+    .control {
+        padding-top: 5px;
+        color: rgb(51, 51, 51);
+      &:hover,
+      &.active {
+        color: lighten(rgb(51, 51, 51), 40%);
+      }
+    }
   }
 
 } // eo .evolver
