@@ -23,7 +23,7 @@ export default Ember.Component.extend({
     var self = this,
         lastInput = this.get('lastSelectedInput'),
         input = this.get('selectedInput');
-    
+
     if (lastInput && typeof lastInput.onmidimessage === 'function')
       lastInput.onmidimessage = null;
     this.set('lastSelectedInput', input);
@@ -111,8 +111,10 @@ export default Ember.Component.extend({
     if (typeof releaseHandler === 'function')
       releaseHandler();
 
-    if (!instrumentNetwork)
-      throw "No instrumentNetwork to Play";
+    if (!instrumentNetwork) {
+      Utils.log("No instrumentNetwork to Play");
+      return;
+    }
 
     var noteOscillators = instrumentNetwork.getNoteOscillatorNodes();
     _.forEach(noteOscillators, function(node) {
@@ -150,7 +152,7 @@ export default Ember.Component.extend({
     this._super();
     var lastInput = this.get('lastSelectedInput'),
         input = this.get('selectedInput');
-    
+
     if (lastInput && typeof lastInput.onmidimessage === 'function')
       lastInput.onmidimessage = null;
     if (input && typeof input.onmidimessage === 'function')

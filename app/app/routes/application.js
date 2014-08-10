@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  
+
   beforeModel: function() {
     this._super();
     var self = this;
@@ -79,6 +79,11 @@ export default Ember.Route.extend({
 
     authorizationFailed: function() {
       console.log('authorizationFailed: route');
+    },
+
+    makeLive: function(instrument) {
+      this.controllerFor('application')
+          .send('makeLive', instrument);
     }
   }
 });

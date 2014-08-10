@@ -1,9 +1,6 @@
 import Ember from 'ember';
-import MidiSelectable from 'gen-synth/mixins/midi-selectable';
-import MIDISelector from 'gen-synth/components/midi-selector';
 
-var asNEAT = require('asNEAT/asNEAT')['default'],
-    Population = require('asNEAT/population')['default'];
+var Population = require('asNEAT/population')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
@@ -11,7 +8,7 @@ var MINUS_CODE = "-".charCodeAt(),
     DEC_CODE = ".".charCodeAt(),
     ENTER_CODE = 13;
 
-export default Ember.Controller.extend(MidiSelectable, {
+export default Ember.Controller.extend({
 
   needs: ['application'],
 
@@ -20,41 +17,6 @@ export default Ember.Controller.extend(MidiSelectable, {
   // and the top one is currently the parent set
   // {instrumentParams: [[{instrumentNetwork:asNEAT.Network, isLive, selected}, ...],[...],...]}
   content: null,
-
-  showSettings: false,
-  usingOnscreenPiano: true,
-  usingMIDI: true,
-
-  showHelp: false,
-
-  minGlobalGainLevel: 0,
-  maxGlobalGainLevel: 1,
-  globalGainLevel: 0.1,
-  volume: function() {
-    var max = this.get('maxGlobalGainLevel'),
-        min = this.get('minGlobalGainLevel'),
-        gain = this.get('globalGainLevel');
-    return Math.round((gain-min)/(max-min)*100);
-  }.property('minGlobalGainLevel', 'maxGlobalGainLevel', 'globalGainLevel'),
-  
-  updateGainHandler: function() {
-    asNEAT.globalGain.gain.value = this.get('globalGainLevel');
-  }.observes('globalGainLevel').on('init'),
-
-  /**
-    If using MIDI, select the default input
-  */
-  selectDefaultMIDIInput: function() {
-    if (!this.get('usingMIDI'))
-      return;
-
-    var self = this;
-    MIDISelector.setupMIDI.call(this, function(inputs) {
-      self.set('selectedMidiInput', inputs.selectedInput);
-    });
-  }.on('init'),
-
-  activeInstrument: null,
 
   noPreviousParents: function() {
     return this.get('content.instrumentParams').length <= 1;
@@ -88,7 +50,8 @@ export default Ember.Controller.extend(MidiSelectable, {
         index: i
       }));
     }
-    this.set('activeInstrument', children[0]);
+    this.get('controllers.application')
+        .set('activeInstrument', children[0]);
 
     return children;
   }.property('parentInstrumentParams.@each'),
@@ -108,7 +71,7 @@ export default Ember.Controller.extend(MidiSelectable, {
     var self = this;
 
     var onkeyPressHandler = function(e) {
-      
+
       // one to one mapping of numpad to the layout on screen
       var index = -1;
       if      (e.keyCode === 49 || e.keyCode === 97 ) index = 6;
@@ -123,7 +86,9 @@ export default Ember.Controller.extend(MidiSelectable, {
 
       if (index>=0) {
         e.preventDefault();
-        self.send('makeLive', self.get('childInstrumentParams')[index]);
+        self.get('controllers.application')
+            .send('makeLive',
+              self.get('childInstrumentParams')[index]);
       }
 
       // Reset parents
@@ -149,7 +114,7 @@ export default Ember.Controller.extend(MidiSelectable, {
       // Toggle selected
       else if (e.keyCode === ENTER_CODE) {
         e.preventDefault();
-        var instrument = self.get('activeInstrument');
+        var instrument = self.get('controllers.application.activeInstrument');
         instrument.set('selected', !instrument.get('selected'));
       }
     };
@@ -190,40 +155,6 @@ export default Ember.Controller.extend(MidiSelectable, {
       // push the currently selected networks on top
       this.get('content.instrumentParams').pushObject(selected);
       scrollToBottom();
-    },
-
-    toggleOnscreenPiano: function() {
-      this.set('usingOnscreenPiano', !this.get('usingOnscreenPiano'));
-      var scrollAmount;
-
-      // Scroll down/up when showing/hiding the piano
-      if (this.get('usingOnscreenPiano'))
-        scrollAmount = $(document).scrollTop()+100;
-      else
-        scrollAmount = $(document).scrollTop()-100;
-
-      Ember.run.scheduleOnce('afterRender', function() {
-        $(document).scrollTop(scrollAmount);
-      });
-    },
-
-    toggleMIDI: function() {
-      this.set('usingMIDI', !this.get('usingMIDI'));
-    },
-
-    toggleHelp: function() {
-      this.set('showHelp', !this.get('showHelp'));
-    },
-
-    toggleSettings: function() {
-      this.set('showSettings', !this.get('showSettings'));
-    },
-
-    makeLive: function(instrumentParentContent) {
-      // turn off old instrument and setup the new selected one
-      this.get('activeInstrument').set('isLive', false);
-      instrumentParentContent.set('isLive', true);
-      this.set('activeInstrument', instrumentParentContent);
     }
   }
 });

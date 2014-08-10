@@ -2,7 +2,13 @@
   <div {{action "toggleSelected"}} {{bind-attr class=":child :instrument selected"}}>
     <span class="controls">
       <button {{action "play" bubbles=false}} class="btn btn-success">Play</button>
-      <button {{action "nextVisualization" bubbles=false}} class="btn">Next Vis</button>
+      <button {{action "toggleNetwork" bubbles=false}} class="btn">
+        {{#if isShowingNetwork}}
+          Hide
+        {{else}}
+          Network
+        {{/if}}
+      </button>
       {{#if isSaved}}
         [inst link]
       {{else}}
