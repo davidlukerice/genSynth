@@ -29,5 +29,14 @@ export default Ember.Controller.extend({
         .set('activeInstrument', instrumentParams);
 
     return instrumentParams;
-  }.property('model.instrument.json')
+  }.property('model.instrument.json'),
+
+  actions: {
+    publish: function() {
+      // TODO: Check for name
+      this.get('model.instrument.content')
+          .set('isPrivate', false)
+          .save();
+    }
+  }
 });

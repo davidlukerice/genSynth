@@ -19,7 +19,7 @@ exports.instrument = function(req, res, next, id) {
       if (!instrument)
         return next(new Error('Failed to load instrument ' + id));
 
-      req.instrument = toObject(instrument);
+      req.instrument = instrument;
       next();
     });
 };
@@ -50,10 +50,10 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
 
   var instrument = req.instrument;
-  instrument.title = req.body.instrument.title;
-  instrument.instrumentContent = req.body.instrument.instrumentContent;
-  instrument.urlSegment = req.body.instrument.urlSegment;
-  instrument.type = req.body.instrument.type;
+  instrument.name = req.body.instrument.name;
+  instrument.isPrivate = req.body.instrument.isPrivate;
+  instrument.likes = req.body.instrument.likes;
+  instrument.tags = req.body.instrument.tags;
 
   instrument.save(function(err) {
     if (err) {
@@ -90,7 +90,7 @@ exports.destroy = function(req, res) {
  */
 exports.show = function(req, res) {
   res.jsonp({
-    instrument: req.instrument
+    instrument: toObject(req.instrument)
   });
 };
 
