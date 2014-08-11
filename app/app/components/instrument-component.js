@@ -27,9 +27,21 @@ export default Ember.Component.extend({
     return model !== null && model !== undefined;
   }.property('instrumentModel'),
 
+  isPublished: function() {
+    return !this.get('instrumentModel.isPrivate');
+  }.property('instrumentModel.isPrivate'),
+
   selector: function() {
     return "#"+this.elementId+' .visualizer';
   }.property('elementId'),
+
+  numberOfLikes: function() {
+    var model = this.get('instrumentModel');
+    if (!model)
+      return 0;
+    else
+      return model.get('likes').content.length;
+  }.property('instrumentModel.likes'),
 
   initVisualization: function() {
     Ember.run.scheduleOnce('afterRender', this, function() {

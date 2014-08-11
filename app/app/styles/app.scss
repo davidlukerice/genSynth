@@ -83,16 +83,18 @@ html, body {
     }
   }
 
-  .locked {
-    top: 11px;
-    position: relative;
-  }
-
   .bottomControls {
     position: absolute;
     bottom: 0;
     width: 100%;
     padding: 0 10px 5px 10px;
+
+    .badge {
+      position: relative;
+      top: -3px;
+      background-color: #777777;
+      margin-left: -6px;
+    }
   }
 
   svg {

@@ -1,27 +1,33 @@
 <div class="col-md-4 col-sm-4">
   <div {{action "toggleSelected"}} {{bind-attr class=":instrument selectable selected"}}>
     <span class="controls">
-      <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control"></i>
-      <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-sitemap :fa-2x :fa-fw :control isShowingNetwork:active"}}></i>
+      <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control" title="play"></i>
+      <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-sitemap :fa-2x :fa-fw :control isShowingNetwork:active"}} title="show/hide network"></i>
       {{#if isSaved}}
         {{#link-to "instrument" instrumentModel}}
           <i class="fa fa-gear fa-2x fa-fw control"></i>
         {{/link-to}}
       {{else}}
-        <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control"></i>
+        <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" title="save"></i>
       {{/if}}
-      <span {{action makeLive bubbles=false}} class="liveToggle">
+      <span {{action makeLive bubbles=false}} class="liveToggle" title="make live">
         <span {{bind-attr class=":liveIcon isLive:active"}}></span>
         <span class="liveHotkey"></span>
       </span>
-      {{#if instrumentModel.isPrivate}}
-        <i class="fa fa-lock fa-fw pull-right locked" title="Not Published"></i>
-      {{/if}}
     </span>
     <div class="visualizer">
     </div>
     <div class="bottomControls">
-      <i class="fa fa-star-o fa-2x fa-fw pull-right" title="Not Published"></i>
+      {{#if isPublished}}
+        <div class="likes pull-right">
+          <i class="fa fa-star-o fa-2x fa-fw" title="star this instrument"></i>
+          <span class="badge">{{numberOfLikes}}</span>
+        </div>
+      {{else}}
+        {{#if isSaved}}
+          <i class="fa fa-lock fa-fw fa-2x pull-right locked" title="Not Published"></i>
+        {{/if}}
+      {{/if}}
     </div>
   </div>
   {{#if showAdvanced}}
