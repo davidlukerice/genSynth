@@ -54,6 +54,9 @@ export default Ember.Controller.extend({
 
   actions: {
     saveName: function() {
+      // TODO: Profanity check? Server side?
+      // https://www.npmjs.org/package/profanity-filter
+
       var instrument = this.get('instrument'),
           temp = this.get('tempName');
       if (instrument &&

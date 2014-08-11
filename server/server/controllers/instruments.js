@@ -58,6 +58,14 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
 
   var instrument = req.instrument;
+
+  if (instrument.get('user.id') !== req.user.id) {
+    res.render('error: not creator', {
+      status: 500
+    });
+    return;
+  }
+
   instrument.name = req.body.instrument.name;
   instrument.isPrivate = req.body.instrument.isPrivate;
   instrument.likes = req.body.instrument.likes;
