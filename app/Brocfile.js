@@ -19,11 +19,21 @@ var app = new EmberApp();
 // along with the exports of each module as its value.
 
 app.import('vendor/asNEAT-visualizer/dist/asNEAT-visualizer.css');
+app.import('vendor/tag-it/css/jquery.tagit.css');
+app.import('vendor/tag-it/css/tagit.ui-zendesk.css');
 
 app.import('vendor/WebMIDIAPIShim/WebMIDIAPI.js');
 app.import({
   development: 'vendor/jquery/dist/jquery.js',
   production: 'vendor/jquery/dist/jquery.min.js'
+});
+app.import({
+  development: 'vendor/jquery-ui/jquery-ui.js',
+  production: 'vendor/jquery-ui/jquery-ui.min.js'
+});
+app.import({
+  development: 'vendor/tag-it/js/tag-it.js',
+  production: 'vendor/tag-it/js/tag-it.min.js'
 });
 app.import({
   development: 'vendor/bootstrap/dist/js/bootstrap.js',
