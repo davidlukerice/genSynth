@@ -1,9 +1,6 @@
 module.exports = function(app, passport) {
   //User Routes
   var users = require('../controllers/users');
-  //app.get('/signin', users.signin);
-  //app.get('/signup', users.signup);
-  //app.get('/signout', users.signout);
 
   //Setting up the users api
   //app.post('/users', users.create);
@@ -18,6 +15,8 @@ module.exports = function(app, passport) {
 
   //Finish with setting up the userId param
   app.param('userId', users.user);
+
+  app.get('/auth/logout', users.logout);
 
   //Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook-token', {

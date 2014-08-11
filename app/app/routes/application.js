@@ -29,7 +29,17 @@ export default Ember.Route.extend({
     },
 
     invalidateSession: function() {
-      this.get('session').invalidate();
+      var self = this;
+      Ember.$.ajax({
+        url: 'http://localhost:3000/auth/logout',
+        type: 'GET',
+        xhrFields: {
+          withCredentials: true
+        }
+      }).then(function() {
+        self.get('session').invalidate();
+        location.reload();
+      });
     },
 
     sessionAuthenticationSucceeded: function(){

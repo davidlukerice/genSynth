@@ -12,31 +12,14 @@ exports.authCallback = function(req, res) {
 };
 
 /**
- * Show login form
- */
-exports.signin = function(req, res) {
-  res.render('users/signin', {
-    title: 'Signin',
-    message: req.flash('error')
-  });
-};
-
-/**
- * Show sign up form
- */
-exports.signup = function(req, res) {
-  res.render('users/signup', {
-    title: 'Sign up',
-    user: new User()
-  });
-};
-
-/**
  * Logout
  */
-exports.signout = function(req, res) {
+exports.logout = function(req, res) {
   req.logout();
-  res.redirect('/');
+  req.session.destroy();
+  res.jsonp({
+    succeeded: true
+  });
 };
 
 /**
