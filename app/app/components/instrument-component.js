@@ -28,7 +28,8 @@ export default Ember.Component.extend({
   }.property('instrumentModel'),
 
   isPublished: function() {
-    return !this.get('instrumentModel.isPrivate');
+    var isPrivate = this.get('instrumentModel.isPrivate');
+    return (typeof isPrivate !== 'undefined') && !isPrivate;
   }.property('instrumentModel.isPrivate'),
 
   selector: function() {
