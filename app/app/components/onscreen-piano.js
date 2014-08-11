@@ -17,13 +17,11 @@ export default Ember.Component.extend({
 
     var onkeyDownHandler = function(e) {
       if(e.keyCode === 32) {
-        e.preventDefault();
         self.set('sustaining', true);
       }
     };
     var onkeyUpHandler = function(e) {
       if(e.keyCode === 32) {
-        e.preventDefault();
         self.set('sustaining', false);
       }
     };
