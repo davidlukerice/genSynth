@@ -7,7 +7,7 @@
   </div>
   <h3>
     {{#if isCreator}}
-      {{input value=tempName placeholder="Instrument Name"}}
+      {{input value=tempName placeholder="Instrument Name" maxlength="50"}}
       {{#if nameHasChanged}}
       <i {{action "cancelName" bubbles=false}} class="fa fa-times fa-fw control"></i>
       {{#if hasName}}
@@ -35,7 +35,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      
+
     </div>
   </div>
   <div class="row">
