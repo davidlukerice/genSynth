@@ -114,14 +114,21 @@ exports.show = function(req, res) {
  * List of Instruments
  */
 exports.index = function(req, res) {
-  Instrument.find(req.query).sort('-created').populate('user', 'name username').exec(function(err, instruments) {
+  var currentUserId = req.user ? req.user.id : 0;
+  Instrument.find(req.query).sort('-created').populate('user').exec(function(err, instruments) {
     if (err) {
       res.render('500', {
         status: 500
       });
     } else {
+      instruments = toObjects(instruments);
+      instruments = _.filter(instruments, function(instrument) {
+        return !instrument.isPrivate ||
+               instrument.user === currentUserId;
+      });
+
       res.send({
-        instruments: toObjects(instruments)
+        instruments: instruments
       });
     }
   });
