@@ -74,15 +74,15 @@ export default Ember.Controller.extend({
 
       // one to one mapping of numpad to the layout on screen
       var index = -1;
-      if      (e.keyCode === 49 || e.keyCode === 97 ) index = 6;
-      else if (e.keyCode === 50 || e.keyCode === 98 ) index = 7;
-      else if (e.keyCode === 51 || e.keyCode === 99 ) index = 8;
-      else if (e.keyCode === 52 || e.keyCode === 100) index = 3;
-      else if (e.keyCode === 53 || e.keyCode === 101) index = 4;
-      else if (e.keyCode === 54 || e.keyCode === 102) index = 5;
-      else if (e.keyCode === 55 || e.keyCode === 103) index = 0;
-      else if (e.keyCode === 56 || e.keyCode === 104) index = 1;
-      else if (e.keyCode === 57 || e.keyCode === 105) index = 2;
+      if      (e.keyCode === 49) index = 6;
+      else if (e.keyCode === 50) index = 7;
+      else if (e.keyCode === 51) index = 8;
+      else if (e.keyCode === 52) index = 3;
+      else if (e.keyCode === 53) index = 4;
+      else if (e.keyCode === 54) index = 5;
+      else if (e.keyCode === 55) index = 0;
+      else if (e.keyCode === 56) index = 1;
+      else if (e.keyCode === 57) index = 2;
 
       if (index>=0) {
         e.preventDefault();
