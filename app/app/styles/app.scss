@@ -60,7 +60,10 @@ html, body {
   height: 250px;
   width: 100%;
   border: 2px $borderColor solid;
-  cursor: pointer;
+
+  &.selectable {
+    cursor: pointer;
+  }
 
   .visualizer {
     height: 100%;
@@ -98,7 +101,7 @@ html, body {
     border-color: #e7e7e7;
   }
 
-  &:hover {
+  &.selectable:hover {
     background: $hoverColor;
   }
 

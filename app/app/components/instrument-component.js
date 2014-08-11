@@ -8,6 +8,7 @@ export default Ember.Component.extend({
   isLive: false,
   index: 0,
 
+  selectable: false,
   showAdvanced: false,
 
   instrumentModel: null,
@@ -85,8 +86,8 @@ export default Ember.Component.extend({
     },
 
     toggleSelected: function() {
-      this.set('selected',
-        !this.get('selected'));
+      if (this.get('selectable'))
+        this.set('selected', !this.get('selected'));
     },
 
     makeLive: function() {
