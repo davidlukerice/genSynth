@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
   authTypes = ['github', 'twitter', 'facebook', 'google'],
-  InstrumentSchema = require('./instrument').Schema;
+  ObjectId = Schema.ObjectId;
 
 /**
  * User Schema
@@ -31,8 +31,14 @@ var UserSchema = new Schema({
   github: {},
   google: {},
 
-  instruments: [InstrumentSchema],
-  likes: [InstrumentSchema],
+  instruments: [{
+    type: ObjectId,
+    ref: 'Instrument'
+  }],
+  stars: [{
+    type: ObjectId,
+    ref: 'Instrument'
+  }],
   created: {
     type: Date,
     default: Date.now

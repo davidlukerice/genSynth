@@ -15,6 +15,8 @@ export default Ember.Component.extend({
 
   makeLiveHandler: null,
 
+  currentUser: null,
+
   width: "100%",
   height: "100%",
 
@@ -36,13 +38,30 @@ export default Ember.Component.extend({
     return "#"+this.elementId+' .visualizer';
   }.property('elementId'),
 
-  numberOfLikes: function() {
+  numberOfStars: function() {
     var model = this.get('instrumentModel');
-    if (!model)
+    if (!model || !model.get('stars').isFulfilled)
       return 0;
     else
-      return model.get('likes').content.length;
-  }.property('instrumentModel.likes'),
+      return model.get('stars').content.length;
+  }.property('instrumentModel.stars.@each.id'),
+
+  currentUserStarred: function() {
+    var applicationCtrl = this.get('targetObject.controllers.application'),
+        currentUserId = applicationCtrl.get('currentUser.id'),
+        model = this.get('instrumentModel');
+    if (typeof currentUserId === 'undefined' ||
+       !model.get('stars').isFulfilled )
+    {
+      return false;
+    }
+
+    return _.find(model.get('stars').content.toArray(),
+      function(record) {
+        return record.id === currentUserId;
+    });
+  }.property('instrumentModel.stars.@each.id',
+             'targetObject.controllers.application.currentUser.id'),
 
   initVisualization: function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
@@ -118,6 +137,54 @@ export default Ember.Component.extend({
         vis.showNetwork();
         this.set('isShowingNetwork', true);
       }
+    },
+
+    starInstrument: function() {
+      var controller = this.get('targetObject'),
+          applicationCtrl = controller.get('controllers.application');
+
+      // Check if user is logged in first
+      if (!controller.get('session').get('isAuthenticated')) {
+        applicationCtrl.send('showLogin');
+        return;
+      }
+
+      var model = this.get('instrumentModel'),
+          currentUser = applicationCtrl.get('currentUser');
+
+      Ember.$.ajax({
+        url: 'http://localhost:3000/starInstrument/'+model.id,
+        type: 'GET',
+        xhrFields: {
+          withCredentials: true
+        }
+      }).then(function() {
+        model.get('stars').pushObject(currentUser);
+      });
+    },
+
+    unstarInstrument: function() {
+      var controller = this.get('targetObject'),
+          applicationCtrl = controller.get('controllers.application');
+
+      // Check if user is logged in first
+      if (!controller.get('session').get('isAuthenticated')) {
+        applicationCtrl.send('showLogin');
+        return;
+      }
+
+      var model = this.get('instrumentModel'),
+          currentUser = applicationCtrl.get('currentUser');
+
+      Ember.$.ajax({
+        url: 'http://localhost:3000/unstarInstrument/'+model.id,
+        type: 'GET',
+        xhrFields: {
+          withCredentials: true
+        }
+      }).then(function() {
+        model.get('stars').removeObject(currentUser);
+      });
     }
   }
 });

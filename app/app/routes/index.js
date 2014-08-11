@@ -4,7 +4,11 @@ export default Ember.Route.extend({
 
   model: function() {
     return Ember.Object.create({
-      instruments: this.store.findAll('instrument')
+      instruments: this.store.find('instrument', {
+        isPrivate: false,
+        sortBy: 'likes',
+        countLimit: 9
+      })
     });
   },
 

@@ -2,7 +2,13 @@
 <div class="index">
   <div class="row">
     <div class="col-md-12">
-      <h3>{{user.username}}&#39;s Instruments</h3>
+      <h3>
+        {{#if isCurrentUser}}
+          Your Instruments
+        {{else}}
+          {{user.username}}&#39;s Instruments
+        {{/if}}
+      </h3>
     </div>
   </div>
   <div class="row instruments">

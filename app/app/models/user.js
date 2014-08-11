@@ -2,10 +2,12 @@
 export default DS.Model.extend({
   username: DS.attr('string'),
   instruments: DS.hasMany('instrument', {
-    inverse: 'user'
+    inverse: 'user',
+    async: true
   }),
-  likes: DS.hasMany('instrument', {
-    invers: 'tags'
+  stars: DS.hasMany('instrument', {
+    inverse: 'tags',
+    async: true
   }),
   created: DS.attr('date')
 });

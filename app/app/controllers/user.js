@@ -7,6 +7,14 @@ export default Ember.Controller.extend({
   // set by route
   // {user, instruments: []}
 
+  isCurrentUser: function() {
+    var application = this.get('controllers.application');
+    return this.get('user.id') ===
+      application.get('currentUser.id');
+  }.property(
+    'user.id',
+    'controllers.application.currentUser.id'),
+
   updateOnLogin: function() {
     var pageUserId = this.get('user.id'),
         currentUserId = this.get('controllers.application.currentUser.id');

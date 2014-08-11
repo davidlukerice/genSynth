@@ -2,14 +2,18 @@
 export default DS.Model.extend({
   created: DS.attr('date'),
   user: DS.belongsTo('user', {
-    inverse: 'instruments'
+    inverse: 'instruments',
+    async: true
   }),
   name: DS.attr('string'),
   json: DS.attr('string'),
-  branchedParent: DS.belongsTo('instrument'),
+  branchedParent: DS.belongsTo('instrument',{
+    async: true
+  }),
   isPrivate: DS.attr('boolean'),
-  likes: DS.hasMany('user', {
-    inverse: 'likes'
+  stars: DS.hasMany('user', {
+    inverse: 'stars',
+    async: true
   }),
   tags: DS.attr('string')
 });

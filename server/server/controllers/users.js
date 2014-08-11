@@ -2,7 +2,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    _ = require('lodash');
 
 /**
  * Auth callback
@@ -77,6 +78,7 @@ exports.user = function(req, res, next, id) {
     .findOne({
       _id: id
     })
+    .populate([{path:'instruments'}, {path:'stars'}])
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next(new Error('Failed to load User ' + id));
@@ -101,12 +103,23 @@ exports.succeeded = function(req, res) {
 //}
 
 function toObject(obj) {
+  // TODO: Sideload?
+
+  var stars = _.map(obj.stars, function(item) {
+    return item.id;
+  });
+  var instruments = _.map(obj.instruments, function(item) {
+    return item.id;
+  });
+
   // Only expose certain parameters
   return {
-    id: obj._id,
+    id: obj.id,
     username: obj.username,
     created: obj.created,
-    likes: obj.likes,
-    instruments: obj.instruments
+    stars: stars,
+    instruments: instruments
   };
 }
+
+exports.toObject = toObject;

@@ -3,8 +3,7 @@
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
-  ObjectId = Schema.ObjectId,
-  UserSchema = require('./user').Schema;
+  ObjectId = Schema.ObjectId;
 
 /**
  * Instrument Schema
@@ -34,7 +33,10 @@ var InstrumentSchema = new Schema({
     isPrivate: {
       type: Boolean
     },
-    likes: [UserSchema],
+    stars: [{
+      type: ObjectId,
+      ref: 'User'
+    }],
     tags: {
       type: String,
       trim: true

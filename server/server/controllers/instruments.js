@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose'),
     Instrument = mongoose.model('Instrument'),
+    User = mongoose.model('User'),
     _ = require('lodash');
 
 /**
@@ -12,7 +13,7 @@ exports.instrument = function(req, res, next, id) {
   Instrument.findOne({
       _id: id
     })
-    .populate('user')
+    .populate([{path: 'user'}, {path:'stars'}])
     .exec(function(err, instrument) {
       if (err)
         return next(err);
@@ -33,22 +34,38 @@ exports.create = function(req, res) {
   instrument.user = req.user;
   instrument.save(function(err) {
     if (err) {
-      res.render('error saving', {
-        status: 500
+      res.status(500);
+      res.jsonp({
+        msg: 'error saving'
       });
       return;
     }
-    Instrument.populate(instrument, {path:'user'}, function(err, instrument) {
-      if (err) {
-        res.render('error populating', {
-          status: 500
+    User.update(
+      {_id: req.user.id},
+      {$addToSet:{instruments: instrument.id}},
+      {},function(err) {
+        if (err) {
+          res.status(500);
+          res.jsonp({
+            msg: 'error'
+          });
+          return;
+        }
+        Instrument.populate(instrument,
+          [{path:'user'}, {path:'stars'}], function(err, instrument) {
+          if (err) {
+            res.status(500);
+            res.jsonp({
+              msg: 'error populating'
+            });
+            return;
+          }
+          res.send({
+            instrument: toObject(instrument)
+          });
         });
-        return;
       }
-      res.send({
-        instrument: toObject(instrument)
-      });
-    });
+    );
   });
 };
 
@@ -60,21 +77,22 @@ exports.update = function(req, res) {
   var instrument = req.instrument;
 
   if (instrument.get('user.id') !== req.user.id) {
-    res.render('error: not creator', {
-      status: 500
+    res.status(500);
+    res.jsonp({
+      msg: 'error: Not creator'
     });
     return;
   }
 
   instrument.name = req.body.instrument.name;
   instrument.isPrivate = req.body.instrument.isPrivate;
-  instrument.likes = req.body.instrument.likes;
   instrument.tags = req.body.instrument.tags;
 
   instrument.save(function(err) {
     if (err) {
-      res.render('error', {
-        status: 500
+      res.status(500);
+      res.jsonp({
+        msg: 'error'
       });
     } else {
       res.send({
@@ -82,6 +100,75 @@ exports.update = function(req, res) {
       });
     }
   });
+};
+
+exports.star = function(req, res) {
+  var instrument = req.instrument;
+  var user = req.user;
+  Instrument.update(
+    {_id:instrument.id},
+    {$addToSet:{stars: user.id}},
+    {},function(err) {
+      if (err) {
+        res.status(500);
+        res.jsonp({
+          msg: 'error'
+        });
+        return;
+      }
+      User.update(
+        {_id:user.id},
+        {$addToSet:{stars: instrument.id}},
+        {},function(err) {
+          if (err) {
+            res.status(500);
+            res.jsonp({
+              msg: 'error'
+            });
+          }
+          else {
+            res.jsonp({
+              succeeded: true
+            });
+          }
+        }
+      );
+    }
+  );
+};
+exports.unstar = function(req, res) {
+  var instrument = req.instrument;
+  var user = req.user;
+  Instrument.update(
+    {_id:instrument.id},
+    {$pull:{stars: user.id}
+    },{},function(err) {
+      if (err) {
+        res.status(500);
+        res.jsonp({
+          msg: 'error'
+        });
+        return;
+      }
+      User.update(
+        {_id:user.id},
+        {$pull:{stars:instrument.id}},
+        {},function(err) {
+          if (err) {
+            res.status(500);
+            res.jsonp({
+              msg: 'error'
+            });
+          }
+          else {
+            res.jsonp({
+              succeeded: true
+            });
+          }
+        }
+      );
+    }
+  );
 };
 
 /**
@@ -92,8 +179,9 @@ exports.destroy = function(req, res) {
 
   instrument.remove(function(err) {
     if (err) {
-      res.render('error', {
-        status: 500
+      res.status(500);
+      res.jsonp({
+        msg: 'error'
       });
     } else {
       res.jsonp(toObject(instrument));
@@ -105,6 +193,15 @@ exports.destroy = function(req, res) {
  * Show an instrument
  */
 exports.show = function(req, res) {
+  if (req.instrument.isPrivate &&
+      (!req.user || req.instrument.user.id !== req.user.id))
+  {
+    res.status(500);
+    res.jsonp({
+      msg: 'error: instruments is private and not creator'
+    });
+    return;
+  }
   res.jsonp({
     instrument: toObject(req.instrument)
   });
@@ -115,10 +212,32 @@ exports.show = function(req, res) {
  */
 exports.index = function(req, res) {
   var currentUserId = req.user ? req.user.id : 0;
-  Instrument.find(req.query).sort('-created').populate('user').exec(function(err, instruments) {
+
+  var sortBy = req.query.sortBy;
+  if (sortBy) {
+    delete req.query.sortBy;
+  }
+  else
+    sortBy = '-created';
+
+  var countLimit = req.query.countLimit;
+  if (countLimit) {
+    delete req.query.countLimit;
+  }
+
+  var query = Instrument.find(req.query)
+            .sort(sortBy);
+
+  if (countLimit)
+    query = query.limit(countLimit);
+
+  query.populate([{path: 'user'}, {path:'stars'}])
+       .exec(function(err, instruments)
+  {
     if (err) {
-      res.render('500', {
-        status: 500
+      res.status(500);
+      res.jsonp({
+        msg: 'error'
       });
     } else {
       instruments = toObjects(instruments);
@@ -143,15 +262,20 @@ function toObjects(arr) {
 }
 
 function toObject(item) {
-  var obj = item.toObject({virtuals: true});
+  // TODO: Sideload?
+  var stars = _.map(item.stars, function(item) {
+    return item.id;
+  });
 
-  // quick compressing of relationships down to their ids
-  // TODO: Sideload
-  obj.user = obj.user.id;
-  if (obj.likes.length > 0)
-    obj.likes = _.map(obj.likes, function(item) {
-      return item._id;
-    });
-
-  return obj;
+  return {
+    id: item.id,
+    created: item.created,
+    user: item.user.id,
+    name: item.name,
+    json: item.json,
+    branchedParent: item.branchedParent,
+    isPrivate: item.isPrivate,
+    stars: stars,
+    tags: item.tags
+  };
 }

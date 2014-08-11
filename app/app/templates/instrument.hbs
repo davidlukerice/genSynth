@@ -17,7 +17,10 @@
     {{else}}
       {{instrument.name}}
     {{/if}}
-    <small> by: {{instrument.user.username}} {{#if instrument.isPrivate}}(private){{/if}}
+    <small> by: {{#link-to "user" instrument.user}}
+        {{instrument.user.username}}
+      {{/link-to}}
+      {{#if instrument.isPrivate}} (private){{/if}}
     </small>
   </h3>
   <div class="row">
