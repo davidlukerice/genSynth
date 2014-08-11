@@ -1,5 +1,5 @@
 <div class="col-md-4 col-sm-4">
-  <div {{action "toggleSelected"}} {{bind-attr class=":child :instrument selected"}}>
+  <div {{action "toggleSelected"}} {{bind-attr class=" :instrument selected"}}>
     <span class="controls">
       <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control"></i>
       <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-sitemap :fa-2x :fa-fw :control isShowingNetwork:active"}}></i>
@@ -12,10 +12,15 @@
       {{/if}}
       <span {{action makeLive bubbles=false}} class="liveToggle">
         <span {{bind-attr class=":liveIcon isLive:active"}}></span>
-        <span class="liveHotkey">{{liveHotkey}}</span>
+        <span class="liveHotkey"></span>
       </span>
     </span>
     <div class="visualizer">
+    </div>
+    <div class="bottomControls">
+      {{#if instrumentModel.isPrivate}}
+        <i class="fa fa-lock fa-fw control pull-right"></i>
+      {{/if}}
     </div>
   </div>
   {{#if showAdvanced}}

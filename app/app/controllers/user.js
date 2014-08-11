@@ -4,11 +4,10 @@ var Network = require('asNEAT/network')['default'];
 export default Ember.Controller.extend({
 
   // set by route
-  // {instruments: []}
-  content: null,
+  // {user, instruments: []}
 
   instrumentParams: function() {
-    var instruments = this.get('content.instruments');
+    var instruments = this.get('instruments');
     if (!instruments.toArray)
       return [];
 
@@ -22,5 +21,5 @@ export default Ember.Controller.extend({
           instrumentModel: instrument
         };
     });
-  }.property('content.instruments.@each')
+  }.property('instruments.@each')
 });

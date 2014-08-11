@@ -80,6 +80,16 @@ html, body {
     }
   }
 
+  .bottomControls {
+    position:relative;
+    bottom:0;
+
+    .control {
+      margin-top: -11px;
+      padding: 0;
+    }
+  }
+
   svg {
     border-width: 0 1px 4px 1px;
     background-color: #f8f8f8;

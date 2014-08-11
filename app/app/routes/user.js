@@ -10,6 +10,7 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, model) {
-    controller.set('content', model);
+    controller.set('user', model.get('user'));
+    controller.set('instruments', model.get('instruments'));
   }
 });

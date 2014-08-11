@@ -11,7 +11,7 @@
   </div>
   <div class="row instruments">
     {{#each parentInstrumentParams}}
-      {{instrument-parent
+      {{instrument-component
         instrumentNetwork=this.instrumentNetwork
         selected=this.selected
         isLive=this.isLive
@@ -51,7 +51,7 @@
 
   <div class="row children">
     {{#each childInstrumentParams}}
-      {{instrument-child
+      {{instrument-component
         instrumentNetwork=this.instrumentNetwork
         selected=this.selected
         isLive=this.isLive
