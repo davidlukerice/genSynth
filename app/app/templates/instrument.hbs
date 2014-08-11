@@ -10,9 +10,9 @@
       {{input value=tempName placeholder="Instrument Name" maxlength="50"}}
       {{#if nameHasChanged}}
       <i {{action "cancelName" bubbles=false}} class="fa fa-times fa-fw control"></i>
-      {{#if hasName}}
-        <i {{action "saveName" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
-      {{/if}}
+        {{#if hasName}}
+          <i {{action "saveName" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
+        {{/if}}
       {{/if}}
     {{else}}
       {{instrument.name}}
@@ -35,7 +35,20 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-
+      <span>Tags<span>
+      {{#if isCreator}}
+        {{tag-it tags=splitTags}}
+        {{#if tagsHaveChanged}}
+          <i {{action "cancelTags" bubbles=false}} class="fa fa-times fa-fw control"></i>
+          <i {{action "saveTags" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
+        {{/if}}
+      {{else}}
+        {{#each splitTags}}
+          <span class="label label-primary">{{this}}</span>
+        {{else}}
+          <span class="label label-default">No Tags</span>
+        {{/each}}
+      {{/if}}
     </div>
   </div>
   <div class="row">

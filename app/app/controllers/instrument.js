@@ -28,6 +28,23 @@ export default Ember.Controller.extend({
     return tempName && tempName !== "";
   }.property('tempName'),
 
+  tempTags: "",
+  updateTempTags: function() {
+    this.set('tempTags', this.get('instrument.tags'));
+  }.observes('instrument.tags'),
+  tagsHaveChanged: function() {
+    var instrument = this.get('instrument'),
+        temp = this.get('tempTags');
+    return instrument && temp !== instrument.get('tags');
+  }.property('tempTags', 'instrument.tags'),
+
+  splitTags: function() {
+    var tags = this.get('tempTags');
+    if (!tags || tags.length === 0)
+      return [];
+    return tags.split(' ');
+  }.property('tempTags'),
+
   isCreator: function() {
     var application = this.get('controllers.application');
     return this.get('instrument.user.id') ===
