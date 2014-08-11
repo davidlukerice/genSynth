@@ -35,9 +35,8 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <span>Tags<span>
       {{#if isCreator}}
-        {{tag-it tags=splitTags}}
+        {{tag-it tags=splitTags tagAdded="addTempTag"}}
         {{#if tagsHaveChanged}}
           <i {{action "cancelTags" bubbles=false}} class="fa fa-times fa-fw control"></i>
           <i {{action "saveTags" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>

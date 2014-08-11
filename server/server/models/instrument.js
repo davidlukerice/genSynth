@@ -35,7 +35,10 @@ var InstrumentSchema = new Schema({
       type: Boolean
     },
     likes: [UserSchema],
-    tags: [String]
+    tags: {
+      type: String,
+      trim: true
+    }
   },
   {
     versionKey: false,

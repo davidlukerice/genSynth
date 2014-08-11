@@ -37,7 +37,6 @@ export default Ember.Controller.extend({
         temp = this.get('tempTags');
     return instrument && temp !== instrument.get('tags');
   }.property('tempTags', 'instrument.tags'),
-
   splitTags: function() {
     var tags = this.get('tempTags');
     if (!tags || tags.length === 0)
@@ -87,6 +86,27 @@ export default Ember.Controller.extend({
     cancelName: function() {
       this.set('tempName', this.get('instrument.name'));
     },
+
+    addTempTag: function(tag) {
+      var tags = this.get('tempTags');
+      tags = (tags===null) ? tag : this.get('tempTags')+" "+tag;
+      this.set('tempTags', tags);
+    },
+    saveTags: function() {
+      // TODO: Profanity check? Server side?
+      // https://www.npmjs.org/package/profanity-filter
+
+      var instrument = this.get('instrument'),
+          temp = this.get('tempTags');
+      if (instrument && temp !== instrument.get('tags')) {
+        instrument.set('tags', temp);
+        instrument.save();
+      }
+    },
+    cancelTags: function() {
+      this.set('tempTags', this.get('instrument.tags'));
+    },
+
     publish: function() {
       var instrument = this.get('instrument');
       if (!instrument.set) {
