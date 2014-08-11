@@ -43,7 +43,7 @@ export default Ember.Component.extend({
     if (!model || !model.get('stars').isFulfilled)
       return 0;
     else
-      return model.get('stars').content.length;
+      return model.get('stars').content.toArray().length;
   }.property('instrumentModel.stars.@each.id'),
 
   currentUserStarred: function() {
