@@ -14,13 +14,14 @@
         <span {{bind-attr class=":liveIcon isLive:active"}}></span>
         <span class="liveHotkey"></span>
       </span>
+      {{#if instrumentModel.isPrivate}}
+        <i class="fa fa-lock fa-fw pull-right locked" title="Not Published"></i>
+      {{/if}}
     </span>
     <div class="visualizer">
     </div>
     <div class="bottomControls">
-      {{#if instrumentModel.isPrivate}}
-        <i class="fa fa-lock fa-fw pull-right" title="Not Published"></i>
-      {{/if}}
+      <i class="fa fa-star-o fa-2x fa-fw pull-right" title="Not Published"></i>
     </div>
   </div>
   {{#if showAdvanced}}
