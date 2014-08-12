@@ -12,6 +12,7 @@ export default Ember.Component.extend({
   showAdvanced: false,
 
   instrumentModel: null,
+  branchedParent: null,
 
   makeLiveHandler: null,
 
@@ -105,7 +106,8 @@ export default Ember.Component.extend({
         created: Date.now(),
         name: 'new Instr',
         json: this.get('instrumentNetwork').toJSON(),
-        isPrivate: true
+        isPrivate: true,
+        branchedParent: this.get('branchedParent')
       });
       instrument.save().then(function(instrument) {
         self.set('instrumentModel', instrument);

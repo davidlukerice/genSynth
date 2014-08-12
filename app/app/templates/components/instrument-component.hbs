@@ -10,6 +10,11 @@
       {{else}}
         <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" title="save"></i>
       {{/if}}
+      {{#if isPublished}}
+        {{#link-to "branch" instrumentModel}}
+          <i class="fa fa-code-fork fa-2x fa-fw control"></i>
+        {{/link-to}}
+      {{/if}}
       <span {{action makeLive bubbles=false}} class="liveToggle" title="make live">
         <span {{bind-attr class=":liveIcon isLive:active"}}></span>
         <span class="liveHotkey"></span>

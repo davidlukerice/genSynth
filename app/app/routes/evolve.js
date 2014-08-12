@@ -6,7 +6,6 @@ var numInitialMutations = 4;
 
 export default Ember.Route.extend({
   model: function() {
-    
     var instrumentParams = [];
     for (var i=0; i<numInitialNetworks; ++i) {
       var instrumentNetwork = new Network();

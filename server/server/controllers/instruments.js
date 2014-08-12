@@ -32,7 +32,7 @@ exports.instrument = function(req, res, next, id) {
 exports.create = function(req, res) {
   var params = req.body.instrument;
   var instrument = new Instrument({
-    branchedParent: params.branchedParaent,
+    branchedParent: params.branchedParent,
     json: params.json,
     name: params.name,
     stars: []
@@ -261,24 +261,24 @@ exports.index = function(req, res) {
     query = query.limit(countLimit);
 
   query.populate([{path: 'user'}, {path:'stars'}])
-       .exec(function(err, instruments)
-  {
-    if (err) {
-      res.status(500);
-      res.jsonp({
-        msg: 'error'
-      });
-    } else {
-      instruments = toObjects(instruments);
-      instruments.instruments = _.filter(instruments.instruments,
-        function(instrument) {
-          return !instrument.isPrivate ||
-                 instrument.user === currentUserId;
-        });
+       .exec(function(err, instruments) {
+          if (err) {
+            res.status(500);
+            res.jsonp({
+              msg: 'error'
+            });
+          } else {
+            instruments = toObjects(instruments);
+            instruments.instruments = _.filter(instruments.instruments,
+              function(instrument) {
+                return !instrument.isPrivate ||
+                       instrument.user === currentUserId;
+              });
 
-      res.send(instruments);
-    }
-  });
+            res.send(instruments);
+          }
+        }
+  );
 };
 
 function toObjects(arr) {

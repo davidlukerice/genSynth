@@ -18,6 +18,10 @@ export default Ember.Controller.extend({
   // {instrumentParams: [[{instrumentNetwork:asNEAT.Network, isLive, selected}, ...],[...],...]}
   content: null,
 
+  // (optional) An instrument that all the shown
+  // instruments are evolved from
+  branchedParent: null,
+
   noPreviousParents: function() {
     return this.get('content.instrumentParams').length <= 1;
   }.property('content.instrumentParams.@each'),
