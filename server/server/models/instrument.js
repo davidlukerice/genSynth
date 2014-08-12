@@ -11,7 +11,8 @@ var mongoose = require('mongoose'),
 var InstrumentSchema = new Schema({
     created: {
       type: Date,
-      default: Date.now
+      default: Date.now,
+      index: true
     },
     user: {
       type: ObjectId,
@@ -20,7 +21,8 @@ var InstrumentSchema = new Schema({
     name: {
       type: String,
       default: '',
-      trim: true
+      trim: true,
+      index: true
     },
     json: {
       type: String,
@@ -31,22 +33,36 @@ var InstrumentSchema = new Schema({
       ref: 'Instrument'
     },
     isPrivate: {
-      type: Boolean
+      type: Boolean,
+      default: true
     },
     stars: [{
       type: ObjectId,
       ref: 'User'
     }],
+    starsCount: {
+      type: Number,
+      default: 0,
+      index: true
+    },
     tags: {
       type: String,
-      trim: true
+      trim: true,
+      index: true,
+      default: ''
     }
   },
   {
     versionKey: false,
-    id: true
+    id: true,
+    autoIndex: false
   }
 );
+
+InstrumentSchema.index({
+  'starsCount': 1,
+  'created': -1
+});
 
 /**
  * Validations

@@ -4,6 +4,7 @@
 var mongoose = require('mongoose'),
     Instrument = mongoose.model('Instrument'),
     User = mongoose.model('User'),
+    UsersController = require('./users'),
     _ = require('lodash');
 
 /**
@@ -29,7 +30,13 @@ exports.instrument = function(req, res, next, id) {
  * Create a instrument
  */
 exports.create = function(req, res) {
-  var instrument = new Instrument(req.body.instrument);
+  var params = req.body.instrument;
+  var instrument = new Instrument({
+    branchedParent: params.branchedParaent,
+    json: params.json,
+    name: params.name,
+    stars: []
+  });
 
   instrument.user = req.user;
   instrument.save(function(err) {
@@ -60,9 +67,7 @@ exports.create = function(req, res) {
             });
             return;
           }
-          res.send({
-            instrument: toObject(instrument)
-          });
+          res.send(toObject(instrument));
         });
       }
     );
@@ -95,9 +100,7 @@ exports.update = function(req, res) {
         msg: 'error'
       });
     } else {
-      res.send({
-        instrument: toObject(instrument)
-      });
+      res.send(toObject(instrument));
     }
   });
 };
@@ -116,10 +119,9 @@ exports.star = function(req, res) {
         });
         return;
       }
-      User.update(
-        {_id:user.id},
-        {$addToSet:{stars: instrument.id}},
-        {},function(err) {
+      Instrument.findById(instrument.id, function(err, instrument) {
+        instrument.starsCount = instrument.stars.length;
+        instrument.save(function(err) {
           if (err) {
             res.status(500);
             res.jsonp({
@@ -127,12 +129,27 @@ exports.star = function(req, res) {
             });
           }
           else {
-            res.jsonp({
-              succeeded: true
-            });
+            User.update(
+              {_id:user.id},
+              {$addToSet:{stars: instrument.id}},
+              {},function(err) {
+                if (err) {
+                  res.status(500);
+                  res.jsonp({
+                    msg: 'error'
+                  });
+                }
+                else {
+                  res.jsonp({
+                    succeeded: true,
+                    starsCount: instrument.starsCount
+                  });
+                }
+              }
+            );
           }
-        }
-      );
+        });
+      });
     }
   );
 };
@@ -150,10 +167,9 @@ exports.unstar = function(req, res) {
         });
         return;
       }
-      User.update(
-        {_id:user.id},
-        {$pull:{stars:instrument.id}},
-        {},function(err) {
+      Instrument.findById(instrument.id, function(err, instrument) {
+        instrument.starsCount = instrument.stars.length;
+        instrument.save(function(err) {
           if (err) {
             res.status(500);
             res.jsonp({
@@ -161,12 +177,27 @@ exports.unstar = function(req, res) {
             });
           }
           else {
-            res.jsonp({
-              succeeded: true
-            });
+            User.update(
+              {_id:user.id},
+              {$pull:{stars: instrument.id}},
+              {},function(err) {
+                if (err) {
+                  res.status(500);
+                  res.jsonp({
+                    msg: 'error'
+                  });
+                }
+                else {
+                  res.jsonp({
+                    succeeded: true,
+                    starsCount: instrument.starsCount
+                  });
+                }
+              }
+            );
           }
-        }
-      );
+        });
+      });
     }
   );
 };
@@ -202,9 +233,7 @@ exports.show = function(req, res) {
     });
     return;
   }
-  res.jsonp({
-    instrument: toObject(req.instrument)
-  });
+  res.jsonp(toObject(req.instrument));
 };
 
 /**
@@ -213,12 +242,13 @@ exports.show = function(req, res) {
 exports.index = function(req, res) {
   var currentUserId = req.user ? req.user.id : 0;
 
-  var sortBy = req.query.sortBy;
-  if (sortBy) {
+  var sortParams = {
+    created: -1
+  };
+  if (req.query.sortBy) {
+    sortParams[req.query.sortBy] = 1;
     delete req.query.sortBy;
   }
-  else
-    sortBy = '-created';
 
   var countLimit = req.query.countLimit;
   if (countLimit) {
@@ -226,7 +256,7 @@ exports.index = function(req, res) {
   }
 
   var query = Instrument.find(req.query)
-            .sort(sortBy);
+            .sort(sortParams);
 
   if (countLimit)
     query = query.limit(countLimit);
@@ -241,41 +271,53 @@ exports.index = function(req, res) {
       });
     } else {
       instruments = toObjects(instruments);
-      instruments = _.filter(instruments, function(instrument) {
-        return !instrument.isPrivate ||
-               instrument.user === currentUserId;
-      });
+      instruments.instruments = _.filter(instruments.instruments,
+        function(instrument) {
+          return !instrument.isPrivate ||
+                 instrument.user === currentUserId;
+        });
 
-      res.send({
-        instruments: instruments
-      });
+      res.send(instruments);
     }
   });
 };
 
 function toObjects(arr) {
-  var objs = [];
+  var objs = [],
+      users = [];
   _.forEach(arr, function(item) {
-    objs.push(toObject(item));
+    var obj = toObject(item);
+    objs.push(obj.instrument);
+    users = users.concat(obj.users);
   });
-  return objs;
+  return {
+    instruments: objs,
+    users: users
+  };
 }
 
 function toObject(item) {
-  // TODO: Sideload?
   var stars = _.map(item.stars, function(item) {
     return item.id;
   });
 
   return {
-    id: item.id,
-    created: item.created,
-    user: item.user.id,
-    name: item.name,
-    json: item.json,
-    branchedParent: item.branchedParent,
-    isPrivate: item.isPrivate,
-    stars: stars,
-    tags: item.tags
+    instrument: {
+      id: item.id,
+      created: item.created,
+      user: item.user.id,
+      name: item.name,
+      json: item.json,
+      branchedParent: item.branchedParent,
+      isPrivate: item.isPrivate,
+      stars: stars,
+      starsCount: item.starsCount,
+      tags: item.tags
+    },
+    users: _.map(item.stars, function(user) {
+      // TODO: Fix ids?
+      return UsersController.toObject(user);
+    })
   };
 }
+exports.toObject = toObject;

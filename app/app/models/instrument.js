@@ -15,5 +15,6 @@ export default DS.Model.extend({
     inverse: 'stars',
     async: true
   }),
+  starsCount: DS.attr('number'),
   tags: DS.attr('string')
 });

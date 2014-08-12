@@ -25,7 +25,7 @@
           {{else}}
             <i {{action "starInstrument"}} class="fa fa-star-o fa-2x fa-fw control" title="star this instrument"></i>
           {{/if}}
-          <span class="badge">{{numberOfStars}}</span>
+          <span class="badge">{{instrumentModel.starsCount}}</span>
         </div>
       {{else}}
         {{#if isSaved}}

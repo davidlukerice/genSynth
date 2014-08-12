@@ -36,14 +36,6 @@ export default Ember.Component.extend({
     return "#"+this.elementId+' .visualizer';
   }.property('elementId'),
 
-  numberOfStars: function() {
-    var model = this.get('instrumentModel');
-    if (!model || !model.get('stars').isFulfilled)
-      return 0;
-    else
-      return model.get('stars').content.toArray().length;
-  }.property('instrumentModel.stars.@each.id'),
-
   currentUserStarred: function() {
     var applicationCtrl = this.get('targetObject.controllers.application'),
         currentUserId = applicationCtrl.get('currentUser.id'),
@@ -164,7 +156,8 @@ export default Ember.Component.extend({
         xhrFields: {
           withCredentials: true
         }
-      }).then(function() {
+      }).then(function(output) {
+        model.set('starsCount', output.starsCount);
         model.get('stars').pushObject(currentUser);
       });
     },
@@ -188,7 +181,8 @@ export default Ember.Component.extend({
         xhrFields: {
           withCredentials: true
         }
-      }).then(function() {
+      }).then(function(output) {
+        model.set('starsCount', output.starsCount);
         model.get('stars').removeObject(currentUser);
       });
     }
