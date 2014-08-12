@@ -86,7 +86,8 @@ html, body {
   .bottomControls {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    right: 0;
+    width: 75px;
     padding: 0 10px 5px 10px;
 
     .badge {
@@ -94,6 +95,28 @@ html, body {
       top: -3px;
       background-color: #777777;
       margin-left: -6px;
+    }
+  }
+
+  .bottomInfo {
+    position: absolute;
+    bottom: 0;
+    max-width: calc(100% - 75px);
+    padding: 0 5px 6px 5px;
+
+    h4 {
+      padding: 3px;
+      border-radius: 5px 5px 0px 0;
+      margin-bottom: 0;
+      background-color: rgba($backgroundColor, 0.6);
+    }
+
+    .tagContainer {
+      background-color: rgba($backgroundColor, 0.6);
+
+      .label {
+        background-color: rgba(#158cba, 0.6);
+      }
     }
   }
 
