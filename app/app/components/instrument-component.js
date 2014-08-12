@@ -61,6 +61,14 @@ export default Ember.Component.extend({
   }.property('instrumentModel.stars.@each.id',
              'targetObject.controllers.application.currentUser.id'),
 
+  splitTags: function() {
+    var tags = this.get('instrumentModel.tags');
+    if (tags)
+      return tags.split(' ');
+    else
+      return [];
+  }.property('instrumentModel.tags'),
+
   initVisualization: function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
       var visualization = Visualizer.createInstrumentVisualization({

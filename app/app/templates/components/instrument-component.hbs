@@ -1,4 +1,13 @@
 <div class="col-md-4 col-sm-4">
+  {{#if isPublished}}
+    <h3>{{instrumentModel.name}}
+      <small>
+        by: {{#link-to "user" instrumentModel.user}}
+            {{instrumentModel.user.username}}
+          {{/link-to}}
+      </small>
+    </h3>
+  {{/if}}
   <div {{action "toggleSelected"}} {{bind-attr class=":instrument selectable selected"}}>
     <span class="controls">
       <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control" title="play"></i>
@@ -34,6 +43,13 @@
       {{/if}}
     </div>
   </div>
+  {{#if isPublished}}
+    <div class="tagContainer">
+      {{#each splitTags}}
+        <span class="label label-primary">{{this}}</span>
+      {{/each}}
+    </div>
+  {{/if}}
   {{#if showAdvanced}}
     <div class="lastMutation">
       {{lastMutation}}
