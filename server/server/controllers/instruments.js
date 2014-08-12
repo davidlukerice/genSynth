@@ -242,13 +242,12 @@ exports.show = function(req, res) {
 exports.index = function(req, res) {
   var currentUserId = req.user ? req.user.id : 0;
 
-  var sortParams = {
-    created: -1
-  };
+  var sortParams = "";
   if (req.query.sortBy) {
-    sortParams[req.query.sortBy] = 1;
+    sortParams+=req.query.sortBy;
     delete req.query.sortBy;
   }
+  sortParams+= ' -created';
 
   var countLimit = req.query.countLimit;
   if (countLimit) {

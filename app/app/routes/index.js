@@ -6,7 +6,7 @@ export default Ember.Route.extend({
     return Ember.Object.create({
       instruments: this.store.find('instrument', {
         isPrivate: false,
-        sortBy: 'likes',
+        sortBy: '-stars',
         countLimit: 9
       })
     });
