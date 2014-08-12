@@ -31,14 +31,21 @@ export default Ember.Controller.extend({
       return [];
 
     return _.map(instruments.toArray(),
-      function(instrument) {
+      function(instrument, i) {
         return {
           instrumentNetwork: Network.createFromJSON(instrument.get('json')),
           selected: false,
-          isLive: false,
-          index: 0,
+          isLive: i===0,
+          index: i,
           instrumentModel: instrument
         };
     });
-  }.property('instruments.@each')
+  }.property('instruments.@each'),
+
+  selectInitialInstrument: function() {
+    var instruments = this.get('instrumentParams');
+    if (instruments.length > 0)
+      this.get('controllers.application')
+          .set('activeInstrument', instruments[0]);
+  }.observes('instrumentParams.@each'),
 });
