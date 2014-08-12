@@ -28,21 +28,27 @@ export default Ember.Controller.extend({
     return tempName && tempName !== "";
   }.property('tempName'),
 
-  tempTags: "",
+  tempInstrumentTags: "",
+
+  // Using an observer/field instead of a computed property since
+  // changes weren't being propogated for some reason...
+  splitTempInstrumentTags: [],
+  updateSplitTempInstrumentTags: function() {
+    var tags = this.get('tempInstrumentTags');
+    if (!tags || tags.length === 0)
+      this.set('splitTempInstrumentTags', Ember.Array.constructor([]));
+    this.set('splitTempInstrumentTags', Ember.Array.constructor(tags.split(' ')));
+  }.observes('tempInstrumentTags'),
+
   updateTempTags: function() {
-    this.set('tempTags', this.get('instrument.tags'));
-  }.observes('instrument.tags'),
+    this.set('tempInstrumentTags', this.get('instrument.tags'));
+  }.observes('instrument.tags.@each'),
+
   tagsHaveChanged: function() {
     var instrument = this.get('instrument'),
-        temp = this.get('tempTags');
+        temp = this.get('tempInstrumentTags');
     return instrument && temp !== instrument.get('tags');
-  }.property('tempTags', 'instrument.tags'),
-  splitTags: function() {
-    var tags = this.get('tempTags');
-    if (!tags || tags.length === 0)
-      return [];
-    return tags.split(' ');
-  }.property('tempTags'),
+  }.property('tempInstrumentTags', 'instrument.tags.@each'),
 
   isCreator: function() {
     var application = this.get('controllers.application');
@@ -88,23 +94,30 @@ export default Ember.Controller.extend({
     },
 
     addTempTag: function(tag) {
-      var tags = this.get('tempTags');
-      tags = (tags===null) ? tag : this.get('tempTags')+" "+tag;
-      this.set('tempTags', tags);
+      var tags = this.get('splitTempInstrumentTags');
+      if (tags.contains(tag))
+        return;
+      tags.pushObject(tag);
+      this.set('tempInstrumentTags', tags.join(' '));
+    },
+    removeTempTag: function(tag) {
+      var tags = this.get('splitTempInstrumentTags');
+      tags.removeObject(tag);
+      this.set('tempInstrumentTags', tags.join(' '));
     },
     saveTags: function() {
       // TODO: Profanity check? Server side?
       // https://www.npmjs.org/package/profanity-filter
 
       var instrument = this.get('instrument'),
-          temp = this.get('tempTags');
+          temp = this.get('tempInstrumentTags');
       if (instrument && temp !== instrument.get('tags')) {
         instrument.set('tags', temp);
         instrument.save();
       }
     },
     cancelTags: function() {
-      this.set('tempTags', this.get('instrument.tags'));
+      this.set('tempInstrumentTags', this.get('instrument.tags'));
     },
 
     publish: function() {

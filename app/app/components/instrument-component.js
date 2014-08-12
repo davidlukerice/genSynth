@@ -15,8 +15,6 @@ export default Ember.Component.extend({
 
   makeLiveHandler: null,
 
-  currentUser: null,
-
   width: "100%",
   height: "100%",
 

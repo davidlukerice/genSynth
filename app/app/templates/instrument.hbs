@@ -39,13 +39,16 @@
   <div class="row">
     <div class="col-md-12">
       {{#if isCreator}}
-        {{tag-it tags=splitTags tagAdded="addTempTag"}}
+        {{tag-it
+          tags=splitTempInstrumentTags
+          tagAdded="addTempTag"
+          tagRemoved="removeTempTag"}}
         {{#if tagsHaveChanged}}
           <i {{action "cancelTags" bubbles=false}} class="fa fa-times fa-fw control"></i>
           <i {{action "saveTags" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
         {{/if}}
       {{else}}
-        {{#each splitTags}}
+        {{#each splitTempInstrumentTags}}
           <span class="label label-primary">{{this}}</span>
         {{else}}
           <span class="label label-default">No Tags</span>

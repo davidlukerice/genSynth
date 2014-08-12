@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   // Passable parameters
   tags: [],
   //tagAdded: functionName,
+  //tagRemoved: functionName
   placeholderText: "Tags",
   tagLimit: 10,
 
@@ -24,6 +25,10 @@ export default Ember.Component.extend({
         afterTagAdded: function(event, ui) {
           if (self.get('shouldSendActions'))
             self.afterTagAdded(ui.tagLabel);
+        },
+        afterTagRemoved: function(event, ui) {
+          if (self.get('shouldSendActions'))
+            self.afterTagRemoved(ui.tagLabel);
         }
       });
 
@@ -76,5 +81,11 @@ export default Ember.Component.extend({
     var tagAdded = this.get('tagAdded');
     if (tagAdded)
       this.sendAction('tagAdded', tag);
+  },
+
+  afterTagRemoved: function(tag) {
+    var tagRemoved = this.get('tagRemoved');
+    if (tagRemoved)
+      this.sendAction('tagRemoved', tag);
   }
 });
