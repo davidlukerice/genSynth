@@ -146,6 +146,7 @@ html, body {
   &:hover,
   &.active {
     color: lighten(rgb(51, 51, 51), 40%);
+    text-decoration: none;
   }
 }
 

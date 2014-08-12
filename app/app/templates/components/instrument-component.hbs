@@ -1,18 +1,18 @@
 <div class="col-md-4 col-sm-4">
   <div {{action "toggleSelected"}} {{bind-attr class=":instrument selectable selected"}}>
     <span class="controls">
-      <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control" title="play"></i>
-      <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-sitemap :fa-2x :fa-fw :control isShowingNetwork:active"}} title="show/hide network"></i>
+      <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control" title="Play"></i>
+      <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-share-alt :fa-2x :fa-fw :control isShowingNetwork:active"}} title="Show/Hide network"></i>
       {{#if isSaved}}
         {{#link-to "instrument" instrumentModel}}
-          <i class="fa fa-gear fa-2x fa-fw control"></i>
+          <i class="fa fa-sitemap fa-2x fa-fw control" title="Details"></i>
         {{/link-to}}
       {{else}}
-        <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" title="save"></i>
+        <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" title="Save"></i>
       {{/if}}
       {{#if isPublished}}
         {{#link-to "branch" instrumentModel}}
-          <i class="fa fa-code-fork fa-2x fa-fw control"></i>
+          <i class="fa fa-code-fork fa-2x fa-fw control" title="Branch"></i>
         {{/link-to}}
       {{/if}}
       <span {{action makeLive bubbles=false}} class="liveToggle" title="make live">
@@ -26,15 +26,17 @@
       {{#if isPublished}}
         <div class="stars pull-right">
           {{#if currentUserStarred}}
-            <i {{action "unstarInstrument"}} class="fa fa-star fa-2x fa-fw blue control" title="star this instrument"></i>
+            <i {{action "unstarInstrument"}} class="fa fa-star fa-2x fa-fw blue control" title="Unstar this instrument"></i>
           {{else}}
-            <i {{action "starInstrument"}} class="fa fa-star-o fa-2x fa-fw control" title="star this instrument"></i>
+            <i {{action "starInstrument"}} class="fa fa-star-o fa-2x fa-fw control" title="Star this instrument"></i>
           {{/if}}
           <span class="badge">{{instrumentModel.starsCount}}</span>
         </div>
       {{else}}
         {{#if isSaved}}
-          <i class="fa fa-lock fa-fw fa-2x pull-right locked" title="Not Published"></i>
+          {{#link-to "instrument" instrumentModel}}
+            <i class="fa fa-lock fa-fw fa-2x pull-right locked control" title="Not Published"></i>
+          {{/link-to}}
         {{/if}}
       {{/if}}
     </div>
