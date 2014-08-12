@@ -37,7 +37,8 @@ export default Ember.Controller.extend({
     var tags = this.get('tempInstrumentTags');
     if (!tags || tags.length === 0)
       this.set('splitTempInstrumentTags', Ember.Array.constructor([]));
-    this.set('splitTempInstrumentTags', Ember.Array.constructor(tags.split(' ')));
+    else
+      this.set('splitTempInstrumentTags', Ember.Array.constructor(tags.split(' ')));
   }.observes('tempInstrumentTags'),
 
   updateTempTags: function() {
