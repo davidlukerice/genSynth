@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     Instrument = mongoose.model('Instrument'),
     User = mongoose.model('User'),
     UsersController = require('./users'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    async = require('async');
 
 /**
  * Find instrument by id
@@ -32,46 +33,60 @@ exports.instrument = function(req, res, next, id) {
 exports.create = function(req, res) {
   var params = req.body.instrument;
   var instrument = new Instrument({
+    user: req.user,
     branchedParent: params.branchedParent,
     json: params.json,
     name: params.name,
     stars: []
   });
 
-  instrument.user = req.user;
-  instrument.save(function(err) {
-    if (err) {
-      res.status(500);
-      res.jsonp({
-        msg: 'error saving'
+  async.waterfall([
+    // save instrument
+    function(callback) {
+      instrument.save(function(err) {
+        callback(err);
       });
-      return;
-    }
-    User.update(
-      {_id: req.user.id},
-      {$addToSet:{instruments: instrument.id}},
-      {},function(err) {
-        if (err) {
-          res.status(500);
-          res.jsonp({
-            msg: 'error'
+    },
+    // add instrument to user's instruments
+    function(callback) {
+      User.update(
+        {_id: req.user.id},
+        {$addToSet:{instruments: instrument.id}},
+        {}, function(err) {
+          callback(err);
+        });
+    },
+    // add instrument to branchedParent's children
+    function(callback) {
+      if (params.branchedParent) {
+        Instrument.update(
+          {_id: params.branchedParent},
+          {$addToSet:{branchedChildren: instrument.id}},
+          {}, function(err) {
+            callback(err);
           });
-          return;
-        }
-        Instrument.populate(instrument,
-          [{path:'user'}, {path:'stars'}], function(err, instrument) {
-          if (err) {
-            res.status(500);
-            res.jsonp({
-              msg: 'error populating'
-            });
-            return;
-          }
-          res.send(toObject(instrument));
+      }
+      else
+        callback();
+    },
+    // populate new instrument to return it
+    function(callback) {
+      Instrument.populate(
+        instrument, [{path:'user'}, {path:'stars'}],
+        function(err, instrument) {
+          callback(err, instrument);
+      });
+    }
+    ], function(err, instrument) {
+      if (err) {
+        res.status(500);
+        res.jsonp({
+          msg: 'error populating'
         });
       }
-    );
-  });
+      else
+        res.send(toObject(instrument));
+    });
 };
 
 /**

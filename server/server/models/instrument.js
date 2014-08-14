@@ -32,6 +32,10 @@ var InstrumentSchema = new Schema({
       type: ObjectId,
       ref: 'Instrument'
     },
+    branchedChildren: [{
+      type: ObjectId,
+      ref: 'Instrument'
+    }],
     isPrivate: {
       type: Boolean,
       default: true

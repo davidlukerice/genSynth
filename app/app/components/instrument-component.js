@@ -101,16 +101,22 @@ export default Ember.Component.extend({
       }
 
       var self = this,
-          store = controller.get('.store');
+          store = controller.get('.store'),
+          branchedParent = this.get('branchedParent');
       var instrument = store.createRecord('instrument', {
         created: Date.now(),
         name: 'new Instr',
         json: this.get('instrumentNetwork').toJSON(),
         isPrivate: true,
-        branchedParent: this.get('branchedParent')
+        branchedParent: branchedParent
       });
       instrument.save().then(function(instrument) {
         self.set('instrumentModel', instrument);
+        if (branchedParent) {
+          branchedParent.get('branchedChildren').then(function(children) {
+            children.pushObject(instrument);
+          });
+        }
       }, function(error) {
         // TODO: Show error?
         console.log('error saving: '+error);

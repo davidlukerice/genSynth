@@ -8,7 +8,12 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   json: DS.attr('string'),
   branchedParent: DS.belongsTo('instrument',{
-    async: true
+    async: true,
+    inverse: 'branchedChildren'
+  }),
+  branchedChildren: DS.hasMany('instrument', {
+    async: true,
+    inverse: 'branchedParent'
   }),
   isPrivate: DS.attr('boolean'),
   stars: DS.hasMany('user', {
