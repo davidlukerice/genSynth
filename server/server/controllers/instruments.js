@@ -15,7 +15,7 @@ exports.instrument = function(req, res, next, id) {
   Instrument.findOne({
       _id: id
     })
-    .populate([{path: 'user'}, {path:'stars'}])
+    .populate([{path: 'user'}, {path: 'stars'}, {path: 'branchedChildren'}])
     .exec(function(err, instrument) {
       if (err)
         return next(err);
@@ -275,7 +275,7 @@ exports.index = function(req, res) {
   if (countLimit)
     query = query.limit(countLimit);
 
-  query.populate([{path: 'user'}, {path:'stars'}])
+  query.populate([{path: 'user'}, {path: 'stars'}, {path: 'branchedChildren'}])
        .exec(function(err, instruments) {
           if (err) {
             res.status(500);
@@ -314,6 +314,9 @@ function toObject(item) {
   var stars = _.map(item.stars, function(item) {
     return item.id;
   });
+  var children = _.map(item.branchedChildren, function(item) {
+    return item.id;
+  });
 
   return {
     instrument: {
@@ -323,6 +326,7 @@ function toObject(item) {
       name: item.name,
       json: item.json,
       branchedParent: item.branchedParent,
+      branchedChildren: children,
       isPrivate: item.isPrivate,
       stars: stars,
       starsCount: item.starsCount,
