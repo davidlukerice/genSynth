@@ -338,6 +338,7 @@ function toObject(item) {
       json: item.json,
       branchedParent: item.branchedParent,
       branchedChildren: children,
+      branchedChildrenCount: item.branchedChildrenCount,
       isPrivate: item.isPrivate,
       stars: stars,
       starsCount: item.starsCount,
