@@ -31,10 +31,11 @@ exports.instrument = function(req, res, next, id) {
  * Create a instrument
  */
 exports.create = function(req, res) {
-  var params = req.body.instrument;
+  var params = req.body.instrument,
+      branchedParentId = params.branchedParent;
   var instrument = new Instrument({
     user: req.user,
-    branchedParent: params.branchedParent,
+    branchedParent: branchedParentId,
     json: params.json,
     name: params.name,
     stars: []
@@ -58,12 +59,22 @@ exports.create = function(req, res) {
     },
     // add instrument to branchedParent's children
     function(callback) {
-      if (params.branchedParent) {
+      if (branchedParentId) {
         Instrument.update(
-          {_id: params.branchedParent},
+          {_id: branchedParentId},
           {$addToSet:{branchedChildren: instrument.id}},
           {}, function(err) {
-            callback(err);
+            if (err)
+              callback(err);
+            else {
+              // update the branched children count
+              Instrument.findById(branchedParentId, function(err, inst) {
+                inst.branchedChildrenCount = inst.branchedChildren.length;
+                inst.save(function(err) {
+                  callback(err);
+                });
+              });
+            }
           });
       }
       else

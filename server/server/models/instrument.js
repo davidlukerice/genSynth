@@ -36,6 +36,11 @@ var InstrumentSchema = new Schema({
       type: ObjectId,
       ref: 'Instrument'
     }],
+    branchedChildrenCount: {
+      type: Number,
+      default: 0,
+      index: true
+    },
     isPrivate: {
       type: Boolean,
       default: true
@@ -64,9 +69,15 @@ var InstrumentSchema = new Schema({
 );
 
 InstrumentSchema.index({
-  'starsCount': 1,
+  'starsCount': -1,
   'created': -1
 });
+
+InstrumentSchema.index({
+  'branchedChildrenCount': -1,
+  'created': -1
+});
+
 
 /**
  * Validations

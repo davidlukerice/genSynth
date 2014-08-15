@@ -15,6 +15,7 @@ export default DS.Model.extend({
     async: true,
     inverse: 'branchedParent'
   }),
+  branchedChildrenCount: DS.attr('number'),
   isPrivate: DS.attr('boolean'),
   stars: DS.hasMany('user', {
     inverse: 'stars',
