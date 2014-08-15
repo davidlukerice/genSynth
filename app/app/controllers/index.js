@@ -8,8 +8,8 @@ export default Ember.Controller.extend({
   // {instruments: []}
   content: null,
 
-  instrumentParams: function() {
-    return _.map(this.get('content.instruments').toArray(),
+  mostStarredInstrumentParams: function() {
+    return _.map(this.get('content.mostStarredInstruments').toArray(),
       function(instrument, i) {
         return Ember.Object.create({
           instrumentNetwork: Network.createFromJSON(instrument.get('json')),
@@ -19,12 +19,25 @@ export default Ember.Controller.extend({
           instrumentModel: instrument
         });
     });
-  }.property('content.instruments.@each'),
+  }.property('content.mostStarredInstruments.@each'),
+
+  mostBranchedInstrumentParams: function(){
+    return _.map(this.get('content.mostBranchedInstruments').toArray(),
+      function(instrument, i) {
+        return Ember.Object.create({
+          instrumentNetwork: Network.createFromJSON(instrument.get('json')),
+          selected: false,
+          isLive: false,
+          index: i,
+          instrumentModel: instrument
+        });
+    });
+  }.property('content.mostBranchedInstruments.@each'),
 
   selectInitialInstrument: function() {
-    var instruments = this.get('instrumentParams');
+    var instruments = this.get('mostStarredInstrumentParams');
     if (instruments.length > 0)
       this.get('controllers.application')
           .set('activeInstrument', instruments[0]);
-  }.observes('instrumentParams.@each'),
+  }.observes('mostStarredInstrumentParams.@each'),
 });
