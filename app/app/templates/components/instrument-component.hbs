@@ -12,7 +12,8 @@
       {{/if}}
       {{#if isPublished}}
         {{#link-to "branch" instrumentModel}}
-          <i class="fa fa-code-fork fa-2x fa-fw control" title="Branch"></i>
+          <i class="fa fa-code-fork fa-2x fa-fw control" title="New Branched Child"></i>
+          <span class="badge">{{instrumentModel.branchedChildrenCount}}</span>
         {{/link-to}}
       {{/if}}
       <span {{action makeLive bubbles=false}} class="liveToggle" title="make live">
