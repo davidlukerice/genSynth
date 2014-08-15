@@ -16,10 +16,11 @@
           <span class="badge">{{instrumentModel.branchedChildrenCount}}</span>
         {{/link-to}}
       {{/if}}
-      <span {{action makeLive bubbles=false}} class="liveToggle" title="make live">
-        <span {{bind-attr class=":liveIcon isLive:active"}}></span>
-        <span class="liveHotkey"></span>
-      </span>
+
+      <i {{action makeLive bubbles=false}}
+         {{bind-attr class=":fa :fa-keyboard-o :fa-2x :fa-fw :control :pull-right :liveIcon isLive:live"}}
+         title="Connect Onscreen/MIDI keyboards">
+      </i>
     </span>
     <div class="visualizer">
     </div>
