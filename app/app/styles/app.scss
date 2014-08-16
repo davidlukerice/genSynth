@@ -353,3 +353,8 @@ html, body {
 .blue {
   color: $genSynthBlue;
 }
+
+.row .col-md-4 i.centered {
+  position: relative;
+  left: calc(50% - 36px);
+}

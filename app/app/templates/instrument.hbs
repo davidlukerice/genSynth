@@ -1,62 +1,48 @@
 
 <div class="index">
   <div class="row">
-    <div class="col-md-12">
-      <h3>{{user.username}}</h3>
+    <div class="col-md-12 col-sm-12">
+      <h3>
+        {{#if isCreator}}
+          {{input value=tempName placeholder="Instrument Name" maxlength="50"}}
+          {{#if nameHasChanged}}
+          <i {{action "cancelName" bubbles=false}} class="fa fa-times fa-fw control"></i>
+            {{#if hasName}}
+              <i {{action "saveName" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      </h3>
     </div>
   </div>
-  <h3>
-    {{#if isCreator}}
-      {{input value=tempName placeholder="Instrument Name" maxlength="50"}}
-      {{#if nameHasChanged}}
-      <i {{action "cancelName" bubbles=false}} class="fa fa-times fa-fw control"></i>
-        {{#if hasName}}
-          <i {{action "saveName" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
-        {{/if}}
-      {{/if}}
-    {{else}}
-      {{instrument.name}}
-    {{/if}}
-    <small> by: {{#link-to "user" instrument.user}}
-        {{instrument.user.username}}
-      {{/link-to}}
-      {{#if instrument.isPrivate}} (private){{/if}}
-    </small>
-  </h3>
   <div class="row">
-      {{#if instrumentParams}}
-        {{instrument-component
-          instrumentNetwork=instrumentParams.instrumentNetwork
-          selected=instrumentParams.selected
-          isLive=instrumentParams.isLive
-          index=instrumentParams.index
-          instrumentModel=instrumentParams.instrumentModel
-          makeLiveHandler="makeLive"}}
-      {{/if}}
-      <div class="col-md-offset-4">
-      </div>
-      {{#if branchedParentParams}}
-        <h3>Parent</h3>
-        {{instrument-component
-          instrumentNetwork=branchedParentParams.instrumentNetwork
-          selected=branchedParentParams.selected
-          isLive=branchedParentParams.isLive
-          index=branchedParentParams.index
-          instrumentModel=branchedParentParams.instrumentModel
-          makeLiveHandler="makeLive"}}
-      {{/if}}
+    {{#if instrumentParams}}
+      {{instrument-component
+        instrumentNetwork=instrumentParams.instrumentNetwork
+        selected=instrumentParams.selected
+        isLive=instrumentParams.isLive
+        index=instrumentParams.index
+        instrumentModel=instrumentParams.instrumentModel
+        makeLiveHandler="makeLive"}}
+    {{/if}}
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12">
       {{#if isCreator}}
-        {{tag-it
-          tags=splitTempInstrumentTags
-          tagAdded="addTempTag"
-          tagRemoved="removeTempTag"}}
-        {{#if tagsHaveChanged}}
-          <i {{action "cancelTags" bubbles=false}} class="fa fa-times fa-fw control"></i>
-          <i {{action "saveTags" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
-        {{/if}}
+        <div class="row">
+          <div class="col-md-4 col-sm-4">
+            {{tag-it
+              tags=splitTempInstrumentTags
+              tagAdded="addTempTag"
+              tagRemoved="removeTempTag"}}
+          </div>
+          {{#if tagsHaveChanged}}
+            <div class="col-md-4 col-sm-4">
+              <i {{action "cancelTags" bubbles=false}} class="fa fa-times fa-2x fa-fw control"></i>
+              <i {{action "saveTags" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control"></i>
+            </div>
+          {{/if}}
+        </div>
       {{else}}
         {{#each splitTempInstrumentTags}}
           <span class="label label-primary">{{this}}</span>
@@ -67,7 +53,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4 col-sm-4">
       {{#if isCreator}}
         {{#if instrument.isPrivate}}
           <button {{action 'publish'}} class="btn">Publish</button>
@@ -80,9 +66,31 @@
       {{/if}}
     </div>
   </div>
+  {{#if branchedParentParams}}
+  <div class="row">
+    <div class="col-md-4 col-sm-4">
+      <h3>
+        Parent Instrument
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    {{#if branchedParentParams}}
+      {{instrument-component
+        instrumentNetwork=branchedParentParams.instrumentNetwork
+        selected=branchedParentParams.selected
+        isLive=branchedParentParams.isLive
+        index=branchedParentParams.index
+        instrumentModel=branchedParentParams.instrumentModel
+        makeLiveHandler="makeLive"}}
+    {{/if}}
+  </div>
+  {{/if}}
   {{#if isPublished}}
     <div class="row">
-      <h3>Children Instruments</h3>
+      <div class="col-md-4 col-sm-4">
+        <h3>Children Instruments</h3>
+      </div>
     </div>
     <div class="row">
       {{#each branchedChildrenParams}}
@@ -94,7 +102,12 @@
           instrumentModel=this.instrumentModel
           makeLiveHandler="makeLive"}}
       {{else}}
-        <h4>None (TODO: Branch now...)</h4>
+        <div class="col-md-4 col-sm-4">
+          <h4>{{#link-to "branch" instrument}}
+            <i class="fa fa-code-fork fa-fw control" title="New Branched Child"></i> <span class="control">Branch first child!</span>
+          {{/link-to}}
+          </h4>
+        </div>
       {{/each}}
     </div>
   {{/if}}
