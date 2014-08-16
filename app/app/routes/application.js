@@ -38,7 +38,9 @@ export default Ember.Route.extend({
         }
       }).then(function() {
         self.get('session').invalidate();
-        location.reload();
+        self.transitionTo('index').then(function() {
+          location.reload();
+        });
       });
     },
 
