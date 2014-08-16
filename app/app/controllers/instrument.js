@@ -96,14 +96,20 @@ export default Ember.Controller.extend({
 
   branchedChildrenParams: function() {
     var children = this.get('instrument.branchedChildren');
-    if (!children.toArray)
+    if (!children.isFulfilled)
       return [];
     children = children.toArray();
 
     var params = [];
     _.forEach(children, function(child) {
+      var json = child.get('json');
+      // hack: skip empty returned instruments (means the currentUser
+      // doesn't have permission to view. TODO: Don't return id in array
+      // if the user doesn't have permission)
+      if (!json)
+        return;
       params.push({
-        instrumentNetwork: Network.createFromJSON(child.get('json')),
+        instrumentNetwork: Network.createFromJSON(json),
         selected: false,
         isLive: false,
         index: 0,
