@@ -266,21 +266,31 @@ exports.show = function(req, res) {
  * List of Instruments
  */
 exports.index = function(req, res) {
-  var currentUserId = req.user ? req.user.id : 0;
+  var currentUserId = req.user ? req.user.id : 0,
+      queryParams = req.query,
+      sortParams = "",
+      countLimit = queryParams.countLimit;
 
-  var sortParams = "";
-  if (req.query.sortBy) {
-    sortParams+=req.query.sortBy;
-    delete req.query.sortBy;
+  if (queryParams.sortBy) {
+    sortParams += queryParams.sortBy;
+    delete queryParams.sortBy;
   }
   sortParams+= ' -created';
 
-  var countLimit = req.query.countLimit;
   if (countLimit) {
-    delete req.query.countLimit;
+    delete queryParams.countLimit;
   }
 
-  var query = Instrument.find(req.query)
+  // in case given a list of ids, convert it over to
+  // what mongoDB expects
+  if (queryParams.ids) {
+    queryParams._id = {
+      $in: queryParams.ids
+    };
+    delete queryParams.ids;
+  }
+
+  var query = Instrument.find(queryParams)
             .sort(sortParams);
 
   if (countLimit)
