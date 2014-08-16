@@ -24,7 +24,7 @@
     </small>
   </h3>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
       {{#if instrumentParams}}
         {{instrument-component
           instrumentNetwork=instrumentParams.instrumentNetwork
@@ -32,6 +32,18 @@
           isLive=instrumentParams.isLive
           index=instrumentParams.index
           instrumentModel=instrumentParams.instrumentModel
+          makeLiveHandler="makeLive"}}
+      {{/if}}
+    </div>
+    <div class="col-md-offset-4 col-md-4">
+      {{#if branchedParentParams}}
+        <h3>Parent</h3>
+        {{instrument-component
+          instrumentNetwork=branchedParentParams.instrumentNetwork
+          selected=branchedParentParams.selected
+          isLive=branchedParentParams.isLive
+          index=branchedParentParams.index
+          instrumentModel=branchedParentParams.instrumentModel
           makeLiveHandler="makeLive"}}
       {{/if}}
     </div>
@@ -70,4 +82,22 @@
       {{/if}}
     </div>
   </div>
+  {{#if isPublished}}
+    <div class="row">
+      <h3>Children Instruments</h3>
+    </div>
+    <div class="row">
+      {{#each branchedChildrenParams}}
+        {{instrument-component
+          instrumentNetwork=this.instrumentNetwork
+          selected=this.selected
+          isLive=this.isLive
+          index=this.index
+          instrumentModel=this.instrumentModel
+          makeLiveHandler="makeLive"}}
+      {{else}}
+        <h4>None (TODO: Branch now...)</h4>
+      {{/each}}
+    </div>
+  {{/if}}
 </div>

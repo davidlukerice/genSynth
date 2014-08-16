@@ -75,6 +75,45 @@ export default Ember.Controller.extend({
     return instrumentParams;
   }.property('instrument.json'),
 
+  isPublished: function() {
+    var isPrivate = this.get('instrument.isPrivate');
+    return !isPrivate;
+  }.property('instrument.isPrivate'),
+
+  branchedParentParams: function() {
+    var parent = this.get('instrument.branchedParent');
+    if (!parent || !parent.isFulfilled)
+      return null;
+
+    return {
+      instrumentNetwork: Network.createFromJSON(parent.get('json')),
+      selected: false,
+      isLive: false,
+      index: 0,
+      instrumentModel: parent
+    };
+  }.property('instrument.branchedParent.json'),
+
+  branchedChildrenParams: function() {
+    var children = this.get('instrument.branchedChildren');
+    if (!children.toArray)
+      return [];
+    children = children.toArray();
+
+    var params = [];
+    _.forEach(children, function(child) {
+      params.push({
+        instrumentNetwork: Network.createFromJSON(child.get('json')),
+        selected: false,
+        isLive: false,
+        index: 0,
+        instrumentModel: child
+      });
+    });
+
+    return params;
+  }.property('instrument.branchedChildren.@each.json'),
+
   actions: {
     saveName: function() {
       // TODO: Profanity check? Server side?
