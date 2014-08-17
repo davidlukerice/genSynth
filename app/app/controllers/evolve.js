@@ -97,27 +97,22 @@ export default Ember.Controller.extend({
 
       // Reset parents
       if (e.keyCode === DEC_CODE) {
-        e.preventDefault();
         self.send('resetParents');
       }
       // Go back a generation
       else if (e.keyCode === MINUS_CODE && !self.get('noPreviousParents')){
-        e.preventDefault();
         self.send('backGeneration');
       }
       // Refresh current children
       else if (e.keyCode === MULT_CODE) {
-        e.preventDefault();
         self.send('refreshGeneration');
       }
       // Goto next generation
       else if (e.keyCode === PLUS_CODE && !self.get('noNetworksSelected')) {
-        e.preventDefault();
         self.send('nextGeneration');
       }
       // Toggle selected
       else if (e.keyCode === ENTER_CODE) {
-        e.preventDefault();
         var instrument = self.get('controllers.application.activeInstrument');
         instrument.set('selected', !instrument.get('selected'));
       }
