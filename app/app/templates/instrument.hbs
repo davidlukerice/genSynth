@@ -4,13 +4,27 @@
     <div class="col-md-12 col-sm-12">
       <h3>
         {{#if isCreator}}
-          {{input value=tempName placeholder="Instrument Name" maxlength="50"}}
-          {{#if nameHasChanged}}
-          <i {{action "cancelName" bubbles=false}} class="fa fa-times fa-fw control"></i>
-            {{#if hasName}}
-              <i {{action "saveName" bubbles=false}} class="fa fa-floppy-o fa-fw control"></i>
+          <div class="row">
+            <div class="col-md-4 col-sm-4">
+              {{input
+                value=tempName
+                placeholder="Instrument Name"
+                maxlength="50"
+                class="form-control"}}
+            </div>
+            {{#if nameHasChanged}}
+              <div class="col-md-4 col-sm-4">
+                <i {{action "cancelName" bubbles=false}}
+                   class="fa fa-times fa-fw control">
+                </i>
+                {{#if hasName}}
+                  <i {{action "saveName" bubbles=false}}
+                     class="fa fa-floppy-o fa-fw control">
+                  </i>
+                {{/if}}
+              </div>
             {{/if}}
-          {{/if}}
+          </div>
         {{/if}}
       </h3>
     </div>
