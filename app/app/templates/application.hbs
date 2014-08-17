@@ -31,19 +31,17 @@
           </li>
         {{/if}}
 
-        {{!-- disable for submission
-        <li><a href="#">(?) Find</a></li>
-        <li><a href="#">(m) My Sounds</a></li>
-        --}}
+        <li {{bind-attr class="searchPageIsActive:active"}}>
+          {{#link-to "search"}}
+            <span class="glyphicon glyphicon-search"></span> Search
+          {{/link-to}}
+        </li>
 
         <li {{bind-attr class="feedbackPageIsActive:active"}}>
           {{#link-to "feedback"}}
             Feedback
           {{/link-to}}
         </li>
-        {{!--
-        <li>[Fb] [G+] [Tw]</li>
-        --}}
 
         {{#if session.isAuthenticated}}
           <li>

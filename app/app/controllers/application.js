@@ -14,6 +14,10 @@ export default Ember.Controller.extend(InstrumentPlayer, {
     return this.get('currentPath') === 'user';
   }.property('currentPath'),
 
+  findPageIsActive: function() {
+    return this.get('currentPath') === 'find';
+  }.property('currentPath'),
+
   currentUser: null,
 
   showingLogin: false,

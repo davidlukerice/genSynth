@@ -8,6 +8,7 @@ Router.map(function() {
   this.route('index', {path: '/'});
   this.route('evolve', {path: '/evolve'});
   this.route('branch', {path: '/branch/:instrument_id'});
+  this.route('search', {path: '/search'});
   this.route('user', {path: 'user/:user_id'});
   this.route('instrument', {path: 'instrument/:instrument_id'});
   this.route('feedback');

@@ -1,0 +1,30 @@
+
+<div class="index">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      {{input
+        value=query
+        action="updateSearch"
+        placeholder="Search"
+        maxlength="50"
+        class="form-control"}}
+    </div>
+  </div>
+  {{#if hasSearched}}
+    <div class="row instruments">
+      {{#each instrumentParams}}
+        {{instrument-component
+          instrumentNetwork=this.instrumentNetwork
+          selected=this.selected
+          isLive=this.isLive
+          index=this.index
+          instrumentModel=this.instrumentModel
+          makeLiveHandler="makeLive"}}
+      {{else}}
+        <div class="col-md-12">
+          None found
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+</div>
