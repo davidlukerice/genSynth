@@ -2,12 +2,13 @@ import Ember from 'ember';
 var Network = require('asNEAT/network')['default'];
 
 export default Ember.Controller.extend({
+  needs: ['application'],
   queryParams: ['query'],
   query: null,
 
   hasSearched: function() {
     return this.get('instruments') !== null;
-  }.property('query'),
+  }.property('instruments.#each.json'),
 
   initHandler: function() {
     var self = this;
@@ -44,6 +45,9 @@ export default Ember.Controller.extend({
 
   actions: {
     updateSearch: function() {
+      var query = this.get('query');
+      if (!query)
+        return;
       var instruments = this.store.find('instrument', {
         searchQuery: this.get('query')
       });

@@ -21,8 +21,7 @@ var InstrumentSchema = new Schema({
     name: {
       type: String,
       default: '',
-      trim: true,
-      index: true
+      trim: true
     },
     json: {
       type: String,
@@ -57,7 +56,6 @@ var InstrumentSchema = new Schema({
     tags: {
       type: String,
       trim: true,
-      index: true,
       default: ''
     }
   },
@@ -76,6 +74,15 @@ InstrumentSchema.index({
 InstrumentSchema.index({
   'branchedChildrenCount': -1,
   'created': -1
+});
+
+var model = mongoose.model('Instrument', InstrumentSchema);
+model.collection.ensureIndex({
+  name: 'text',
+  tags: 'text'
+}, function(error) {
+  if (error)
+    console.log(error);
 });
 
 
@@ -106,6 +113,6 @@ InstrumentSchema.statics = {
 };
 */
 
-mongoose.model('Instrument', InstrumentSchema);
+
 
 exports.Schema = InstrumentSchema;

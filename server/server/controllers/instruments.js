@@ -269,7 +269,8 @@ exports.index = function(req, res) {
   var currentUserId = req.user ? req.user.id : 0,
       queryParams = req.query,
       sortParams = "",
-      countLimit = queryParams.countLimit;
+      countLimit = queryParams.countLimit,
+      searchQuery = queryParams.searchQuery;
 
   if (queryParams.sortBy) {
     sortParams += queryParams.sortBy;
@@ -279,6 +280,14 @@ exports.index = function(req, res) {
 
   if (countLimit) {
     delete queryParams.countLimit;
+  }
+
+  if (searchQuery) {
+    queryParams.$text = {
+      $search: searchQuery
+    };
+    sortParams += ' $meta.textScore';
+    delete queryParams.searchQuery;
   }
 
   // in case given a list of ids, convert it over to
