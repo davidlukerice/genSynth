@@ -85,9 +85,8 @@ export default Ember.Component.extend({
     if (typeof releaseHandler === "function")
       releaseHandler();
 
-    if (!instrumentNetwork) {
-      throw 'No instrumentNetwork to play!';
-    }
+    if (!instrumentNetwork)
+      return;
 
     var steps = Utils.stepsFromRootNote(note);
     Utils.log('Playing note: '+note+' ('+steps+')');
