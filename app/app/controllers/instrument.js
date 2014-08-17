@@ -61,13 +61,13 @@ export default Ember.Controller.extend({
 
   instrumentParams: function() {
     var instrument = this.get('instrument');
-    var instrumentParams = {
+    var instrumentParams = Ember.Object.create({
           instrumentNetwork: Network.createFromJSON(instrument.get('json')),
           selected: false,
           isLive: true,
           index: 0,
           instrumentModel: instrument
-    };
+    });
 
     this.get('controllers.application')
         .set('activeInstrument', instrumentParams);
@@ -85,13 +85,13 @@ export default Ember.Controller.extend({
     if (!parent || !parent.isFulfilled)
       return null;
 
-    return {
+    return Ember.Object.create({
       instrumentNetwork: Network.createFromJSON(parent.get('json')),
       selected: false,
       isLive: false,
       index: 0,
       instrumentModel: parent
-    };
+    });
   }.property('instrument.branchedParent.json'),
 
   branchedChildrenParams: function() {
@@ -108,13 +108,13 @@ export default Ember.Controller.extend({
       // if the user doesn't have permission)
       if (!json)
         return;
-      params.push({
+      params.push(Ember.Object.create({
         instrumentNetwork: Network.createFromJSON(json),
         selected: false,
         isLive: false,
         index: 0,
         instrumentModel: child
-      });
+      }));
     });
 
     return params;

@@ -37,11 +37,11 @@ export default Ember.Controller.extend({
   }.property('instruments.@each.json'),
 
   selectInitialInstrument: function() {
-    var instruments = this.get('mostStarredInstrumentParams');
+    var instruments = this.get('instrumentParams');
     if (instruments.length > 0)
       this.get('controllers.application')
           .set('activeInstrument', instruments[0]);
-  }.observes('mostStarredInstrumentParams.@each'),
+  }.observes('instrumentParams.@each'),
 
   actions: {
     updateSearch: function() {

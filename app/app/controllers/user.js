@@ -32,13 +32,13 @@ export default Ember.Controller.extend({
 
     return _.map(instruments.toArray(),
       function(instrument, i) {
-        return {
+        return Ember.Object.create({
           instrumentNetwork: Network.createFromJSON(instrument.get('json')),
           selected: false,
           isLive: i===0,
           index: i,
           instrumentModel: instrument
-        };
+        });
     });
   }.property('instruments.@each'),
 

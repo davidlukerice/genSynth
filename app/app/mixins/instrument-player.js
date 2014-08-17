@@ -60,8 +60,12 @@ export default Ember.Mixin.create(MidiSelectable, {
     makeLive: function(instrumentParentContent) {
       // turn off old instrument and setup the new selected one
       var activeInstrument = this.get('activeInstrument');
-      if (activeInstrument)
+      if (activeInstrument &&
+         !activeInstrument.isDestroyed &&
+         !activeInstrument.isDestroying)
+      {
         activeInstrument.set('isLive', false);
+      }
       instrumentParentContent.set('isLive', true);
       this.set('activeInstrument', instrumentParentContent);
     }
