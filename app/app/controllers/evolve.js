@@ -89,7 +89,6 @@ export default Ember.Controller.extend({
       else if (e.keyCode === 57) index = 2;
 
       if (index>=0) {
-        e.preventDefault();
         self.get('controllers.application')
             .send('makeLive',
               self.get('childInstrumentParams')[index]);
