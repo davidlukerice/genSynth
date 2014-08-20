@@ -11,7 +11,7 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "https://github.com/stefanpenner/ember-cli",
+  "repository": "https://github.com/davidlukerice/genSynth",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -33,7 +33,6 @@
     "ember-cli-simple-auth-torii": "~0.6.4-1",
     "express": "^4.1.1",
     "glob": "^3.2.9",
-    "originate": "0.1.5",
     "torii": "~0.1.3"
   }
 }

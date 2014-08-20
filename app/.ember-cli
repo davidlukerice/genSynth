@@ -1,5 +1,3 @@
 {
-  "port": 8000,
-  "newestVersion": "0.0.39",
-  "lastVersionCheck": 1404585481732
+  "port": 8000
 }
