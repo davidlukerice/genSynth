@@ -68,6 +68,10 @@ export default Ember.Mixin.create(MidiSelectable, {
       }
       instrumentParentContent.set('isLive', true);
       this.set('activeInstrument', instrumentParentContent);
+    },
+
+    panic: function() {
+      asNEAT.resetGlobalOutNode();
     }
   }
 });

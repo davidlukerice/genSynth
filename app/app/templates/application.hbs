@@ -77,6 +77,10 @@
   </div>
 </div>
 
+<div class="panicContainer">
+  <button {{action "panic"}} class="btn btn-warning" title="Cuts all volume!">Panic!</button>
+</div>
+
 {{#if showLogin}}
   <div class="modal" {{action 'hideLogin' bubbles=false}}>
     <div class="modal-dialog" {{action 'showLogin' bubbles=false}}>

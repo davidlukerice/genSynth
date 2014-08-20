@@ -1,8 +1,8 @@
 {
   "name": "gen-synth",
   "dependencies": {
-    "asNEAT-visualizer": "#master",
-    "asNEAT": "#master",
+    "asNEAT-visualizer": "~0.3.2",
+    "asNEAT": "~0.3.1",
     "bootstrap-sass-official": "~3.2.0",
     "bootstrap": "~3.2.0",
     "bourbon": "3.2.1",
