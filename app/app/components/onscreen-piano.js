@@ -14,14 +14,15 @@ export default Ember.Component.extend({
   onkeyUpHandler: null,
   setupKeyEvents: function() {
     var self = this;
-
+    
+    // Sustain on shift
     var onkeyDownHandler = function(e) {
-      if(e.keyCode === 32) {
+      if(e.keyCode === 16) {
         self.set('sustaining', true);
       }
     };
     var onkeyUpHandler = function(e) {
-      if(e.keyCode === 32) {
+      if(e.keyCode === 16) {
         self.set('sustaining', false);
       }
     };
