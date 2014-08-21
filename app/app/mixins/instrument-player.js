@@ -36,6 +36,23 @@ export default Ember.Mixin.create(MidiSelectable, {
     });
   }.on('init'),
 
+  onkeyDownHandler: null,
+  setupKeyEvents: function() {
+    var self = this;
+
+    // Panic on spacebar
+    var onkeyDownHandler = function(e) {
+      if(e.keyCode === 32)
+        self.send('panic');
+    };
+    this.set('onkeyDownHandler', onkeyDownHandler);
+    $(document).keydown(onkeyDownHandler);
+  }.on('init'),
+  willDestroy: function() {
+    this._super();
+    $(document).off('keydown', this.get('onkeyDownHandler'));
+  },
+
   activeInstrument: null,
   actions: {
     toggleOnscreenPiano: function() {
