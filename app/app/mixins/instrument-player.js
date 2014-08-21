@@ -71,7 +71,7 @@ export default Ember.Mixin.create(MidiSelectable, {
     },
 
     panic: function() {
-      asNEAT.resetGlobalOutNode();
+      asNEAT.resetOutNodes();
     }
   }
 });
