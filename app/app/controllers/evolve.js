@@ -22,6 +22,8 @@ export default Ember.Controller.extend({
   // instruments are evolved from
   branchedParent: null,
 
+  showingAdvancedOptions: true,
+
   noPreviousParents: function() {
     return this.get('content.instrumentParams').length <= 1;
   }.property('content.instrumentParams.@each'),
