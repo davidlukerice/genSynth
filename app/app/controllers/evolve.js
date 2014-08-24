@@ -23,6 +23,7 @@ export default Ember.Controller.extend({
   branchedParent: null,
 
   showingAdvancedOptions: true,
+  freezeTopology: false,
 
   noPreviousParents: function() {
     return this.get('content.instrumentParams').length <= 1;

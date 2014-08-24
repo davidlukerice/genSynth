@@ -41,7 +41,14 @@
     </div>
     {{#if showingAdvancedOptions}}
       <div class="col-md-12 advancedOptions">
-        Change Amount <input type="range" min="0" max="1" disabled>
+        <div class="row">
+          <div class="col-md-4">
+            {{input type="checkbox" checked=freezeTopology}} Freeze Topology
+          </div>
+          <div class="col-md-4">
+            <input type="range" min="0" max="1" disabled> Mutation Delta
+          </div>
+        <div>
       </div>
     {{/if}}
   </div>

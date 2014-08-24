@@ -74,6 +74,12 @@ html, body {
 
   .advancedOptions {
     margin-top: 20px;
+    border: 2px $borderColor solid;
+
+    input[type="range"]{
+      display: inline-block;
+      width: 50%;
+    }
   }
 } // eo .evolver
 
