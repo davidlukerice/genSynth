@@ -43,10 +43,10 @@
       <div class="col-md-12 advancedOptions">
         <div class="row">
           <div class="col-md-4">
-            {{input type="checkbox" checked=freezeTopology}} Freeze Topology
+            {{input type="checkbox" checked=freezeTopology}} Lock Hardware
           </div>
           <div class="col-md-4">
-            <input type="range" min="0" max="1" disabled> Mutation Delta
+            {{input type="range" min="0" max="1" step="0.05" value=mutationDistance}} Mutation Amount
           </div>
         <div>
       </div>

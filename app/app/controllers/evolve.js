@@ -22,8 +22,9 @@ export default Ember.Controller.extend({
   // instruments are evolved from
   branchedParent: null,
 
-  showingAdvancedOptions: true,
+  showingAdvancedOptions: false,
   freezeTopology: false,
+  mutationDistance: 0.4,
 
   noPreviousParents: function() {
     return this.get('content.instrumentParams').length <= 1;
@@ -37,6 +38,8 @@ export default Ember.Controller.extend({
   childInstrumentParams: function() {
     var numChildren = 9,
         parentInstrumentParams = this.get('parentInstrumentParams'),
+        freezeTopology = this.get('freezeTopology'),
+        mutationDistance = this.get('mutationDistance'),
         newPopulation, children = [], i, child;
 
     newPopulation = Population.generateFromParents(
@@ -45,7 +48,15 @@ export default Ember.Controller.extend({
       }), {
       populationCount: numChildren,
       numberOfNewParentMutations: 4,
-      crossoverRate: 0.2
+      crossoverRate: freezeTopology ? 0.0 : 0.1,
+      mutationParams: {
+        mutationDistance: mutationDistance,
+        splitMutationChance: freezeTopology ? 0.0 : 0.2,
+        addOscillatorChance: freezeTopology ? 0.0 : 0.1,
+        addConnectionChance: freezeTopology ? 0.0 : 0.2,
+        mutateConnectionWeightsChance: freezeTopology ? 0.5 : 0.25,
+        mutateNodeParametersChance: freezeTopology ? 0.5 : 0.25
+      }
     });
 
     for (i=0; i<numChildren; ++i) {
