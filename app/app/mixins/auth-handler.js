@@ -4,8 +4,9 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
   showingLogin: false,
 
-  username: "",
+  email: "",
   password: "",
+  confirmPassword: "",
 
   loadCurrentUser: function() {
     if (!this.get('session.isAuthenticated'))
@@ -47,6 +48,14 @@ export default Ember.Mixin.create({
     },
     hideLogin: function() {
       this.set('showLogin', false);
+    },
+
+    login: function() {
+      // TODO
+    },
+
+    createAccount: function() {
+      // TODO
     }
   }
 });

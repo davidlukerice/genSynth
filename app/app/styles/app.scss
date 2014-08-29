@@ -46,8 +46,16 @@ html, body {
   bottom: 0;
 }
 
-.evolver {
+.login-dialog {
+  position: relative;
 
+  .lhs,
+  .rhs {
+    width:50%;
+  }
+}
+
+.evolver {
   .instruments {
     border: 2px $borderColor solid;
     padding: 5px;
