@@ -1,9 +1,9 @@
 
 <div class="index">
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-      <h3>
-        {{#if isCreator}}
+  {{#if isCreator}}
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <h3>
           <div class="row">
             <div class="col-md-4 col-sm-4">
               {{input
@@ -25,10 +25,10 @@
               </div>
             {{/if}}
           </div>
-        {{/if}}
-      </h3>
+        </h3>
+      </div>
     </div>
-  </div>
+  {{/if}}
   <div class="row">
     {{#if instrumentParams}}
       {{instrument-component
@@ -39,6 +39,11 @@
         instrumentModel=instrumentParams.instrumentModel
         makeLiveHandler="makeLive"}}
     {{/if}}
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="addthis_sharing_toolbox"></div>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-12 col-sm-12">
