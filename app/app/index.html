@@ -37,14 +37,12 @@
     <link rel="stylesheet" href="assets/gen-synth.css">
   </head>
   <body>
+    <script src="assets/vendor.js"></script>
+    <script src="assets/gen-synth.js"></script>
     <script>
       window.GenSynthENV = {{ENV}};
       window.ENV = window.GenSynthENV;
       window.EmberENV = window.GenSynthENV.EmberENV;
-    </script>
-    <script src="assets/vendor.js"></script>
-    <script src="assets/gen-synth.js"></script>
-    <script>
       window.GenSynth = require('gen-synth/app')['default'].create(GenSynthENV.APP);
     </script>
   </body>
