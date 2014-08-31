@@ -29,6 +29,17 @@
       </div>
     </div>
   {{/if}}
+  {{#if isPublished}}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="addthis_toolbox addthis_default_style ">
+          <a class="addthis_button_preferred_1"></a>
+          <a class="addthis_button_preferred_2"></a>
+          <a class="addthis_button_compact"></a>
+        </div>
+      </div>
+    </div>
+  {{/if}}
   <div class="row">
     {{#if instrumentParams}}
       {{instrument-component
@@ -39,11 +50,6 @@
         instrumentModel=instrumentParams.instrumentModel
         makeLiveHandler="makeLive"}}
     {{/if}}
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="addthis_sharing_toolbox"></div>
-    </div>
   </div>
   <div class="row">
     <div class="col-md-12 col-sm-12">

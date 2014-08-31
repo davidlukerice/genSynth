@@ -55,6 +55,18 @@ html, body {
   }
 }
 
+.nav {
+  li.fixed-height {
+    height: 50px;
+  }
+}
+
+.addthis_sharing_toolbox {
+  position:relative;
+  top: calc(50% - 10px);
+  padding-left: 10px;
+}
+
 .evolver {
   .instruments {
     border: 2px $borderColor solid;

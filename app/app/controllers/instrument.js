@@ -120,6 +120,12 @@ export default Ember.Controller.extend({
     return params;
   }.property('instrument.branchedChildren.@each.json'),
 
+  updateAddThis: function() {
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      addthis.toolbox('.addthis_toolbox');
+    });
+  }.observes('isPublished').on('init'),
+
   actions: {
     saveName: function() {
       // TODO: Profanity check? Server side?

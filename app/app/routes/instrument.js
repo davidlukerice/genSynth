@@ -8,5 +8,14 @@ export default Ember.Route.extend({
 
   setupController: function(controller, model) {
     controller.set('instrument', model);
+  },
+
+  actions: {
+    didTransition: function() {
+      var self = this;
+      Ember.run.scheduleOnce('afterRender', this, function() {
+        self.controllerFor('instrument').notifyPropertyChange('isPublished');
+      });
+    }
   }
 });
