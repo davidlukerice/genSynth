@@ -4,9 +4,12 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
   showingLogin: false,
 
-  email: "",
-  password: "",
-  confirmPassword: "",
+  loginEmail: "",
+  loginPassword: "",
+
+  createEmail: "",
+  createPassword: "",
+  createConfirmPassword: "",
 
   loadCurrentUser: function() {
     if (!this.get('session.isAuthenticated'))
@@ -51,7 +54,11 @@ export default Ember.Mixin.create({
     },
 
     login: function() {
-      // TODO
+      this.send("authenticate", {
+          provider: "local-provider",
+          email: this.get('loginEmail'),
+          password: this.get('loginPassword')
+        });
     },
 
     createAccount: function() {
