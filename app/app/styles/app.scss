@@ -49,9 +49,13 @@ html, body {
 .login-dialog {
   position: relative;
 
-  .lhs,
+  .lhs {
+    width:50%;
+    padding-right: 10px
+  }
   .rhs {
     width:50%;
+    padding-left: 10px
   }
 }
 

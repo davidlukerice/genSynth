@@ -93,24 +93,21 @@
           <button type="button" class="close" {{action 'hideLogin'}}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <h4 class="modal-title">Login</h4>
         </div>
-        <div class="modal-body login-dialog">
+        <div class="modal-body login-dialog clearfix">
           <div class="lhs pull-left">
             <button type="button" class="btn btn-primary" {{action "authenticate" "facebook-connect"}}>Facebook</button>
             <br><br>
-            {{input type="text" maxlength=30 value=email placeholder="Email Address"}}<br>
-            {{input type="password" maxlength=30 value=password placeholder="Password"}}<br>
+            {{input type="text" maxlength=30 value=email placeholder="Email Address" class="form-control"}}
+            {{input type="password" maxlength=30 value=password placeholder="Password" class="form-control"}}
             <button type="button" class="btn btn-default" {{action "login"}}>Login</button>
           </div>
           <div class="rhs pull-right">
             <h4>Create an account</h4>
-            {{input type="text" maxlength=30 value=email placeholder="Email Address"}}<br>
-            {{input type="password" maxlength=30 value=password placeholder="Password"}}<br>
-            {{input type="password" maxlength=30 value=confirmPassword placeholder="Confirm Password"}}<br>
+            {{input type="text" maxlength=30 value=email placeholder="Email Address" class="form-control"}}
+            {{input type="password" maxlength=30 value=password placeholder="Password" class="form-control"}}
+            {{input type="password" maxlength=30 value=confirmPassword placeholder="Confirm Password" class="form-control"}}
             <button type="button" class="btn btn-default" {{action "createAccount"}}>Create Account</button>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" {{action 'hideLogin'}}>Close</button>
         </div>
       </div>
     </div>
