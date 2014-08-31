@@ -1,4 +1,5 @@
 module.exports = {
+  crossOriginWhitelist: ['http://localhost:3000'],
   facebookConnect: {
     appId: '246499025545134'
   },
