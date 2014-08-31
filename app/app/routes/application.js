@@ -20,8 +20,10 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    authenticate: function(provider) {
-      this.get('session').authenticate('simple-auth-authenticator:torii', provider);
+    authenticate: function(options) {
+      this.get('session').authenticate(
+        'simple-auth-authenticator:torii',
+        options);
     },
 
     createUser: function() {

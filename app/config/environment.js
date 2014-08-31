@@ -22,17 +22,7 @@ module.exports = function(environment) {
 
     torii: {
       providers: {
-        //'linked-in-oauth2': {
-        //  apiKey: '772yus6d70pf11',
-        //  redirectUri: 'http://localhost:8000/example/simple-auth.html'
-        //},
-        //'google-oauth2': {
-        //  redirectUri: 'http://localhost:8000/example/simple-auth.html',
-        //  apiKey:      '139338504777-321kme2daihrj8kr8g739ntne4h2bghk.apps.googleusercontent.com'
-        //},
-        'facebook-oauth2': {
-          apiKey: AuthProviders.facebookOAuth2.apiKey,
-          redirectUri: AuthProviders.facebookOAuth2.redirectUri
+        'local-provider': {
         },
         'facebook-connect': {
           appId: AuthProviders.facebookConnect.appId,
