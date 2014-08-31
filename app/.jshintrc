@@ -9,7 +9,8 @@
     "$": true,
     "_": true,
     "navigator": true,
-    "-Promise": true
+    "-Promise": true,
+    "addthis": true
   },
   "browser" : true,
   "boss" : true,
