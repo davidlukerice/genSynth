@@ -24,16 +24,9 @@ exports.logout = function(req, res) {
 };
 
 /**
- * Session
- */
-exports.session = function(req, res) {
-  res.redirect('/');
-};
-
-/**
  * Create user
  */
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
   var user = new User(req.body);
 
   user.provider = 'local';
@@ -41,15 +34,12 @@ exports.create = function(req, res) {
     if (err) {
       console.log('the error');
       console.log(err);
-      return res.render('users/signup', {
-        errors: err.errors,
-        user: user
+      res.status(500);
+      return res.jsonp({
+        msg: 'error creating user'
       });
     }
-    req.logIn(user, function(err, next) {
-      if (err) return next(err);
-      return res.redirect('/');
-    });
+    next();
   });
 };
 
