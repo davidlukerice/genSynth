@@ -1,8 +1,6 @@
-/* global require */
-
-var Application = require('gen-synth/app')['default'];
-var Router = require('gen-synth/router')['default'];
 import Ember from 'ember';
+import Application from 'gen-synth/app';
+import Router from 'gen-synth/router';
 
 export default function startApp(attrs) {
   var App;
