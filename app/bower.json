@@ -23,6 +23,7 @@
     "loader": "stefanpenner/loader.js#1.0.1",
     "lodash": "~2.4.1",
     "qunit": "~1.15.0",
-    "tag-it": "https://github.com/aehlke/tag-it.git#1d84585b7f93ca78ef881aee1969f0dfc4442fe0"
+    "tag-it": "https://github.com/aehlke/tag-it.git#1d84585b7f93ca78ef881aee1969f0dfc4442fe0",
+    "ember-simple-auth": "0.6.6"
   }
 }
