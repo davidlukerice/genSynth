@@ -106,7 +106,13 @@
             {{input type="text" maxlength=30 value=createEmail placeholder="Email Address" class="form-control"}}
             {{input type="password" maxlength=30 value=createPassword placeholder="Password" class="form-control"}}
             {{input type="password" maxlength=30 value=createConfirmPassword placeholder="Confirm Password" class="form-control"}}
-            {{input type="checkbox" checked=createAcceptToS}} Accept Terms<br>
+            <div>
+              {{#if createAcceptToS}}
+                <input type="checkbox" checked {{action toggleCreateAcceptToS}}> Accept Terms
+              {{else}}
+                <input type="checkbox" {{action toggleCreateAcceptToS}}> Accept Terms
+              {{/if}}
+            </div>
             <button type="button" class="btn btn-default" {{action "createAccount"}}>Create Account</button>
             {{#if hasCreateError}}
               <br><div class="label label-danger">{{createError}}</div>

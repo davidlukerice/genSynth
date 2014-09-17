@@ -86,6 +86,10 @@ export default Ember.Mixin.create({
         });
     },
 
+    toggleCreateAcceptToS: function() {
+      this.set('createAcceptToS', !this.get('createAcceptToS'));
+    },
+
     createAccount: function() {
       var self = this,
           createEmail = this.get('createEmail'),
