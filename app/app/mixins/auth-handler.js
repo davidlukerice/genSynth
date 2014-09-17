@@ -1,5 +1,10 @@
 import Ember from 'ember';
 
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
 // Can hold a current midi input
 export default Ember.Mixin.create({
   showingLogin: false,
@@ -10,6 +15,7 @@ export default Ember.Mixin.create({
   createEmail: "",
   createPassword: "",
   createConfirmPassword: "",
+  createError: "",
 
   loadCurrentUser: function() {
     if (!this.get('session.isAuthenticated'))
@@ -45,8 +51,25 @@ export default Ember.Mixin.create({
     });
   }.observes('session.isAuthenticated').on('init'),
 
+  hasCreateError: function() {
+    return this.get('createError') !== '';
+  }.property('createError'),
+
+  clear: function() {
+    this.set('loginEmail', '');
+    this.set('loginPassword', '');
+    this.set('createEmail', '');
+    this.set('createPassword', '');
+    this.set('createConfirmPassword', '');
+    this.set('createError', '');
+    this.set('createError', '');
+  },
+
   actions: {
+    captureAction: function() {
+    },
     showLogin: function() {
+      this.clear();
       this.set('showLogin', true);
     },
     hideLogin: function() {
@@ -62,7 +85,43 @@ export default Ember.Mixin.create({
     },
 
     createAccount: function() {
-      // TODO
+      var self = this,
+          createEmail = this.get('createEmail'),
+          createPassword = this.get('createPassword'),
+          createConfirmPassword = this.get('createConfirmPassword');
+
+      if (!validateEmail(createEmail)) {
+        self.set('createError', 'Not a valid Email address');
+        return;
+      }
+      else if (createPassword.length < 5) {
+        self.set('createError', 'Passwords must have at least 5 characters');
+        return;
+      }
+      else if (createPassword !== createConfirmPassword) {
+        self.set('createError', "Passwords don't match");
+        return;
+      }
+
+      Ember.$.ajax({
+        url: 'http://localhost:3000/users/',
+        type: 'POST',
+        data: {
+          email: createEmail,
+          password: createPassword
+        },
+        //crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        }
+      }).then(function(response) {
+        // TODO:
+        // Authenticate with user/pass?
+        self.clear();
+      }, function(xhr, status, error) {
+        console.log('error: '+error.message);
+        self.set('createError', 'Error creating account');
+      });
     }
   }
 });

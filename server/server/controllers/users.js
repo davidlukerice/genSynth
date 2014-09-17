@@ -23,13 +23,40 @@ exports.logout = function(req, res) {
   });
 };
 
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
 /**
  * Create user
  */
 exports.create = function(req, res, next) {
-  var user = new User(req.body);
+  var data = req.body;
+  if (!validateEmail(data.email)) {
+    res.status(500);
+    return res.jsonp({
+      msg: 'Not a valid Email address'
+    });
+  }
+  else if (data.password.length < 5) {
+    res.status(500);
+    return res.jsonp({
+      msg: 'Passwords must have at least 5 characters'
+    });
+  }
 
+  function randInt() {
+    return Math.round(Math.random()*10);
+  }
+
+  var user = new User(req.body);
   user.provider = 'local';
+  user.username = data.email[0]+
+                  data.email[data.email.indexOf('@')-1]+
+                  randInt()+
+                  randInt()+
+                  randInt();
   user.save(function(err) {
     if (err) {
       console.log('the error');
