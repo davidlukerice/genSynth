@@ -15,6 +15,7 @@ export default Ember.Mixin.create({
   createEmail: "",
   createPassword: "",
   createConfirmPassword: "",
+  createAcceptToS: false,
   createError: "",
 
   loadCurrentUser: function() {
@@ -62,7 +63,7 @@ export default Ember.Mixin.create({
     this.set('createPassword', '');
     this.set('createConfirmPassword', '');
     this.set('createError', '');
-    this.set('createError', '');
+    this.set('createAcceptToS', false);
   },
 
   actions: {
@@ -73,6 +74,7 @@ export default Ember.Mixin.create({
       this.set('showLogin', true);
     },
     hideLogin: function() {
+      this.clear();
       this.set('showLogin', false);
     },
 
@@ -88,7 +90,8 @@ export default Ember.Mixin.create({
       var self = this,
           createEmail = this.get('createEmail'),
           createPassword = this.get('createPassword'),
-          createConfirmPassword = this.get('createConfirmPassword');
+          createConfirmPassword = this.get('createConfirmPassword'),
+          createAcceptToS = this.get('createAcceptToS');
 
       if (!validateEmail(createEmail)) {
         self.set('createError', 'Not a valid Email address');
@@ -100,6 +103,10 @@ export default Ember.Mixin.create({
       }
       else if (createPassword !== createConfirmPassword) {
         self.set('createError', "Passwords don't match");
+        return;
+      }
+      else if (!createAcceptToS) {
+        self.set('createError', "Must accept GenSynth's ToS");
         return;
       }
 
