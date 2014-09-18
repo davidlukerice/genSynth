@@ -26,14 +26,14 @@ export default Ember.Mixin.create({
         sessionContent = this.get('session.content'),
         provider = sessionContent.provider;
 
-    // TODO: Get actual token when reloading page
-
-    //var provider = sessionContent.provider;
-    //var userId = sessionContent.userId;
     console.log('content: '+JSON.stringify(sessionContent));
 
     if (provider === 'facebook-connect') {
       var accessToken = sessionContent.accessToken;
+      if (!accessToken) {
+        authWithCurrentSession();
+        return;
+      }
       Ember.$.ajax({
         url: 'http://localhost:3000/auth/facebook',
         type: 'GET',
@@ -46,9 +46,7 @@ export default Ember.Mixin.create({
         }
       }).then(function(response) {
         console.log('loginResponse: '+JSON.stringify(response));
-        self.store.find('user', response.user).then(function(user) {
-          self.set('currentUser', user);
-        });
+        setCurrentUser(response.user);
       }, function(xhr, status, error) {
         console.log('error: '+error.message);
         self.send('invalidateSession');
@@ -56,17 +54,37 @@ export default Ember.Mixin.create({
     }
     else if (provider === 'local-provider') {
       if (!sessionContent.user) {
-        Ember.run.scheduleOnce('afterRender', this, function() {
-          self.send('invalidateSession');
-        });
+        authWithCurrentSession();
         return;
       }
-      self.store.find('user', sessionContent.user).then(function(user) {
-        self.set('currentUser', user);
-      });
+      setCurrentUser(sessionContent.user);
     }
     else {
       throw "provider("+provider+") not supported";
+    }
+
+    function authWithCurrentSession() {
+      Ember.$.ajax({
+        url: 'http://localhost:3000/users/me',
+        type: 'GET',
+        data: {},
+        //crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        }
+      }).then(function(response) {
+        console.log('loginResponse: '+JSON.stringify(response));
+        setCurrentUser(response.id);
+      }, function(xhr, status, error) {
+        console.log('error: '+error.message);
+        self.send('invalidateSession');
+      });
+    }
+
+    function setCurrentUser(id) {
+      self.store.find('user', id).then(function(user) {
+        self.set('currentUser', user);
+      });
     }
   }.observes('session.isAuthenticated').on('init'),
 
@@ -143,12 +161,12 @@ export default Ember.Mixin.create({
         xhrFields: {
           withCredentials: true
         }
-      }).then(function(response) {
+      }).then(function() {
         self.send("authenticate", {
-            provider: "local-provider",
-            email: createEmail,
-            password: createPassword
-          });
+          provider: "local-provider",
+          email: createEmail,
+          password: createPassword
+        });
         self.send('hideLogin');
       }, function(xhr, status, error) {
         console.log('error: '+error.message);

@@ -11,12 +11,10 @@ export default Ember.Object.extend({
           email: options.email,
           password: options.password
         },
-        //crossDomain: true,
         xhrFields: {
           withCredentials: true
         }
       }).then(function(response) {
-        console.log('loginResponse: '+JSON.stringify(response));
         resolve({
           authPassed: true,
           user: response.user

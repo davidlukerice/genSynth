@@ -1,10 +1,10 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, auth) {
   //User Routes
   var users = require('../controllers/users');
 
   app.post('/users', users.create, users.succeeded);
 
-  //app.get('/users/me', users.me);
+  app.get('/users/me', auth.requiresLogin, users.me);
   app.get('/users/:userId', users.show);
 
   //Finish with setting up the userId param
