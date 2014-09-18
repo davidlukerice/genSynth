@@ -1,5 +1,6 @@
 {
   "name": "gen-synth",
+  "version": "0.2.0",
   "dependencies": {
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
     "asNEAT": "~0.4.1",
