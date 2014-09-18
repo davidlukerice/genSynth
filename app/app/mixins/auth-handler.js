@@ -24,32 +24,50 @@ export default Ember.Mixin.create({
 
     var self = this,
         sessionContent = this.get('session.content'),
-        accessToken = sessionContent.accessToken;
+        provider = sessionContent.provider;
 
     // TODO: Get actual token when reloading page
 
     //var provider = sessionContent.provider;
     //var userId = sessionContent.userId;
     console.log('content: '+JSON.stringify(sessionContent));
-    Ember.$.ajax({
-      url: 'http://localhost:3000/auth/facebook',
-      type: 'GET',
-      data: {
-        access_token: accessToken
-      },
-      //crossDomain: true,
-      xhrFields: {
-        withCredentials: true
+
+    if (provider === 'facebook-connect') {
+      var accessToken = sessionContent.accessToken;
+      Ember.$.ajax({
+        url: 'http://localhost:3000/auth/facebook',
+        type: 'GET',
+        data: {
+          access_token: accessToken
+        },
+        //crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        }
+      }).then(function(response) {
+        console.log('loginResponse: '+JSON.stringify(response));
+        self.store.find('user', response.user).then(function(user) {
+          self.set('currentUser', user);
+        });
+      }, function(xhr, status, error) {
+        console.log('error: '+error.message);
+        self.send('invalidateSession');
+      });
+    }
+    else if (provider === 'local-provider') {
+      if (!sessionContent.user) {
+        Ember.run.scheduleOnce('afterRender', this, function() {
+          self.send('invalidateSession');
+        });
+        return;
       }
-    }).then(function(response) {
-      console.log('loginResponse: '+JSON.stringify(response));
-      self.store.find('user', response.user).then(function(user) {
+      self.store.find('user', sessionContent.user).then(function(user) {
         self.set('currentUser', user);
       });
-    }, function(xhr, status, error) {
-      console.log('error: '+error.message);
-      self.send('invalidateSession');
-    });
+    }
+    else {
+      throw "provider("+provider+") not supported";
+    }
   }.observes('session.isAuthenticated').on('init'),
 
   hasCreateError: function() {
@@ -126,9 +144,12 @@ export default Ember.Mixin.create({
           withCredentials: true
         }
       }).then(function(response) {
-        // TODO:
-        // Authenticate with user/pass?
-        self.clear();
+        self.send("authenticate", {
+            provider: "local-provider",
+            email: createEmail,
+            password: createPassword
+          });
+        self.send('hideLogin');
       }, function(xhr, status, error) {
         console.log('error: '+error.message);
         self.set('createError', 'Error creating account');

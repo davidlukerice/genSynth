@@ -4,9 +4,6 @@ module.exports = function(app, passport) {
 
   app.post('/users', users.create, users.succeeded);
 
-  app.post('/users/session', passport.authenticate('local', {}),
-    users.succeeded);
-
   //app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
 
@@ -14,6 +11,10 @@ module.exports = function(app, passport) {
   app.param('userId', users.user);
 
   app.get('/auth/logout', users.logout);
+
+  // Setting local route
+  app.post('/auth/local', passport.authenticate('local', {}),
+    users.succeeded);
 
   //Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook-token', {
