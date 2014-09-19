@@ -31,6 +31,11 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
 
     toggleSettings: function() {
       this.set('showSettings', !this.get('showSettings'));
+    },
+
+    letUsKnow: function() {
+      this.send('toggleHelp');
+      this.transitionTo('feedback');
     }
   }
 });
