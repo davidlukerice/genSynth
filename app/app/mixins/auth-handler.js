@@ -11,6 +11,7 @@ export default Ember.Mixin.create({
 
   loginEmail: "",
   loginPassword: "",
+  loginError: "",
 
   createEmail: "",
   createPassword: "",
@@ -88,13 +89,10 @@ export default Ember.Mixin.create({
     }
   }.observes('session.isAuthenticated').on('init'),
 
-  hasCreateError: function() {
-    return this.get('createError') !== '';
-  }.property('createError'),
-
   clear: function() {
     this.set('loginEmail', '');
     this.set('loginPassword', '');
+    this.set('loginError', '');
     this.set('createEmail', '');
     this.set('createPassword', '');
     this.set('createConfirmPassword', '');
@@ -115,10 +113,20 @@ export default Ember.Mixin.create({
     },
 
     login: function() {
+      var email = this.get('loginEmail'),
+          password = this.get('loginPassword');
+      if (!validateEmail(email)) {
+        this.set('loginError', 'email not valid');
+        return;
+      }
+      else if (password.length < 5) {
+        this.set('loginError', 'password not valid');
+        return;
+      }
       this.send("authenticate", {
           provider: "local-provider",
-          email: this.get('loginEmail'),
-          password: this.get('loginPassword')
+          email: email,
+          password: password
         });
     },
 

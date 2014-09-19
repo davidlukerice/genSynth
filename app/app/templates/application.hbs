@@ -100,6 +100,9 @@
             {{input type="text" maxlength=30 value=loginEmail placeholder="Email Address" class="form-control"}}
             {{input type="password" maxlength=30 value=loginPassword placeholder="Password" class="form-control"}}
             <button type="button" class="btn btn-default" {{action "login"}}>Login</button>
+            {{#if loginError}}
+              <br><div class="label label-danger">{{loginError}}</div>
+            {{/if}}
           </div>
           <div class="rhs pull-right">
             <h4>Create an account</h4>
@@ -114,7 +117,7 @@
               {{/if}}
             </div>
             <button type="button" class="btn btn-default" {{action "createAccount"}}>Create Account</button>
-            {{#if hasCreateError}}
+            {{#if createError}}
               <br><div class="label label-danger">{{createError}}</div>
             {{/if}}
           </div>
