@@ -36,6 +36,7 @@ exports.create = function(req, res) {
   var instrument = new Instrument({
     user: req.user,
     branchedParent: branchedParentId,
+    branchedGeneration: params.branchedGeneration,
     json: params.json,
     name: params.name,
     stars: []
@@ -356,6 +357,7 @@ function toObject(item) {
       name: item.name,
       json: item.json,
       branchedParent: item.branchedParent,
+      branchedGeneration: item.branchedGeneration,
       branchedChildren: children,
       branchedChildrenCount: item.branchedChildrenCount,
       isPrivate: item.isPrivate,

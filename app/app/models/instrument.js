@@ -22,5 +22,6 @@ export default DS.Model.extend({
     async: true
   }),
   starsCount: DS.attr('number'),
-  tags: DS.attr('string')
+  tags: DS.attr('string'),
+  branchedGeneration: DS.attr('number')
 });

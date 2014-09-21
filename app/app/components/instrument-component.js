@@ -108,7 +108,8 @@ export default Ember.Component.extend({
         name: 'new Instr',
         json: this.get('instrumentNetwork').toJSON(),
         isPrivate: true,
-        branchedParent: branchedParent
+        branchedParent: branchedParent,
+        branchedGeneration: branchedParent ? (branchedParent.get('branchedGeneration') + 1): 0
       });
       instrument.save().then(function(instrument) {
         self.set('instrumentModel', instrument);

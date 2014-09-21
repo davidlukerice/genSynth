@@ -31,6 +31,10 @@ var InstrumentSchema = new Schema({
       type: ObjectId,
       ref: 'Instrument'
     },
+    branchedGeneration: {
+      type: Number,
+      default: 0
+    },
     branchedChildren: [{
       type: ObjectId,
       ref: 'Instrument'
