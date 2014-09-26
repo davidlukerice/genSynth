@@ -38,14 +38,14 @@
   </head>
   <body>
     <script>
-      window.GenSynthENV = {{ENV}};
-      window.ENV = window.GenSynthENV;
-      window.EmberENV = window.GenSynthENV.EmberENV;
+        window.GenSynthENV = {{EMBER_ENV}};
+        window.ENV = window.GenSynthENV;
+        window.EmberENV = {{EMBER_ENV}};
     </script>
     <script src="assets/vendor.js"></script>
     <script src="assets/gen-synth.js"></script>
     <script>
-      window.GenSynth = require('gen-synth/app')['default'].create(GenSynthENV.APP);
+      window.GenSynth = require('gen-synth/app')['default'].create({{APP_CONFIG}});
     </script>
   </body>
 </html>

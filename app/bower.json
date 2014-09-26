@@ -1,6 +1,5 @@
 {
   "name": "gen-synth",
-  "version": "0.2.0",
   "dependencies": {
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
     "asNEAT": "~0.4.1",
@@ -11,6 +10,7 @@
     "chroma-js": "~0.5.6",
     "d3": "~3.4.11",
     "ember": "~1.8.0-beta.1",
+    "ember-data": "1.0.0-beta.10",
     "ember-cli-shims": "stefanpenner/ember-cli-shims#0.0.3",
     "ember-cli-test-loader": "rjackson/ember-cli-test-loader#0.0.4",
     "ember-load-initializers": "stefanpenner/ember-load-initializers#0.0.2",
