@@ -6,7 +6,7 @@ export default DS.Model.extend({
     async: true
   }),
   stars: DS.hasMany('instrument', {
-    inverse: 'tags',
+    inverse: 'stars',
     async: true
   }),
   created: DS.attr('date')

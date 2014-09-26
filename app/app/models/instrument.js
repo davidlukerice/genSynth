@@ -18,8 +18,8 @@ export default DS.Model.extend({
   branchedChildrenCount: DS.attr('number'),
   isPrivate: DS.attr('boolean'),
   stars: DS.hasMany('user', {
-    inverse: 'stars',
-    async: true
+    async: true,
+    inverse: 'stars'
   }),
   starsCount: DS.attr('number'),
   tags: DS.attr('string'),
