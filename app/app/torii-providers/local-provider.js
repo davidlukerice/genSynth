@@ -19,8 +19,8 @@ export default Ember.Object.extend({
           authPassed: true,
           user: response.user
         });
-      }, function(xhr, status, error) {
-        resolve({
+      }, function() {
+        reject({
           authPassed: false
         });
       });
