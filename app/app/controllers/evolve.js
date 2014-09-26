@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
-var Population = require('asNEAT/population')['default'];
+var Population = require('asNEAT/population')['default'],
+    EvolutionTypes = require('asNEAT/network')['default'].EvolutionTypes;
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
@@ -40,10 +41,12 @@ export default Ember.Controller.extend({
         parentInstrumentParams = this.get('parentInstrumentParams'),
         freezeTopology = this.get('freezeTopology'),
         mutationDistance = this.get('mutationDistance'),
+        branchedParent = this.get('branchedParent'),
+        instrumentParams = this.get('content.instrumentParams'),
         newPopulation, children = [], i, child;
 
     newPopulation = Population.generateFromParents(
-      _.map(parentInstrumentParams, function(element){
+      _.map(parentInstrumentParams, function(element) {
         return element.instrumentNetwork;
       }), {
       populationCount: numChildren,
@@ -61,6 +64,11 @@ export default Ember.Controller.extend({
 
     for (i=0; i<numChildren; ++i) {
       child = newPopulation.networks[i];
+
+      // If there's a branched parent and it's the first generation of children
+      if (branchedParent && instrumentParams.length === 1)
+        child.addToEvolutionHistory(EvolutionTypes.BRANCH);
+
       children.push(Ember.Object.create({
         instrumentNetwork: child,
         isLive: i===0,
