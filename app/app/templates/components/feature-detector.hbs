@@ -1,0 +1,14 @@
+{{#if isShowingDialog}}
+  <div class="genSynthModal">
+    <div class="modalContent">
+      <span class="toggleText pull-right" {{action "close"}}>Close</span>
+      <h4>
+        <span class="glyphicon glyphicon-warning-sign"></span> Browser Warning
+      </h4>
+      <p>
+        Your Browser is not officially supported.<br>
+        Please use <a href="https://www.google.com/chrome" target="_blank">Chrome</a> for the best experience.
+      </p>
+    </div>
+  </div>
+{{/if}}

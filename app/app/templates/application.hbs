@@ -85,6 +85,8 @@
   <button {{action "panic"}} class="btn btn-warning" title="Cuts all volume!">Panic!</button>
 </div>
 
+{{feature-detector}}
+
 {{#if showLogin}}
   <div class="modal" {{action 'hideLogin' bubbles=false}}>
     <div class="modal-dialog" {{action 'captureAction' bubbles=false}}>
