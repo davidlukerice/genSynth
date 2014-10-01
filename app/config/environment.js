@@ -6,7 +6,7 @@ module.exports = function(environment) {
     modulePrefix: 'gen-synth',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
