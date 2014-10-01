@@ -1,11 +1,12 @@
 import Ember from 'ember';
+var asNEAT = require('asNEAT/asNEAT')['default'];
 
 export default Ember.Component.extend({
 
-  isShowingDialog: true,
+  isShowingDialog: false,
   detectBrowser: function() {
-    // TODO
-    this.set('isShowingDialog', true);
+    if (!asNEAT.context.supported)
+      this.set('isShowingDialog', true);
   }.on('init'),
 
   actions: {
