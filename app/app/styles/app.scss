@@ -234,7 +234,7 @@ html, body {
   margin-left: -271px - $controlsWidth;
   bottom: 0;
   height: 100px;
-  width: 644px;
+  width: 655px;
   border: $borderColor 1px solid;
   background: $backgroundColor;
   z-index: 1000;
@@ -245,8 +245,11 @@ html, body {
   }
 
   .onscreenPianoControls {
+    position: absolute;
+    display: inline-block;
     width: 100px;
-    border: 1px $borderColor solid;
+    top: 0;
+    right: 0;
 
     .controlLabel {
       display: inline-block;
@@ -256,8 +259,9 @@ html, body {
 
   .blackKeys {
     position:absolute;
+    display: inline-block;
     top:0;
-    left: $controlsWidth + 20px;
+    left: 20px;
     pointer-events: none;
 
     .key {
@@ -289,10 +293,8 @@ html, body {
   }
 
   .whiteKeys {
-    position: absolute;
-    top:0;
-    left: $controlsWidth;
-
+    position: relative;
+    display: inline-block;
     .key {
       background: rgb(255, 255, 240);
       margin-right: -5px;

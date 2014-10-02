@@ -1,20 +1,6 @@
 <div class="onscreenKeyboardSpacer"></div>
 <div class="onscreenKeyboard" {{action "hotkeyPlayNote" on="keyDown"}}>
 
-  <div class="onscreenPianoControls">
-    <span class="controlLabel">Hotkey Layout</span><br>
-    {{view Ember.Select
-       content=hotkeyLayouts
-       optionValuePath="content.accessor"
-       optionLabelPath="content.type"
-       value=selectedHotkeyLayout}}
-    <br>
-    <br>
-    <button type="button"
-      {{action toggleSustain}}
-      {{bind-attr class=":btn :btn-primary :btn-xs sustaining:active"}}>Sustain "<span class="glyphicon glyphicon-arrow-up"></span>"</button>
-  </div>
-
   <div class="whiteKeys">
     {{piano-key note="c4"  hotkey="a" colemakHotkey="a" hotkeyLayout=selectedHotkeyLayout instrumentNetwork=instrumentNetwork sustaining=sustaining}}
     {{piano-key note="d4"  hotkey="s" colemakHotkey="r" hotkeyLayout=selectedHotkeyLayout instrumentNetwork=instrumentNetwork sustaining=sustaining}}
@@ -46,5 +32,19 @@
     {{piano-key note="f5#" hotkey="]"  colemakHotkey="]"  hotkeyLayout=selectedHotkeyLayout instrumentNetwork=instrumentNetwork sustaining=sustaining}}
     {{piano-key note="g5#" hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrumentNetwork=instrumentNetwork sustaining=sustaining}}
     {{piano-key note="a5#" hotkey=""  colemakHotkey=""  hotkeyLayout=selectedHotkeyLayout instrumentNetwork=instrumentNetwork sustaining=sustaining}}
+  </div>
+
+  <div class="onscreenPianoControls">
+    <span class="controlLabel">Hotkey Layout</span><br>
+    {{view Ember.Select
+       content=hotkeyLayouts
+       optionValuePath="content.accessor"
+       optionLabelPath="content.type"
+       value=selectedHotkeyLayout}}
+    <br>
+    <br>
+    <button type="button"
+      {{action toggleSustain}}
+      {{bind-attr class=":btn :btn-primary :btn-xs sustaining:active"}}>Sustain "<span class="glyphicon glyphicon-arrow-up"></span>"</button>
   </div>
 </div>
