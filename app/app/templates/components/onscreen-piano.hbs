@@ -1,6 +1,6 @@
 <div class="onscreenKeyboardSpacer"></div>
 <div class="onscreenKeyboard" {{action "hotkeyPlayNote" on="keyDown"}}>
-  
+
   <div class="onscreenPianoControls">
     <span class="controlLabel">Hotkey Layout</span><br>
     {{view Ember.Select
@@ -12,7 +12,7 @@
     <br>
     <button type="button"
       {{action toggleSustain}}
-      {{bind-attr class=":btn :btn-primary :btn-xs sustaining:active"}}>Sustain " "</button>
+      {{bind-attr class=":btn :btn-primary :btn-xs sustaining:active"}}>Sustain "<span class="glyphicon glyphicon-arrow-up"></span>"</button>
   </div>
 
   <div class="whiteKeys">
