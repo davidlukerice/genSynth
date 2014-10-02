@@ -4,7 +4,8 @@ import AuthHandler from 'gen-synth/mixins/auth-handler';
 
 export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
   evolvePageIsActive: function() {
-    return this.get('currentPath') === 'evolve';
+    return this.get('currentPath') === 'evolve' ||
+           this.get('currentPath') === 'branch';
   }.property('currentPath'),
 
   feedbackPageIsActive: function() {
