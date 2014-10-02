@@ -53,7 +53,9 @@
         </h4>
         <div class="tagContainer">
           {{#each splitTags}}
-            <span class="label label-primary">{{this}}</span>
+            {{#link-to "search" (query-params query=this)}}
+              <span class="label label-primary">{{this}}</span>
+            {{/link-to}}
           {{/each}}
         </div>
       </div>

@@ -10,6 +10,11 @@ export default Ember.Controller.extend({
     return this.get('instruments') !== null;
   }.property('instruments.#each.json'),
 
+  watchQuery: function() {
+    this.initHandler();
+  }.observes('query'),
+
+  // called from router
   initHandler: function() {
     var self = this;
     // query parameters aren't available on init for some reason...
@@ -19,7 +24,7 @@ export default Ember.Controller.extend({
         return;
       self.send('updateSearch');
     });
-  }.on('init'),
+  },
 
   instruments: null,
 
