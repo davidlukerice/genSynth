@@ -398,3 +398,15 @@ html, body {
   position: relative;
   left: calc(50% - 36px);
 }
+
+footer.page {
+  font-size: 80%;
+  text-align: center;
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    display: inline-block;
+  }
+}

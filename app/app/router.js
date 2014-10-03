@@ -13,6 +13,8 @@ Router.map(function() {
   this.route('user', {path: 'user/:user_id'});
   this.route('instrument', {path: 'instrument/:instrument_id'});
   this.route('feedback');
+  this.route('credits');
+  this.route('terms');
 });
 
 export default Router;
