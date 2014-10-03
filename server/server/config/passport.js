@@ -65,7 +65,13 @@ module.exports = function(passport) {
                       profile.name.familyName[0] +
                       profile.id.substr(-3),
             provider: 'facebook',
-            facebook: profile._json.id
+            facebook: {
+              email: profile._json.email,
+              id: profile._json.id,
+              link: profile._json.link,
+              updated_time: profile._json.updated_time,
+              verified: profile._json.verified
+            }
           });
           user.save(function(err) {
             if (err) console.log(err);
