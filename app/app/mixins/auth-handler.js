@@ -112,6 +112,10 @@ export default Ember.Mixin.create({
       this.set('showLogin', false);
     },
 
+    openTerms: function() {
+      window.open('https://gensynth.ou.edu/#terms','_blank');
+    },
+
     login: function() {
       var email = this.get('loginEmail'),
           password = this.get('loginPassword');

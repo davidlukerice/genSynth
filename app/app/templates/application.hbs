@@ -130,9 +130,9 @@
             {{input type="password" maxlength=30 value=createConfirmPassword placeholder="Confirm Password" class="form-control"}}
             <div>
               {{#if createAcceptToS}}
-                <input type="checkbox" checked {{action toggleCreateAcceptToS}}> Accept Terms
+                <input type="checkbox" checked {{action toggleCreateAcceptToS}}> I Agree to <span class="toggleText" {{action "openTerms"}}>Privacy &amp; Terms</span>
               {{else}}
-                <input type="checkbox" {{action toggleCreateAcceptToS}}> Accept Terms
+                <input type="checkbox" {{action toggleCreateAcceptToS}}> I Agree to <span class="toggleText" {{action "openTerms"}}>Privacy &amp; Terms</span>
               {{/if}}
             </div>
             <button type="button" class="btn btn-default" {{action "createAccount"}}>Create Account</button>
@@ -160,7 +160,6 @@
       <button type="button"
         {{action toggleOnscreenPiano}}
         {{bind-attr class=":btn :btn-primary :btn-xs usingOnscreenPiano:active"}}>Onscreen Piano</button><br>
-
       <br>
 
       <button type="button"
