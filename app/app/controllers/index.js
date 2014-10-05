@@ -34,6 +34,19 @@ export default Ember.Controller.extend({
     });
   }.property('content.mostBranchedInstruments.@each'),
 
+  latestInstrumentParams: function() {
+    return _.map(this.get('content.latestInstruments').toArray(),
+      function(instrument, i) {
+        return Ember.Object.create({
+          instrumentNetwork: Network.createFromJSON(instrument.get('json')),
+          selected: false,
+          isLive: false,
+          index: i,
+          instrumentModel: instrument
+        });
+    });
+  }.property('content.latestInstruments.@each'),
+
   selectInitialInstrument: function() {
     var instruments = this.get('mostStarredInstrumentParams');
     if (instruments.length > 0)

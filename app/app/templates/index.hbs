@@ -28,6 +28,7 @@
       </div>
     {{/each}}
   </div>
+
   <div class="row">
     <div class="col-md-12">
       <h3>Most Branched Instruments</h3>
@@ -35,6 +36,27 @@
   </div>
   <div class="row instruments">
     {{#each mostBranchedInstrumentParams}}
+      {{instrument-component
+        instrumentNetwork=this.instrumentNetwork
+        selected=this.selected
+        isLive=this.isLive
+        index=this.index
+        instrumentModel=this.instrumentModel
+        makeLiveHandler="makeLive"}}
+    {{else}}
+      <div class="col-md-12">
+        None
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Latest Published Instruments</h3>
+    </div>
+  </div>
+  <div class="row instruments">
+    {{#each latestInstrumentParams}}
       {{instrument-component
         instrumentNetwork=this.instrumentNetwork
         selected=this.selected

@@ -13,6 +13,11 @@ export default Ember.Route.extend({
         isPrivate: false,
         sortBy: '-branchedChildrenCount',
         countLimit: 6
+      }),
+      latestInstruments: this.store.find('instrument', {
+        isPrivate: false,
+        sortBy: '-created',
+        countLimit: 6
       })
     });
   },
