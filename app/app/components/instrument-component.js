@@ -1,6 +1,14 @@
 import Ember from 'ember';
 var Visualizer = require('asNEAT/asNEAT-visualizer')['default'];
 
+var chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWYZ23456789';
+function getRandHash(len) {
+  var str = "";
+  for (var i=0; i<len; ++i)
+    str+=chars[Math.floor(Math.random()*chars.length)];
+  return str;
+}
+
 export default Ember.Component.extend({
   // passed in
   instrumentNetwork: null,
@@ -105,7 +113,7 @@ export default Ember.Component.extend({
           branchedParent = this.get('branchedParent');
       var instrument = store.createRecord('instrument', {
         created: Date.now(),
-        name: 'new Instr',
+        name: 'Instr_'+getRandHash(5),
         json: this.get('instrumentNetwork').toJSON(),
         isPrivate: true,
         branchedParent: branchedParent,
