@@ -114,8 +114,8 @@
           <div class="lhs pull-left">
             <button type="button" class="btn btn-primary" {{action "authenticate" "facebook-connect"}}>Facebook</button>
             <br><br>
-            {{input type="text" maxlength=30 value=loginEmail placeholder="Email Address" class="form-control"}}
-            {{input type="password" maxlength=30 value=loginPassword placeholder="Password" class="form-control"}}
+            {{input type="text" maxlength=30 value=loginEmail placeholder="Email Address" class="form-control" action="login"}}
+            {{input type="password" maxlength=30 value=loginPassword placeholder="Password" class="form-control" action="login"}}
             <button type="button" class="btn btn-default" {{action "login"}}>Login</button>
             {{#if loginError}}
               <br><div class="label label-danger">{{loginError}}</div>
@@ -123,9 +123,9 @@
           </div>
           <div class="rhs pull-right">
             <h4>Create an account</h4>
-            {{input type="text" maxlength=30 value=createEmail placeholder="Email Address" class="form-control"}}
-            {{input type="password" maxlength=30 value=createPassword placeholder="Password" class="form-control"}}
-            {{input type="password" maxlength=30 value=createConfirmPassword placeholder="Confirm Password" class="form-control"}}
+            {{input type="text" maxlength=30 value=createEmail placeholder="Email Address" class="form-control" action="createAccount"}}
+            {{input type="password" maxlength=30 value=createPassword placeholder="Password" class="form-control" action="createAccount"}}
+            {{input type="password" maxlength=30 value=createConfirmPassword placeholder="Confirm Password" class="form-control" action="createAccount"}}
             <div>
               {{#if createAcceptToS}}
                 <input type="checkbox" checked {{action toggleCreateAcceptToS}}> I Agree to <span class="toggleText" {{action "openTerms"}}>Privacy &amp; Terms</span>
