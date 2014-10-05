@@ -7,12 +7,12 @@ export default Ember.Route.extend({
       mostStarredInstruments: this.store.find('instrument', {
         isPrivate: false,
         sortBy: '-stars',
-        countLimit: 9
+        countLimit: 6
       }),
       mostBranchedInstruments: this.store.find('instrument', {
         isPrivate: false,
         sortBy: '-branchedChildrenCount',
-        countLimit: 9
+        countLimit: 6
       })
     });
   },
