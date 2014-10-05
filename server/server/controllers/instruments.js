@@ -271,7 +271,30 @@ exports.index = function(req, res) {
       queryParams = req.query,
       sortParams = "",
       countLimit = queryParams.countLimit,
-      searchQuery = queryParams.searchQuery;
+      searchQuery = queryParams.searchQuery,
+      isRandom = queryParams.isRandom;
+
+  // Random requires a different query structure
+  if (isRandom) {
+    Instrument.findRandom({isPrivate:false}, {}, {limit:6}, function(err, instruments) {
+      if (err) {
+        res.status(500);
+        res.jsonp({
+          msg: 'error'
+        });
+      } else {
+        instruments = toObjects(instruments);
+        instruments.instruments = _.filter(instruments.instruments,
+          function(instrument) {
+            return !instrument.isPrivate ||
+                   instrument.user === currentUserId;
+          });
+
+        res.send(instruments);
+      }
+    });
+    return;
+  }
 
   if (queryParams.sortBy) {
     sortParams += queryParams.sortBy;

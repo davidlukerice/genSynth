@@ -3,7 +3,8 @@
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
-  ObjectId = Schema.ObjectId;
+  ObjectId = Schema.ObjectId,
+  mongooseRandom = require('mongoose-simple-random');
 
 /**
  * Instrument Schema
@@ -79,6 +80,8 @@ InstrumentSchema.index({
   'branchedChildrenCount': -1,
   'created': -1
 });
+
+InstrumentSchema.plugin(mongooseRandom);
 
 var model = mongoose.model('Instrument', InstrumentSchema);
 model.collection.ensureIndex({

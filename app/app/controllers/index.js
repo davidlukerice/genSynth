@@ -47,6 +47,19 @@ export default Ember.Controller.extend({
     });
   }.property('content.latestInstruments.@each'),
 
+  randomInstrumentParams: function() {
+    return _.map(this.get('content.randomInstruments').toArray(),
+      function(instrument, i) {
+        return Ember.Object.create({
+          instrumentNetwork: Network.createFromJSON(instrument.get('json')),
+          selected: false,
+          isLive: false,
+          index: i,
+          instrumentModel: instrument
+        });
+    });
+  }.property('content.randomInstruments.@each'),
+
   selectInitialInstrument: function() {
     var instruments = this.get('mostStarredInstrumentParams');
     if (instruments.length > 0)

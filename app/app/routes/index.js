@@ -18,6 +18,9 @@ export default Ember.Route.extend({
         isPrivate: false,
         sortBy: '-created',
         countLimit: 6
+      }),
+      randomInstruments: this.store.find('instrument', {
+        isRandom: true
       })
     });
   },
