@@ -163,6 +163,7 @@
       <button type="button"
         {{action toggleMIDI}}
         {{bind-attr class=":btn :btn-primary :btn-xs usingMIDI:active"}}>MIDI</button><br>
+        <span class="label label-warning">Note</span> Requires <a href="chrome://flags/#enable-web-midi" target="_blank">chrome://flags/#enable-web-midi</a> enabled on Chrome or the <a href="http://jazz-soft.net/" target="_blank">Jazz-plugin</a>.<br>
       {{#if usingMIDI}}
         {{midi-selector midiSelectable=this}}
       {{/if}}
