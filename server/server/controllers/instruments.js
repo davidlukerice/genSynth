@@ -325,7 +325,7 @@ exports.index = function(req, res) {
       sortParams = "",
       countLimit = queryParams.countLimit || 9,
       searchQuery = queryParams.searchQuery,
-      page = queryParams.page,
+      page = queryParams.page || 1,
       isRandom = queryParams.isRandom;
 
   // Random requires a different query structure
@@ -363,14 +363,6 @@ exports.index = function(req, res) {
   }
   sortParams+= ' -created';
 
-  if (countLimit) {
-    delete queryParams.countLimit;
-  }
-
-  if (page) {
-    delete queryParams.page;
-  }
-
   if (searchQuery) {
     queryParams.$text = {
       $search: searchQuery
@@ -378,6 +370,9 @@ exports.index = function(req, res) {
     sortParams += ' $meta.textScore';
     delete queryParams.searchQuery;
   }
+
+  delete queryParams.countLimit;
+  delete queryParams.page;
 
   // in case given a list of ids, convert it over to
   // what mongoDB expects
@@ -388,24 +383,22 @@ exports.index = function(req, res) {
     delete queryParams.ids;
   }
 
-  var query = Instrument.find(queryParams)
-            .or([{'isPrivate':false}, {'user': currentUserId}])
-            .sort(sortParams);
-
-  if (countLimit)
-    query = query.limit(countLimit);
-
-  query.populate([{path: 'user'}, {path: 'stars'}, {path: 'branchedChildren'}])
-       .exec(function(err, instruments) {
-          if (err) {
-            res.status(500);
-            res.jsonp({
-              msg: 'error'
-            });
-          } else {
-            res.send(toObjects(instruments));
-          }
-        }
+  Instrument.find(queryParams)
+    .or([{'isPrivate':false}, {'user': currentUserId}])
+    .sort(sortParams)
+    .limit(countLimit)
+    .skip((page-1) * countLimit)
+    .populate([{path: 'user'}, {path: 'stars'}, {path: 'branchedChildren'}])
+    .exec(function(err, instruments) {
+      if (err) {
+        res.status(500);
+        res.jsonp({
+          msg: 'error'
+        });
+      } else {
+        res.send(toObjects(instruments));
+      }
+    }
   );
 };
 
