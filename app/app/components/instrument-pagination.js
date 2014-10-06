@@ -8,11 +8,20 @@ export default Ember.Component.extend({
   instrumentsPerPage: 9,
   numPagesShown: 5,
 
+  checkIfOverNumberPages: function() {
+    if (this.get('page') > this.get('numPages'))
+      this.send('changePage', 1);
+  }.observes('numPages'),
+
   numPages: function() {
     return Math.ceil(
       this.get('numInstruments') /
       this.get('instrumentsPerPage'));
   }.property('numInstruments'),
+
+  hasMoreThanOnePage: function() {
+    return this.get('numPages') > 1;
+  }.property('numPages'),
 
   pagesBefore: function() {
     var currentPage = this.get('page'),
