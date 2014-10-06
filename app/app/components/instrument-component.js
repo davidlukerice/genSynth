@@ -125,12 +125,11 @@ export default Ember.Component.extend({
           branchedParent.get('branchedChildren').then(function(children) {
             children.pushObject(instrument);
           });
-          // TODO: Make an actual request for accuracy? Just local, so
-          // not as big of a deal
-          // Increment the branch count
           branchedParent.set('branchedChildrenCount',
             branchedParent.get('branchedChildrenCount') + 1);
         }
+        applicationCtrl.set('currentUser.unpublishedCount',
+          applicationCtrl.get('currentUser.unpublishedCount') + 1);
       }, function(error) {
         // TODO: Show error?
         console.log('error saving: '+error);

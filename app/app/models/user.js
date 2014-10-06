@@ -5,6 +5,7 @@ export default DS.Model.extend({
     inverse: 'user',
     async: true
   }),
+  unpublishedCount: DS.attr('number'),
   stars: DS.hasMany('instrument', {
     inverse: 'stars',
     async: true

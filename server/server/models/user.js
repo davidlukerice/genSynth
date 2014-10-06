@@ -35,6 +35,10 @@ var UserSchema = new Schema({
     type: ObjectId,
     ref: 'Instrument'
   }],
+  unpublishedCount: {
+    type: Number,
+    default: 0
+  },
   stars: [{
     type: ObjectId,
     ref: 'Instrument'

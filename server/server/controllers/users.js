@@ -135,7 +135,8 @@ function toObject(obj) {
     username: obj.username,
     created: obj.created,
     stars: stars,
-    instruments: instruments
+    instruments: instruments,
+    unpublishedCount: obj.unpublishedCount
   };
 }
 

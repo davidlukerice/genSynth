@@ -28,16 +28,16 @@
       {{#if isPublished}}
         <div class="stars pull-right">
           {{#if currentUserStarred}}
-            <i {{action "unstarInstrument"}} class="fa fa-star fa-2x fa-fw blue control" data-title="Unstar this instrument"></i>
+            <i {{action "unstarInstrument"}} class="fa fa-star fa-2x fa-fw blue control title-above title-left" data-title="Unstar this instrument"></i>
           {{else}}
-            <i {{action "starInstrument"}} class="fa fa-star-o fa-2x fa-fw control" data-title="Star this instrument"></i>
+            <i {{action "starInstrument"}} class="fa fa-star-o fa-2x fa-fw control title-above title-left" data-title="Star this instrument"></i>
           {{/if}}
-          <span class="badge" data-title="Star this instrument">{{instrumentModel.starsCount}}</span>
+          <span class="badge title-above title-left" data-title="Star this instrument">{{instrumentModel.starsCount}}</span>
         </div>
       {{else}}
         {{#if isSaved}}
           {{#link-to "instrument" instrumentModel}}
-            <i class="fa fa-lock fa-fw fa-2x pull-right locked control" data-title="Not Published"></i>
+            <i class="fa fa-lock fa-fw fa-2x pull-right locked control title-above title-left" data-title="Not Published"></i>
           {{/link-to}}
         {{/if}}
       {{/if}}

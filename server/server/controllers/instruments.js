@@ -51,10 +51,14 @@ exports.create = function(req, res) {
     },
     // add instrument to user's instruments
     function(callback) {
-      User.update(
-        {_id: req.user.id},
-        {$addToSet:{instruments: instrument.id}},
-        {}, function(err) {
+      User.update({
+          _id: req.user.id
+        },{
+          $addToSet:{instruments: instrument.id},
+          $inc: {unpublishedCount: 1}
+        },
+        {},
+        function(err) {
           callback(err);
         });
     },
@@ -116,6 +120,8 @@ exports.update = function(req, res) {
     return;
   }
 
+  var publishing  = instrument.isPrivate && !req.body.instrument.isPrivate;
+
   instrument.name = req.body.instrument.name;
   instrument.isPrivate = req.body.instrument.isPrivate;
   instrument.tags = req.body.instrument.tags;
@@ -127,7 +133,26 @@ exports.update = function(req, res) {
         msg: 'error'
       });
     } else {
-      res.send(toObject(instrument));
+      if (publishing) {
+        User.update({
+            _id: req.user.id
+          },{
+            $inc: {unpublishedCount: -1}
+          },
+          {},
+          function(err) {
+            if (err) {
+              res.status(500);
+              res.jsonp({
+                msg: 'error'
+              });
+            }
+            else
+              res.send(toObject(instrument));
+          });
+      }
+      else
+        res.send(toObject(instrument));
     }
   });
 };

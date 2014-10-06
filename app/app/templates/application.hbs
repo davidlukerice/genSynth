@@ -25,9 +25,12 @@
         </li>
 
         {{#if session.isAuthenticated}}
-          <li {{bind-attr class="userPageIsActive:active"}} data-title="View Your Saved Instruments">
+          <li {{bind-attr class="userPageIsActive:active"}}>
             {{#link-to "user" currentUser}}
-              <span class="glyphicon glyphicon-user"></span> My Instruments
+              <span data-title="View Your Saved Instruments"><span class="glyphicon glyphicon-user"></span> My Instruments</span>
+              {{#if hasUnpublishedInstruments}}
+                <span class="badge" data-title="You have unpublished instruments">{{currentUser.unpublishedCount}}</span>
+              {{/if}}
             {{/link-to}}
           </li>
         {{/if}}

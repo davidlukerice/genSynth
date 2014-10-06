@@ -20,6 +20,11 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
     return this.get('currentPath') === 'find';
   }.property('currentPath'),
 
+  hasUnpublishedInstruments: function() {
+    var unpublishedCount = this.get('currentUser.unpublishedCount');
+    return unpublishedCount > 0;
+  }.property('currentUser.unpublishedCount'),
+
   currentUser: null,
 
   showSettings: false,

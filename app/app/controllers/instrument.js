@@ -187,6 +187,9 @@ export default Ember.Controller.extend({
       if (this.get('hasName')) {
         instrument.set('isPrivate', false)
                   .save();
+        var application = this.get('controllers.application');
+        application.set('currentUser.unpublishedCount',
+          application.get('currentUser.unpublishedCount') - 1);
       }
       else {
         this.set('publishErrorMessage', 'Instrument must be named.');

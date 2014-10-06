@@ -424,6 +424,9 @@ html, body {
   li {
     cursor: pointer;
   }
+  a .badge:hover {
+    background: lighten(#158cba, 20%);
+  }
 }
 
 .modal {
