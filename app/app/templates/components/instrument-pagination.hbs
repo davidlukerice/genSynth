@@ -1,0 +1,19 @@
+<div class="pagination">
+    {{#if hidingPagesBefore}}
+        ...
+    {{/if}}
+    {{#each pagesBefore}}
+        <span class="btn btn-default" {{action 'changePage' this}}>{{this}}</span>
+    {{else}}
+    {{/each}}
+
+    <span class="btn btn-primary disabled active">{{page}}</span>
+
+    {{#each pagesAfter}}
+        <span class="btn btn-default" {{action 'changePage' this}}>{{this}}</span>
+    {{else}}
+    {{/each}}
+    {{#if hidingPagesAfter}}
+        ...
+    {{/if}}
+</div>

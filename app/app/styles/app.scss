@@ -382,6 +382,12 @@ html, body {
   cursor: pointer;
 }
 
+.pagination {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
 .btn.active.btn-primary {
   border-color: #0c516c;
   margin-top: 2px;

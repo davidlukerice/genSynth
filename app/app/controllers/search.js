@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import InstrumentSorting from 'gen-synth/mixins/instrument-sorting';
 var Network = require('asNEAT/network')['default'];
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(InstrumentSorting, {
   needs: ['application'],
-  queryParams: ['query'],
+  queryParams: ['query', 'page', 'sorting'],
   query: null,
 
   hasSearched: function() {
@@ -17,6 +18,7 @@ export default Ember.Controller.extend({
   // called from router
   initHandler: function() {
     var self = this;
+    this.clearPagination();
     // query parameters aren't available on init for some reason...
     Ember.run.scheduleOnce('afterRender', this, function() {
       var query = self.get('query');
@@ -48,15 +50,41 @@ export default Ember.Controller.extend({
           .set('activeInstrument', instruments[0]);
   }.observes('instrumentParams.@each'),
 
+  clearPagination: function() {
+    this.set('currentPage', 1);
+  },
+
   actions: {
-    updateSearch: function() {
-      var query = this.get('query');
+    updateSearch: function(shouldClear) {
+      var self = this,
+          query = this.get('query'),
+          page = this.get('page');
       if (!query)
         return;
-      var instruments = this.store.find('instrument', {
-        searchQuery: this.get('query')
+      if (typeof shouldClear === 'undefined' || shouldClear)
+        this.clearPagination();
+
+      Ember.$.ajax({
+        url: 'http://localhost:3000/numInstruments/',
+        type: 'GET',
+        xhrFields: {
+          withCredentials: true
+        },
+        data: {
+          searchQuery: query
+        }
+      }).then(function(output) {
+        self.set('numInstruments', output.numInstruments);
       });
-      this.set('instruments', instruments);
+      self.set('instruments', self.store.find('instrument', {
+        searchQuery: query,
+        page: page
+      }));
+    },
+
+    changePageHandler: function(page) {
+      this.set('page', page);
+      this.send('updateSearch', false);
     }
   }
 });

@@ -11,6 +11,11 @@
     </div>
   </div>
   {{#if hasSearched}}
+    {{instrument-pagination
+      page=page
+      numInstruments=numInstruments
+      changePageHandler="changePageHandler"}}
+
     <div class="row instruments">
       {{#each instrumentParams}}
         {{instrument-component
@@ -26,5 +31,10 @@
         </div>
       {{/each}}
     </div>
+
+    {{instrument-pagination
+      page=page
+      numInstruments=numInstruments
+      changePageHandler="changePageHandler"}}
   {{/if}}
 </div>
