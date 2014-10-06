@@ -28,7 +28,7 @@
     "mean-logger": "~0.0.1",
     "moment": "~2.5.0",
     "mongoose": "~3.8.14",
-    "mongoose-simple-random": "^0.3.0",
+    "mongoose-simple-random": "git+https://git@github.com/davidlukerice/mongoose-simple-random.git#master",
     "passport": "~0.2.0",
     "passport-facebook-token": "~0.3.1",
     "passport-github": "~0.1.5",
