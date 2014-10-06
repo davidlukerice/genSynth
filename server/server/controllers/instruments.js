@@ -276,23 +276,30 @@ exports.index = function(req, res) {
 
   // Random requires a different query structure
   if (isRandom) {
-    Instrument.findRandom({isPrivate:false}, {}, {limit:6}, function(err, instruments) {
-      if (err) {
-        res.status(500);
-        res.jsonp({
-          msg: 'error'
-        });
-      } else {
-        instruments = toObjects(instruments);
-        instruments.instruments = _.filter(instruments.instruments,
-          function(instrument) {
-            return !instrument.isPrivate ||
-                   instrument.user === currentUserId;
+    Instrument.findRandom(
+      {isPrivate:false},
+      {},
+      {limit:6},
+      [{path: 'user'}, {path: 'stars'}, {path: 'branchedChildren'}],
+      function(err, instruments)
+      {
+        if (err) {
+          res.status(500);
+          res.jsonp({
+            msg: 'error'
           });
+        } else {
+          instruments = toObjects(instruments);
+          instruments.instruments = _.filter(instruments.instruments,
+            function(instrument) {
+              return !instrument.isPrivate ||
+                     instrument.user === currentUserId;
+            });
 
-        res.send(instruments);
+          res.send(instruments);
+        }
       }
-    });
+    );
     return;
   }
 
