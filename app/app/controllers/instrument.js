@@ -12,9 +12,15 @@ export default Ember.Controller.extend({
     this.set('publishErrorMessage', null);
   },
 
-  tempName: "",
+  tempName: '',
+  oldInstrName: '',
   updateTempName: function() {
-    this.set('tempName', this.get('instrument.name'));
+    var oldInstrName = this.get('oldInstrName'),
+        instrName = this.get('instrument.name');
+    if (oldInstrName === instrName)
+      return;
+    this.set('tempName', instrName);
+    this.set('oldInstrName', instrName);
   }.observes('instrument.name'),
 
   nameHasChanged: function() {
@@ -28,7 +34,7 @@ export default Ember.Controller.extend({
     return tempName && tempName !== "";
   }.property('tempName'),
 
-  tempInstrumentTags: "",
+  tempInstrumentTags: '',
 
   // Using an observer/field instead of a computed property since
   // changes weren't being propogated for some reason...
@@ -41,15 +47,22 @@ export default Ember.Controller.extend({
       this.set('splitTempInstrumentTags', Ember.Array.constructor(tags.split(' ')));
   }.observes('tempInstrumentTags'),
 
+  oldInstrTags: '',
   updateTempTags: function() {
-    this.set('tempInstrumentTags', this.get('instrument.tags'));
-  }.observes('instrument.tags.@each'),
+    var oldInstrTags = this.get('oldInstrTags'),
+        instrTags = this.get('instrument.tags');
+    if (oldInstrTags === instrTags)
+      return;
+
+    this.set('tempInstrumentTags', instrTags);
+    this.set('oldInstrTags', instrTags);
+  }.observes('instrument.tags'),
 
   tagsHaveChanged: function() {
     var instrument = this.get('instrument'),
         temp = this.get('tempInstrumentTags');
     return instrument && temp !== instrument.get('tags');
-  }.property('tempInstrumentTags', 'instrument.tags.@each'),
+  }.property('tempInstrumentTags', 'instrument.tags'),
 
   isCreator: function() {
     var application = this.get('controllers.application');
@@ -128,9 +141,6 @@ export default Ember.Controller.extend({
 
   actions: {
     saveName: function() {
-      // TODO: Profanity check? Server side?
-      // https://www.npmjs.org/package/profanity-filter
-
       var instrument = this.get('instrument'),
           temp = this.get('tempName');
       if (instrument &&
@@ -158,9 +168,6 @@ export default Ember.Controller.extend({
       this.set('tempInstrumentTags', tags.join(' '));
     },
     saveTags: function() {
-      // TODO: Profanity check? Server side?
-      // https://www.npmjs.org/package/profanity-filter
-
       var instrument = this.get('instrument'),
           temp = this.get('tempInstrumentTags');
       if (instrument && temp !== instrument.get('tags')) {
