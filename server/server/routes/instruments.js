@@ -16,6 +16,8 @@ module.exports = function(app, passport, auth) {
   app.get('/starInstrument/:instrumentId', auth.requiresLogin, instruments.star);
   app.get('/unstarInstrument/:instrumentId', auth.requiresLogin, instruments.unstar);
 
+  app.get('/numInstruments', instruments.numInstruments);
+
   //Finish with setting up the instrumentId param
   app.param('instrumentId', instruments.instrument);
 };

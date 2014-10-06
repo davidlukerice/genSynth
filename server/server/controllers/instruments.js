@@ -288,15 +288,44 @@ exports.show = function(req, res) {
   res.jsonp(toObject(req.instrument));
 };
 
+exports.numInstruments = function(req, res) {
+  var currentUserId = req.user ? req.user.id : null,
+      queryParams = req.query,
+      searchQuery = queryParams.searchQuery;
+
+  if (searchQuery) {
+    queryParams.$text = {
+      $search: searchQuery
+    };
+    delete queryParams.searchQuery;
+  }
+
+  Instrument.find(queryParams)
+    .or([{'isPrivate':false}, {'user': currentUserId}])
+    .count(function (err, count){
+      if (err) {
+        res.status(500);
+        res.jsonp({
+          msg: 'error'
+        });
+      } else {
+        res.jsonp({
+          numInstruments: count
+        });
+      }
+    });
+};
+
 /**
  * List of Instruments
  */
 exports.index = function(req, res) {
-  var currentUserId = req.user ? req.user.id : 0,
+  var currentUserId = req.user ? req.user.id : null,
       queryParams = req.query,
       sortParams = "",
-      countLimit = queryParams.countLimit,
+      countLimit = queryParams.countLimit || 9,
       searchQuery = queryParams.searchQuery,
+      page = queryParams.page,
       isRandom = queryParams.isRandom;
 
   // Random requires a different query structure
@@ -338,6 +367,10 @@ exports.index = function(req, res) {
     delete queryParams.countLimit;
   }
 
+  if (page) {
+    delete queryParams.page;
+  }
+
   if (searchQuery) {
     queryParams.$text = {
       $search: searchQuery
@@ -356,6 +389,7 @@ exports.index = function(req, res) {
   }
 
   var query = Instrument.find(queryParams)
+            .or([{'isPrivate':false}, {'user': currentUserId}])
             .sort(sortParams);
 
   if (countLimit)
@@ -369,14 +403,7 @@ exports.index = function(req, res) {
               msg: 'error'
             });
           } else {
-            instruments = toObjects(instruments);
-            instruments.instruments = _.filter(instruments.instruments,
-              function(instrument) {
-                return !instrument.isPrivate ||
-                       instrument.user === currentUserId;
-              });
-
-            res.send(instruments);
+            res.send(toObjects(instruments));
           }
         }
   );
