@@ -18,27 +18,27 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li {{bind-attr class="evolvePageIsActive:active"}}>
+        <li {{bind-attr class="evolvePageIsActive:active"}} data-title="Evolve Your Own Instruments">
           {{#link-to "evolve"}}
             <span class="glyphicon glyphicon-plus-sign"></span> Evolve
           {{/link-to}}
         </li>
 
         {{#if session.isAuthenticated}}
-          <li {{bind-attr class="userPageIsActive:active"}}>
+          <li {{bind-attr class="userPageIsActive:active"}} data-title="View Your Saved Instruments">
             {{#link-to "user" currentUser}}
               <span class="glyphicon glyphicon-user"></span> My Instruments
             {{/link-to}}
           </li>
         {{/if}}
 
-        <li {{bind-attr class="searchPageIsActive:active"}}>
+        <li {{bind-attr class="searchPageIsActive:active"}} data-title="Search For Published Instruments">
           {{#link-to "search"}}
             <span class="glyphicon glyphicon-search"></span> Search
           {{/link-to}}
         </li>
 
-        <li {{bind-attr class="feedbackPageIsActive:active"}}>
+        <li {{bind-attr class="feedbackPageIsActive:active"}} data-title="Leave Us Feedback">
           {{#link-to "feedback"}}
             Feedback
           {{/link-to}}
@@ -46,11 +46,11 @@
 
         {{#if session.isAuthenticated}}
           <li>
-            <a {{ action 'invalidateSession' }}>Logout ({{currentUser.username}})</a>
+            <a {{ action 'invalidateSession' }} data-title="Log out">Logout ({{currentUser.username}})</a>
           </li>
         {{else}}
           <li>
-            <a {{ action 'showLogin' }}>Login</a>
+            <a {{ action 'showLogin' }} data-title="Log in">Login</a>
           </li>
         {{/if}}
 
@@ -98,7 +98,7 @@
 </footer>
 
 <div class="panicContainer">
-  <button {{action "panic"}} class="btn btn-warning" title="Cuts all volume!">Kill Sound!</button>
+  <button {{action "panic"}} class="btn btn-warning title-above title-left" data-title="Cuts all volume!">Kill Sound!</button>
 </div>
 
 {{feature-detector}}

@@ -9,8 +9,8 @@ $fa-font-path: "/assets/fonts" !default;
 $selectedColor: #158cba;
 $hoverColor: #15b5ba;
 
-$borderColor: #e7e7e7;
-$backgroundColor: #f8f8f8;
+$borderColor: rgb(231, 231, 231);
+$backgroundColor: rgb(248, 248, 248);
 
 $controlColor: rgb(51, 51, 51);
 $controlHighlightColor: lighten($controlColor, 40%);
@@ -27,6 +27,32 @@ $halfControlsWidth: $controlsWidth / 2;
 html, body {
   overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;
+}
+
+*:not(.addthis_sharing_toolbox)[data-title]:hover:after {
+  content: attr(data-title);
+  position: absolute;
+  padding: 4px 8px;
+  margin-left: 5px;
+  top:100%;
+  left: -5px;
+  color: rgb(51, 51, 51);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: none;
+  white-space: nowrap;
+  z-index: 99999999px;
+  border: 2px solid rgba(231, 231, 231, 0.8);
+  background: rgba(248, 248, 248, 0.8);
+  pointer-events: none;
+}
+// Special case for bottons on the bottom
+*:not(.addthis_sharing_toolbox).title-above[data-title]:hover:after {
+  top: -100%;
+}
+*:not(.addthis_sharing_toolbox).title-left[data-title]:hover:after {
+  left: -40px;
 }
 
 .navbar-brand {
@@ -101,6 +127,11 @@ html, body {
   .controls {
     text-align: center;
     margin-bottom: 5px;
+
+    .buttonWrapper {
+      position: relative;
+      display: inline-block;
+    }
   }
 
   .advanced {
@@ -150,6 +181,7 @@ html, body {
     & * {
       pointer-events: auto;
       text-decoration: none;
+      position: relative;
     }
 
     .badge {
@@ -172,7 +204,6 @@ html, body {
   }
 
   .badge {
-    position: relative;
     background-color: $controlColor;
 
     &:hover {
