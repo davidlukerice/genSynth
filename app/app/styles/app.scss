@@ -29,6 +29,17 @@ html, body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.navbar-brand {
+  img.logo {
+    height: 40px;
+    margin-top: -10px;
+    position: absolute;
+  }
+  .title {
+    padding-left: 35px;
+  }
+}
+
 .topLinkIcon {
   margin-top: -2px;
   padding-bottom: 9px !important;
