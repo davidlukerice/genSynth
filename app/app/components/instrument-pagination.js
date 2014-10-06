@@ -17,10 +17,12 @@ export default Ember.Component.extend({
   pagesBefore: function() {
     var currentPage = this.get('page'),
         numPagesShown = this.get('numPagesShown'),
+        start = currentPage - numPagesShown,
         pages = [];
-    for (var i=1; i<currentPage && pages.length <= numPagesShown; ++i) {
+    if (start < 1)
+      start = 1;
+    for (var i=start; i<currentPage; ++i)
       pages.push(i);
-    }
     return pages;
   }.property('page'),
   hidingPagesBefore: function() {
@@ -32,7 +34,7 @@ export default Ember.Component.extend({
         numPages = this.get('numPages'),
         numPagesShown = this.get('numPagesShown'),
         pages = [];
-    for (var i=(currentPage+1); i<=numPages && pages.length <= numPagesShown; ++i) {
+    for (var i=(currentPage+1); i<=numPages && pages.length < numPagesShown; ++i) {
       pages.push(i);
     }
     return pages;
