@@ -464,3 +464,17 @@ footer.page {
     display: inline-block;
   }
 }
+
+.instrumentSorting {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
+  .btn-group {
+    margin-top: 5px;
+
+    // Hack to better position the data-title tooltips
+    button {
+      position: static;
+    }
+  }
+}

@@ -1,13 +1,14 @@
 import Ember from 'ember';
-import InstrumentSorting from 'gen-synth/mixins/instrument-sorting';
+import InstrumentSorting from 'gen-synth/components/instrument-sorting';
 var Network = require('asNEAT/network')['default'];
 
-export default Ember.Controller.extend(InstrumentSorting, {
+export default Ember.Controller.extend({
   needs: ['application'],
   queryParams: ['query', 'page', 'sorting'],
   query: null,
   page: 1,
   numInstruments: 0,
+  sorting: InstrumentSorting.SortingTypes.CREATED_DEC,
 
   hasSearched: function() {
     return this.get('instruments') !== null;
@@ -40,6 +41,7 @@ export default Ember.Controller.extend(InstrumentSorting, {
           selected: false,
           isLive: i===0,
           index: i,
+
           instrumentModel: instrument
         });
     });
@@ -60,7 +62,8 @@ export default Ember.Controller.extend(InstrumentSorting, {
     updateSearch: function() {
       var self = this,
           query = this.get('query'),
-          page = this.get('page');
+          page = this.get('page'),
+          sorting = this.get('sorting');
       if (!query)
         return;
 
@@ -78,12 +81,17 @@ export default Ember.Controller.extend(InstrumentSorting, {
       });
       self.set('instruments', self.store.find('instrument', {
         searchQuery: query,
-        page: page
+        page: page,
+        sortBy: sorting
       }));
     },
 
     changePageHandler: function(page) {
       this.set('page', page);
+    },
+
+    changeSortingHandler: function(type) {
+      this.set('sorting', type);
     }
   }
 });

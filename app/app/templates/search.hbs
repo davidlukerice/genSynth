@@ -9,7 +9,13 @@
         maxlength="50"
         class="form-control"}}
     </div>
+    <div class="cold-md-3">
+      {{instrument-sorting
+        sorting=sorting
+        changeSortingHandler="changeSortingHandler"}}
+    </div>
   </div>
+
   {{#if hasSearched}}
     {{instrument-pagination
       page=page

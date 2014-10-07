@@ -359,15 +359,18 @@ exports.index = function(req, res) {
 
   if (queryParams.sortBy) {
     sortParams += queryParams.sortBy;
+    if (queryParams.sortBy.indexOf('created') === -1)
+      sortParams+= ' -created';
     delete queryParams.sortBy;
   }
-  sortParams+= ' -created';
+  else
+    sortParams+= '-created';
 
   if (searchQuery) {
     queryParams.$text = {
       $search: searchQuery
     };
-    sortParams += ' $meta.textScore';
+    //sortParams += ' $meta.textScore';
     delete queryParams.searchQuery;
   }
 

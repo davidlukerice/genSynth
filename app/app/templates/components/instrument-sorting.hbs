@@ -1,0 +1,40 @@
+<div class="instrumentSorting">
+  <div class="btn-group btn-group-xs">
+    <button
+      {{bind-attr class=":btn createdDecSelected:active createdDecSelected:btn-primary:btn-default"}}
+      {{action 'changeSorting' '-created'}}
+      data-title="Sort by Decreasing Created Date">
+        <i class="fa fa-clock-o"></i><i class="fa fa-sort-amount-desc"></i>
+    </button>
+    <button
+      {{bind-attr class=":btn createdIncSelected:active createdIncSelected:btn-primary:btn-default"}}
+      {{action 'changeSorting' 'created'}}
+      data-title="Sort by Increasing Created Date">
+        <i class="fa fa-clock-o"></i><i class="fa fa-sort-amount-asc"></i>
+    </button>
+    <button
+      {{bind-attr class=":btn starsDecSelected:active starsDecSelected:btn-primary:btn-default"}}
+      {{action 'changeSorting' '-starsCount'}}
+      data-title="Sort by Decreasing Star Count">
+        <i class="fa fa-star"></i><i class="fa fa-sort-amount-desc"></i>
+    </button>
+    <button
+      {{bind-attr class=":btn starsIncSelected:active starsIncSelected:btn-primary:btn-default"}}
+      {{action 'changeSorting' 'starsCount'}}
+      data-title="Sort by Increasing Star Count">
+        <i class="fa fa-star"></i><i class="fa fa-sort-amount-asc"></i>
+    </button>
+    <button
+      {{bind-attr class=":btn branchDecSelected:active branchDecSelected:btn-primary:btn-default"}}
+      {{action 'changeSorting' '-branchedChildrenCount'}}
+      data-title="Sort by Decreasing Branch Count">
+        <i class="fa fa-code-fork"></i><i class="fa fa-sort-amount-desc"></i>
+    </button>
+    <button
+      {{bind-attr class=":btn branchIncSelected:active branchIncSelected:btn-primary:btn-default"}}
+      {{action 'changeSorting' 'branchedChildrenCount'}}
+      data-title="Sort by Increasing Branch Count">
+        <i class="fa fa-code-fork"></i><i class="fa fa-sort-amount-asc"></i>
+    </button>
+  </div>
+</div>

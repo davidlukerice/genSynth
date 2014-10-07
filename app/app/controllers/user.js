@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import InstrumentSorting from 'gen-synth/mixins/instrument-sorting';
 var Network = require('asNEAT/network')['default'];
 
-export default Ember.Controller.extend(InstrumentSorting, {
+export default Ember.Controller.extend({
   needs: ['application'],
   queryParams: ['page', 'sorting'],
   page: 1,

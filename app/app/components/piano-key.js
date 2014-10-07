@@ -89,7 +89,7 @@ export default Ember.Component.extend({
       return;
 
     var steps = Utils.stepsFromRootNote(note);
-    Utils.log('Playing note: '+note+' ('+steps+')');
+    //Utils.log('Playing note: '+note+' ('+steps+')');
 
     var noteOscillators = instrumentNetwork.getNoteOscillatorNodes();
     _.forEach(noteOscillators, function(node) {
