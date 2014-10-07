@@ -466,9 +466,8 @@ footer.page {
 }
 
 .instrumentSorting {
-  width: 100%;
+  display: inline-block;
   text-align: center;
-  margin-bottom: 15px;
   .btn-group {
     margin-top: 5px;
 
@@ -476,5 +475,13 @@ footer.page {
     button {
       position: static;
     }
+  }
+}
+
+.search {
+  .instrumentSorting {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
   }
 }

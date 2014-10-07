@@ -8,6 +8,9 @@
         {{else}}
           {{user.username}}&#39;s Instruments
         {{/if}}
+        {{instrument-sorting
+          sorting=sorting
+          changeSortingHandler="changeSortingHandler"}}
       </h3>
     </div>
   </div>
@@ -27,7 +30,7 @@
     {{else}}
       <div class="col-md-12">
         {{#if isCurrentUser}}
-          None 
+          None
           {{#link-to 'evolve'}}
             Create an Instrument
           {{/link-to}}

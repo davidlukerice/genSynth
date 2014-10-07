@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import InstrumentSorting from 'gen-synth/components/instrument-sorting';
 var Network = require('asNEAT/network')['default'];
 
 export default Ember.Controller.extend({
@@ -6,6 +7,7 @@ export default Ember.Controller.extend({
   queryParams: ['page', 'sorting'],
   page: 1,
   numInstruments: 0,
+  sorting: InstrumentSorting.SortingTypes.CREATED_DEC,
 
   // set by route
   // {user, instruments: []}
@@ -64,7 +66,8 @@ export default Ember.Controller.extend({
     updateInstruments: function() {
       var self = this,
           userId = this.get('user.id'),
-          page = this.get('page');
+          page = this.get('page'),
+          sorting = this.get('sorting');
 
       Ember.$.ajax({
         url: 'http://localhost:3000/numInstruments/',
@@ -80,13 +83,18 @@ export default Ember.Controller.extend({
       });
       this.set('instruments', this.store.find('instrument', {
         user: userId,
-        page: page
+        page: page,
+        sortBy: sorting
       }));
     },
 
     changePageHandler: function(page) {
       this.set('page', page);
       this.send('updateInstruments', false);
+    },
+
+    changeSortingHandler: function(type) {
+      this.set('sorting', type);
     }
   }
 });
