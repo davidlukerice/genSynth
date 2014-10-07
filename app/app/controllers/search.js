@@ -6,14 +6,16 @@ export default Ember.Controller.extend(InstrumentSorting, {
   needs: ['application'],
   queryParams: ['query', 'page', 'sorting'],
   query: null,
+  page: 1,
+  numInstruments: 0,
 
   hasSearched: function() {
     return this.get('instruments') !== null;
   }.property('instruments.#each.json'),
 
   watchQuery: function() {
-    this.initHandler();
-  }.observes('query'),
+    this.send('updateSearch');
+  }.observes('query', 'page', 'sorting'),
 
   // called from router
   initHandler: function() {
@@ -51,18 +53,16 @@ export default Ember.Controller.extend(InstrumentSorting, {
   }.observes('instrumentParams.@each'),
 
   clearPagination: function() {
-    this.set('currentPage', 1);
+    this.set('page', 1);
   },
 
   actions: {
-    updateSearch: function(shouldClear) {
+    updateSearch: function() {
       var self = this,
           query = this.get('query'),
           page = this.get('page');
       if (!query)
         return;
-      if (typeof shouldClear === 'undefined' || shouldClear)
-        this.clearPagination();
 
       Ember.$.ajax({
         url: 'http://localhost:3000/numInstruments/',
@@ -84,7 +84,6 @@ export default Ember.Controller.extend(InstrumentSorting, {
 
     changePageHandler: function(page) {
       this.set('page', page);
-      this.send('updateSearch', false);
     }
   }
 });

@@ -1,11 +1,19 @@
 import Ember from 'ember';
+import InstrumentSorting from 'gen-synth/mixins/instrument-sorting';
 var Network = require('asNEAT/network')['default'];
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(InstrumentSorting, {
   needs: ['application'],
+  queryParams: ['page', 'sorting'],
+  page: 1,
+  numInstruments: 0,
 
   // set by route
   // {user, instruments: []}
+
+  watchQuery: function() {
+    this.send('updateInstruments');
+  }.observes('page', 'sorting'),
 
   isCurrentUser: function() {
     var application = this.get('controllers.application');
@@ -48,4 +56,38 @@ export default Ember.Controller.extend({
       this.get('controllers.application')
           .set('activeInstrument', instruments[0]);
   }.observes('instrumentParams.@each'),
+
+  clearPagination: function() {
+    this.set('page', 1);
+  },
+
+  actions: {
+    updateInstruments: function() {
+      var self = this,
+          userId = this.get('user.id'),
+          page = this.get('page');
+
+      Ember.$.ajax({
+        url: 'http://localhost:3000/numInstruments/',
+        type: 'GET',
+        xhrFields: {
+          withCredentials: true
+        },
+        data: {
+          user: userId
+        }
+      }).then(function(output) {
+        self.set('numInstruments', output.numInstruments);
+      });
+      this.set('instruments', this.store.find('instrument', {
+        user: userId,
+        page: page
+      }));
+    },
+
+    changePageHandler: function(page) {
+      this.set('page', page);
+      this.send('updateInstruments', false);
+    }
+  }
 });

@@ -11,6 +11,10 @@
       </h3>
     </div>
   </div>
+  {{instrument-pagination
+    page=page
+    numInstruments=numInstruments
+    changePageHandler="changePageHandler"}}
   <div class="row instruments">
     {{#each instrumentParams}}
       {{instrument-component
@@ -22,8 +26,19 @@
         makeLiveHandler="makeLive"}}
     {{else}}
       <div class="col-md-12">
-        None
+        {{#if isCurrentUser}}
+          None 
+          {{#link-to 'evolve'}}
+            Create an Instrument
+          {{/link-to}}
+        {{else}}
+          None
+        {{/if}}
       </div>
     {{/each}}
+  {{instrument-pagination
+    page=page
+    numInstruments=numInstruments
+    changePageHandler="changePageHandler"}}
   </div>
 </div>

@@ -8,8 +8,7 @@ export default Ember.Route.extend({
 
   setupController: function(controller, model) {
     controller.set('user', model);
-    controller.set('instruments', this.store.find('instrument', {
-      user: model.id
-    }));
+    controller.clearPagination();
+    controller.send('updateInstruments');
   }
 });
