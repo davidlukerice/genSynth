@@ -22,16 +22,22 @@
     {{BASE_TAG}}
 
     <!-- Google Analytics -->
+    <script async src='//www.google-analytics.com/analytics.js'></script>
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-49487341-1', 'davidlukerice.github.io');
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-XXXXXXXX-1', 'auto');
       ga('send', 'pageview');
+
+      ga('set', {
+        'appName': 'GenSynth',
+        'appId': 'xxxxxxxxxx',
+        'appVersion': '1.0',
+      });
+
+      ga('send', 'screenview', {'screenName': 'app'});
     </script>
 
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53ffef0a7e41dc5b"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-xxxxxxxxxxxxxxxx"></script>
 
     <link rel="stylesheet" href="assets/vendor.css">
     <link rel="stylesheet" href="assets/gen-synth.css">
