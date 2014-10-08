@@ -2,8 +2,8 @@
   "name": "gen-synth",
   "dependencies": {
     "WebMIDIAPIShim": "git://github.com/cwilso/WebMIDIAPIShim.git#gh-pages",
-    "asNEAT": "#master",
-    "asNEAT-visualizer": "~0.3.2",
+    "asNEAT": "0.4.4",
+    "asNEAT-visualizer": "0.4.4",
     "bootstrap": "~3.2.0",
     "bootstrap-sass-official": "~3.2.0",
     "bourbon": "3.2.1",
