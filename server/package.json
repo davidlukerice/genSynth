@@ -1,7 +1,7 @@
 {
   "name": "genSynthAPI",
   "description": "A restful API for genSynth",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "author": "David Luke Rice, based on the server parts of MEEN stack by Martin Genev",
   "repository": {
