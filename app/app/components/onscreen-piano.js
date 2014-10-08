@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   hotkeyLayouts: [
     {type: "querty", accessor: "hotkey"},
     {type: "colemak", accessor: "colemakHotkey"}],
-  selectedHotkeyLayout: "colemakHotkey",
+  selectedHotkeyLayout: "hotkey",
 
   sustaining: false,
 
@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   onkeyUpHandler: null,
   setupKeyEvents: function() {
     var self = this;
-    
+
     // Sustain on shift
     var onkeyDownHandler = function(e) {
       if(e.keyCode === 16) {
