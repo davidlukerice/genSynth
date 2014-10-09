@@ -10,7 +10,7 @@
     "chroma-js": "0.5.6",
     "d3": "3.4.11",
     "ember": "1.8.0-beta.4",
-    "ember-data": "1.0.0-beta.10",
+    "ember-data": "https://github.com/components/ember-data.git#e68f2f26a5a307eaaced0daf0522c681d3856480",
     "ember-cli-shims": "stefanpenner/ember-cli-shims#0.0.3",
     "ember-cli-test-loader": "rwjblue/ember-cli-test-loader#0.0.4",
     "ember-load-initializers": "stefanpenner/ember-load-initializers#0.0.2",
