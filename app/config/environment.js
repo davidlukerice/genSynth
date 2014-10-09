@@ -13,6 +13,16 @@ module.exports = function(environment) {
         // e.g. 'with-controller': true
       }
     },
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' connect.facebook.net",
+      'font-src': "'self' data: fonts.gstatic.com",
+      'connect-src': "'self' localhost:3000",
+      //'img-src': "'self' www.facebook.com",
+      'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
+      'frame-src': "s-static.ak.facebook.com static.ak.facebook.com www.facebook.com",
+      'report-uri': '/_/csp-reports'
+    },
 
     APP: {
     },
