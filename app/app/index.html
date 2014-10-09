@@ -19,7 +19,6 @@
     <meta name="twitter:description" content="A platform for collaboratively evolving novel synthetic musical instruments.">
     <meta name="twitter:image" content="/assets/img/logo.jpg">
 
-    {{BASE_TAG}}
 
     <!-- Google Analytics -->
     <script async src='//www.google-analytics.com/analytics.js'></script>
@@ -38,20 +37,13 @@
     </script>
 
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-xxxxxxxxxxxxxxxx"></script>
+    {{content-for 'head'}}
 
     <link rel="stylesheet" href="assets/vendor.css">
     <link rel="stylesheet" href="assets/gen-synth.css">
   </head>
   <body>
-    <script>
-        window.GenSynthENV = {{EMBER_ENV}};
-        window.ENV = window.GenSynthENV;
-        window.EmberENV = {{EMBER_ENV}};
-    </script>
     <script src="assets/vendor.js"></script>
     <script src="assets/gen-synth.js"></script>
-    <script>
-      window.GenSynth = require('gen-synth/app')['default'].create({{APP_CONFIG}});
-    </script>
   </body>
 </html>
