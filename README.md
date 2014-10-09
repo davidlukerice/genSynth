@@ -11,6 +11,8 @@ Branch of a showcased instrument below or evolve your own!
    - /app/app/index.html AddThis pub-ID && Google Analytics Id
    - /app/config/auth-providers
    - /app/config/environment.js contentSecurityPolicy connect-src
+   - /app/app/torii-providers/local-provider url
+   - /app/app/mixins/auth-handler url
    - /server/server/config/env/production dev & test
  - `sudo npm install` in both app and server folders
  - `grunt`
