@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var self = this;
     Ember.run.scheduleOnce('afterRender', this, function() {
-      var ele = self.$();
+      var ele = $(self.$());
       var tagit = ele.tagit({
         tagLimit: this.get('tagLimit'),
         placeholderText: this.get('placeholderText'),
