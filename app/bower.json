@@ -25,6 +25,6 @@
     "lodash": "2.4.1",
     "qunit": "1.15.0",
     "tag-it": "https://github.com/aehlke/tag-it.git#1d84585b7f93ca78ef881aee1969f0dfc4442fe0",
-    "ember-simple-auth": "https://github.com/davidlukerice/ember-simple-auth-component.git#master"
+    "ember-simple-auth": "https://github.com/davidlukerice/ember-simple-auth-component.git#c4c01562cf52f524d646e349f3b55965e1d6dc8b"
   }
 }
