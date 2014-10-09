@@ -5,12 +5,14 @@ An evolutionary art platform for evolving new synthetic musical instruments.
 Branch of a showcased instrument below or evolve your own!
 
 ### Install Instructions
-TODO: Better fill out
- - Install Node, bower, grunt
+ - Install [MongoDB](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/) (Currently using 2.6.5)
+ - Install Node, global bower, global grunt-cli, and global ember-cli 0.0.46
  - Update Config Keys
    - /app/app/index.html AddThis pub-ID && Google Analytics Id
    - /app/config/auth-providers
    - /server/server/config/env/production dev & test
+ - `sudo npm install` in both app and server folders
+ - `grunt`
  - Build App and Server
  - Deploy
 
