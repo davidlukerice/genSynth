@@ -81,7 +81,7 @@
     <div class="col-md-4 col-sm-4">
       {{#if isCreator}}
         {{#if instrument.isPrivate}}
-          <button {{action 'publish'}} class="btn">Publish</button>
+          <button {{action 'publish'}} class="btn btn-primary">Publish</button>
           {{#if publishErrorMessage}}
             <span class="label label-danger">{{publishErrorMessage}}</span>
           {{/if}}
