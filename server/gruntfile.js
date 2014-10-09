@@ -30,16 +30,37 @@ module.exports = function(grunt) {
       dev: {
         script: 'server.js',
         options: {
+          env: {
+            NODE_ENV: 'development'
+          },
           nodeArgs: ['--debug'],
           ignore: ['node_modules/**']
+        }
+      },
+      prod: {
+        script: 'server.js',
+        options: {
+          env: {
+            NODE_ENV: 'production'
+          },
+          watch: []
         }
       }
     },
     concurrent: {
-      tasks: ['nodemon', 'node-inspector', 'watch'],
-      options: {
-        logConcurrentOutput: true
+      dev: {
+        tasks: ['nodemon', 'node-inspector', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      },
+      prod: {
+        tasks: ['nodemon:prod'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
+
     },
     'node-inspector': {
       custom: {
@@ -88,7 +109,12 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'jshint',
     'clean:server',
-    'concurrent'
+    'concurrent:dev'
+  ]);
+
+  grunt.registerTask('prod', [
+    'clean:server',
+    'concurrent:prod'
   ]);
 
   //Test task.
