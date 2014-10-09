@@ -53,6 +53,8 @@ walk(routes_path, function(path) {
   require(path)(app, passport, auth);
 });
 
+var port = process.env.PORT || config.port;
+
 if (process.env.NODE_ENV === 'production') {
   var forceSSL = require('express-force-ssl');
   var http = require('http');
@@ -63,19 +65,18 @@ if (process.env.NODE_ENV === 'production') {
     cert: fs.readFileSync(config.cert)
   };
 
-  var server = http.createServer(app);
+  //var server = http.createServer(app);
   var secureServer = https.createServer(ssl_options, app);
 
-  app.use(forceSSL);
-  app.use(app.router);
+  //app.use(forceSSL);
+  //app.use(app.router);
 
-  secureServer.listen(443);
-  server.listen(80);
-  console.log('Express production app started on 443, and forcing from 80');
+  secureServer.listen(port);
+  //server.listen(80);
+  console.log('Express production app started on ' + port);
 }
 else {
   //Start the app by listening on <port>
-  var port = process.env.PORT || config.port;
   app.listen(port);
   console.log('Express app started on port ' + port);
 }
