@@ -4,6 +4,8 @@
     "name": "GenSynth Server - Dev"
   },
   "session": "SESSION_SERCRET",
+  "apiPort": 3000,
+  "appPort-http": 8000,
   "accessControlAllowOrigin": "http://localhost:8000",
   "facebook": {
     "clientID": "APP_ID",

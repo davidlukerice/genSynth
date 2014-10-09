@@ -53,32 +53,21 @@ walk(routes_path, function(path) {
   require(path)(app, passport, auth);
 });
 
-var port = process.env.PORT || config.port;
+var port = process.env.PORT || config.apiPort;
 
-if (process.env.NODE_ENV === 'production') {
-  var forceSSL = require('express-force-ssl');
-  var http = require('http');
+if (env === 'production') {
   var https = require('https');
-
   var ssl_options = {
     key: fs.readFileSync(config.key),
     cert: fs.readFileSync(config.cert)
   };
-
-  //var server = http.createServer(app);
   var secureServer = https.createServer(ssl_options, app);
-
-  //app.use(forceSSL);
-  //app.use(app.router);
-
   secureServer.listen(port);
-  //server.listen(80);
-  console.log('Express production app started on ' + port);
+  console.log('GenSynth API Prod started on ' + port);
 }
 else {
-  //Start the app by listening on <port>
   app.listen(port);
-  console.log('Express app started on port ' + port);
+  console.log('GenSynth API Dev started on port ' + port);
 }
 
 //expose app

@@ -37,8 +37,27 @@ module.exports = function(grunt) {
           ignore: ['node_modules/**']
         }
       },
+      app: {
+        script: 'app-server.js',
+        options: {
+          env: {
+            NODE_ENV: 'development'
+          },
+          nodeArgs: [],
+          ignore: ['node_modules/**']
+        }
+      },
       prod: {
         script: 'server.js',
+        options: {
+          env: {
+            NODE_ENV: 'production'
+          },
+          watch: []
+        }
+      },
+      'app-prod': {
+        script: 'app-server.js',
         options: {
           env: {
             NODE_ENV: 'production'
@@ -49,13 +68,19 @@ module.exports = function(grunt) {
     },
     concurrent: {
       dev: {
-        tasks: ['nodemon', 'node-inspector', 'watch'],
+        tasks: ['nodemon:dev', 'node-inspector', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      },
+      'dev-full': {
+        tasks: ['nodemon:dev', 'nodemon:app', 'node-inspector', 'watch'],
         options: {
           logConcurrentOutput: true
         }
       },
       prod: {
-        tasks: ['nodemon:prod'],
+        tasks: ['nodemon:prod', 'nodemon:app-prod'],
         options: {
           logConcurrentOutput: true
         }
@@ -110,6 +135,12 @@ module.exports = function(grunt) {
     'jshint',
     'clean:server',
     'concurrent:dev'
+  ]);
+
+  grunt.registerTask('devfull', [
+    'jshint',
+    'clean:server',
+    'concurrent:dev-full'
   ]);
 
   grunt.registerTask('prod', [

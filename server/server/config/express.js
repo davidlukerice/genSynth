@@ -9,12 +9,12 @@ var session = require('express-session'),
     methodOverride = require('method-override'),
     mongoStore = require('connect-mongo')(session),
     helpers = require('view-helpers'),
-    config = require('./config');
+    config = require('./config'),
+    env = process.env.NODE_ENV || 'development';
 
 module.exports = function(app, passport, db) {
-  app.set('showStackError', true);
+  app.set('showStackError', env !== 'production');
 
-  //Should be placed before express.static
   app.use(compression({
     filter: function(req, res) {
       return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
