@@ -36,7 +36,7 @@
 
   <div class="onscreenPianoControls">
     <span class="controlLabel">Hotkey Layout</span><br>
-    {{view Ember.Select
+    {{view "select"
        content=hotkeyLayouts
        optionValuePath="content.accessor"
        optionLabelPath="content.type"
