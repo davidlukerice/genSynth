@@ -43,7 +43,6 @@ if (env === 'production') {
   var secureServer = https.createServer(ssl_options, app);
 
   app.use(forceSSL);
-  app.use(app.router);
 
   secureServer.listen(secureAppPort);
   server.listen(port);

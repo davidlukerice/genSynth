@@ -9,7 +9,7 @@ Branch of a showcased instrument below or evolve your own!
  - Install Node, global bower, global grunt-cli, and global ember-cli 0.0.46
  - Update Config Keys
    - /app/app/index.html AddThis pub-ID && Google Analytics Id
-   - /app/config/auth-providers
+   - /app/config/providers
    - /app/config/environment.js contentSecurityPolicy connect-src
    - /app/app/torii-providers/local-provider url
    - /app/app/mixins/auth-handler url

@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import InstrumentSorting from 'gen-synth/components/instrument-sorting';
+import config from '../config/environment';
+
 var Network = require('asNEAT/network')['default'];
 
 export default Ember.Controller.extend({
@@ -68,7 +70,7 @@ export default Ember.Controller.extend({
         return;
 
       Ember.$.ajax({
-        url: 'http://localhost:3000/numInstruments/',
+        url: config.apiUrl+'/numInstruments/',
         type: 'GET',
         xhrFields: {
           withCredentials: true

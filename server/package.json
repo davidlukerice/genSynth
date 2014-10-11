@@ -59,7 +59,7 @@
     "grunt-mocha-test": "0.12.1",
     "grunt-nodemon": "0.3.0",
     "grunt-rev": "0.1.0",
-    "grunt-usemin": "3.4.0",
+    "grunt-usemin": "2.4.0",
     "grunt-mocha": "0.4.1",
     "grunt-open": "0.2.0",
     "grunt-concurrent": "1.0.0",

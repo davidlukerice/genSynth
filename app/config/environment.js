@@ -1,5 +1,5 @@
 /* jshint node: true */
-var AuthProviders = require('./auth-providers');
+var providers = require('./providers');
 
 module.exports = function(environment) {
   var ENV = {
@@ -14,23 +14,25 @@ module.exports = function(environment) {
       }
     },
     contentSecurityPolicy: {
-      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' connect.facebook.net",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' connect.facebook.net ct1.addthis.com s7.addthis.com www.google-analytics.com",
       'object-src': "'self'",
       'font-src': "'self' data: fonts.gstatic.com",
       'connect-src': "'self' localhost:3000",
-      'img-src': "'self' www.facebook.com",
-      'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
-      'frame-src': "s-static.ak.facebook.com static.ak.facebook.com www.facebook.com",
+      'img-src': "'self' www.facebook.com www.google-analytics.com",
+      'style-src': "'self' 'unsafe-inline' fonts.googleapis.com ct1.addthis.com",
+      'frame-src': "s-static.ak.facebook.com static.ak.facebook.com www.facebook.com ct1.addthis.com",
       'report-uri': '/_/csp-reports'
     },
 
     APP: {
     },
 
+    apiUrl: providers.apiUrl,
+
     'simple-auth': {
       store: 'simple-auth-session-store:local-storage',
       authorizer: 'authorizer:custom',
-      crossOriginWhitelist: AuthProviders.crossOriginWhitelist
+      crossOriginWhitelist: providers.crossOriginWhitelist
     },
 
     torii: {
@@ -38,7 +40,7 @@ module.exports = function(environment) {
         'local-provider': {
         },
         'facebook-connect': {
-          appId: AuthProviders.facebookConnect.appId,
+          appId: providers.facebookConnect.appId,
           scope: 'email'
         }
       }

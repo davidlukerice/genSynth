@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -36,7 +37,7 @@ export default Ember.Mixin.create({
         return;
       }
       Ember.$.ajax({
-        url: 'http://localhost:3000/auth/facebook',
+        url: config.apiUrl+'/auth/facebook',
         type: 'GET',
         data: {
           access_token: accessToken
@@ -66,7 +67,7 @@ export default Ember.Mixin.create({
 
     function authWithCurrentSession() {
       Ember.$.ajax({
-        url: 'http://localhost:3000/users/me',
+        url: config.apiUrl+'/users/me',
         type: 'GET',
         data: {},
         //crossDomain: true,
@@ -163,7 +164,7 @@ export default Ember.Mixin.create({
       }
 
       Ember.$.ajax({
-        url: 'http://localhost:3000/users/',
+        url: config.apiUrl+'/users/',
         type: 'POST',
         data: {
           email: createEmail,

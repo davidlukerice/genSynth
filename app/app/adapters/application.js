@@ -1,10 +1,11 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 //export default DS.FixtureAdapter.extend();
 
 export default DS.RESTAdapter.extend({
   namespace: '',
-  host: 'http://localhost:3000',
+  host: config.apiUrl,
 
   // modified ajax call to allow session header
   ajax: function(url, type, hash) {

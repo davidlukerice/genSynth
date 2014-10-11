@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Object.extend({
   open: function(options) {
     console.log('options: '+JSON.stringify(options));
     return new Ember.RSVP.Promise(function(resolve, reject){
       Ember.$.ajax({
-        url: 'http://localhost:3000/auth/local',
+        url: config.apiUrl+'/auth/local',
         type: 'POST',
         data: {
           email: options.email,

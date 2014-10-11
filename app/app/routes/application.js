@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Route.extend({
 
@@ -33,7 +34,7 @@ export default Ember.Route.extend({
     invalidateSession: function() {
       var self = this;
       Ember.$.ajax({
-        url: 'http://localhost:3000/auth/logout',
+        url: config.apiUrl+'/auth/logout',
         type: 'GET',
         xhrFields: {
           withCredentials: true

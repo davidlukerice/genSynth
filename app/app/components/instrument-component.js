@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 var Visualizer = require('asNEAT/asNEAT-visualizer')['default'];
 
 var chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWYZ23456789';
@@ -172,7 +173,7 @@ export default Ember.Component.extend({
           currentUser = applicationCtrl.get('currentUser');
 
       Ember.$.ajax({
-        url: 'http://localhost:3000/starInstrument/'+model.id,
+        url: config.apiUrl+'/starInstrument/'+model.id,
         type: 'GET',
         xhrFields: {
           withCredentials: true
@@ -197,7 +198,7 @@ export default Ember.Component.extend({
           currentUser = applicationCtrl.get('currentUser');
 
       Ember.$.ajax({
-        url: 'http://localhost:3000/unstarInstrument/'+model.id,
+        url: config.apiUrl+'/unstarInstrument/'+model.id,
         type: 'GET',
         xhrFields: {
           withCredentials: true

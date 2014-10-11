@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Controller.extend({
 
@@ -29,7 +30,7 @@ export default Ember.Controller.extend({
       }
 
       Ember.$.ajax({
-        url: 'http://localhost:3000/feedback/',
+        url: config.apiUrl+'/feedback/',
         type: 'POST',
         data: {
           comment: feedback
