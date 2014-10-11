@@ -11,14 +11,21 @@ Branch of a showcased instrument below or evolve your own!
    - /app/app/index.html AddThis pub-ID && Google Analytics Id
    - /app/config/providers
    - /app/config/environment.js contentSecurityPolicy connect-src
-   - /app/app/torii-providers/local-provider url
-   - /app/app/mixins/auth-handler url
    - /server/server/config/env/production dev & test
- - `sudo npm install` in both app and server folders
- - `grunt`
- - Build App and Server
- - Deploy
+ - `ember init` in /app (saying no to replacing any files). This should install all npm and bower dependencies.
+ - `sudo npm install` in the server folder
 
+ Running the ember app separately
+ - `ember server` in /app and `grunt dev` in /server
+
+ Running both app and server together
+ - `./build.sh` in the /app folder to build the application and copy it to the server/appDist/ folder
+ - Run `grunt devfull` or `grunt prod` in /server. Or manually start the `server.js` and `app-server.js` scripts in node.
+
+Notes for running with PM2
+ - after building, run `sudo NODE_ENV=production pm2 start server.js` and `sudo NODE_ENV=production pm2 start app-server.js`
+ - If you have issues binding on port 80, use `sudo setcap 'cap_net_bind_service=+ep' /usr/bin/nodejs` or `sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node` depending
+   on where the non symlinked version of node is
 
 ### Acknowledgements
 The base server is a modified version of the Full Stack JS Boilerplate is created by [Martin Genev](http://www.twitter.com/cyberseer) of [Gemini Connect](http://www.geminiconnect.com) and is largely based on the work of [Amos Haviv](https://twitter.com/amoshaviv) on [meanjs.org](http://www.meanjs.org)
