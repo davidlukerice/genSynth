@@ -34,6 +34,6 @@
     "ember-data": "1.0.0-beta.10",
     "express": "4.8.5",
     "glob": "4.0.5",
-    "torii": "0.2.1"
+    "torii": "git+https://git@github.com/davidlukerice/torii.git#d1b4bb333c2c57db435b09700b3669616a48a906"
   }
 }
