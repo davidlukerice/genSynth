@@ -8,9 +8,9 @@ Branch of a showcased instrument below or evolve your own!
  - Install [MongoDB](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/) (Currently using 2.6.5)
  - Install Node, global bower, global grunt-cli, and global ember-cli 0.0.46
  - Update Config Keys
-   - /app/app/index.html AddThis pub-ID && Google Analytics Id
-   - /app/config/providers
-   - /app/config/environment.js contentSecurityPolicy connect-src
+   - /app/app/index.html: Change AddThis pub-ID && Google Analytics Id
+   - /app/config/providers: Change urls and Facebook-Connect
+   - /app/config/environment.js: Change contentSecurityPolicy connect-src
    - /server/server/config/env/production dev & test
  - `ember init` in /app (saying no to replacing any files). This should install all npm and bower dependencies.
  - `sudo npm install` in the server folder

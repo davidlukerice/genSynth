@@ -31,21 +31,22 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, 'appDist')));
 
 if (env === 'production') {
-  var forceSSL = require('express-force-ssl'),
-      http = require('http'),
+  var http = require('http'),
       https = require('https'),
       ssl_options = {
         key: fs.readFileSync(config.key),
         cert: fs.readFileSync(config.cert)
       };
 
-  var server = http.createServer(app);
   var secureServer = https.createServer(ssl_options, app);
-
-  app.use(forceSSL);
-
   secureServer.listen(secureAppPort);
-  server.listen(port);
+
+  // Setup a redirect from http to https
+  var http = express.createServer();
+  http.get('*',function(req,res){
+      res.redirect('https://'+req.get('host')+req.url)
+  });
+  http.listen(80);
   console.log('Express production app started on ' + port);
 }
 else {
