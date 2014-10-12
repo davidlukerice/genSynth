@@ -423,6 +423,9 @@ button.panic {
     border: 2px $borderColor solid;
     padding: 5px;
 
+    max-height: 70%;
+    overflow-y: scroll;
+
     z-index: 1100;
   }
 }

@@ -58,12 +58,12 @@
         {{/if}}
 
         <li>
-          <a {{action "toggleHelp"}} class="topLinkIcon">
+          <a {{action "toggleHelp"}} class="topLinkIcon" data-title="Help">
             <i class="fa fa-question-circle fa-2x fa-fw"></i>
           </a>
         </li>
         <li>
-          <a {{action "toggleSettings"}} class="topLinkIcon">
+          <a {{action "toggleSettings"}} class="topLinkIcon" data-title="Settings">
             <i class="fa fa-gear fa-2x fa-fw"></i>
           </a>
         </li>
@@ -186,23 +186,32 @@
         <span class="glyphicon glyphicon-question-sign"></span> Help
       </h4>
       <p>
-        Best expience with latest version of <a href="https://www.google.com/chrome" target="_blank">Chrome</a>.
-      </p>
-      If something doesn't make sense, <a {{action "letUsKnow"}}>let us know</a>!<br><br>
-      Click [<span class="glyphicon glyphicon-refresh"></span> REFRESH] to regenerate the current generation.<br>
-      Select the children or parents instruments that you like and click [NEXT <span class="glyphicon glyphicon-step-forward"></span>] to create the next generation based on your selection.<br>
-      [<span class="glyphicon glyphicon-step-backward"></span> BACK] will return to the previous set of parents but will delete the current parents.<br>
-      Pressing the <i class="fa fa-keyboard-o fa-2x fa-fw control liveIcon" title="Connect Onscreen/MIDI keyboards"></i> for an instrument makes it Live <i class="fa fa-keyboard-o fa-2x fa-fw control liveIcon live" title="Connect Onscreen/MIDI keyboards"></i>, letting you play that instrument with either the onscreen piano or through MIDI.<br>
-      Both the onscreen piano and MIDI can be turned on in settings <span class="toggleIcon" {{action "toggleSettings"}}><span class="glyphicon glyphicon-cog"></span></span>.<br>
+        Best expience with latest version of <a href="https://www.google.com/chrome" target="_blank">Chrome</a>.<br>
+        If something doesn't make sense, <a {{action "letUsKnow"}}>let us know</a>!<br><br>
 
+        GenSynth allows you to evolve your own musical instruments. Any published instrument can be branched off of and further evolved by pressing an <i class="fa fa-code-fork fa-2x fa-fw control"></i> icon.
+        You can evolve one from scratch on the {{#link-to "evolve"}}<span class="glyphicon glyphicon-plus-sign"></span> Evolve{{/link-to}} page.<br>
+
+        Pressing the <i class="fa fa-keyboard-o fa-2x fa-fw control liveIcon" title="Connect Onscreen/MIDI keyboards"></i> for an instrument makes it Live <i class="fa fa-keyboard-o fa-2x fa-fw control liveIcon live" title="Connect Onscreen/MIDI keyboards"></i>, letting you play that instrument with either the onscreen piano or through MIDI.<br>
+        Both the onscreen piano and MIDI can be turned on or off in settings <span class="toggleIcon" {{action "toggleSettings"}}><span class="glyphicon glyphicon-cog"></span></span>.<br>
+      </p>
+      <br>
+      <h4>Evolve Page</h4>
+      <p>
+        Select any instruments that you like and click [NEXT <span class="glyphicon glyphicon-step-forward"></span>] to generate more Instruments.<br>
+        Click [<span class="glyphicon glyphicon-refresh"></span> REFRESH] to regenerate the current generation.<br>
+        [<span class="glyphicon glyphicon-step-backward"></span> BACK] will return to the previous set of parents but will delete the current parents.<br>
+      </p>
       <h4>Hotkeys</h4>
-      - : Back<br>
-      * : Refresh<br>
-      + : Next<br>
-      "Enter" : Select Current Live Instrument<br>
-      1-9 : Select Child Instrument as Live <span class="liveToggle"><span class="liveIcon active"></span></span><br>
-      "Spacebar" : Sustain Onscreen Piano<br>
-      a,s,d... : Onscreen Piano notes (written on each key)<br>
+      <p>
+        - : Back<br>
+        * : Refresh<br>
+        + : Next<br>
+        "Enter" : Select Current Live Instrument<br>
+        1-9 : Select Child Instrument as Live <span class="liveToggle"><span class="liveIcon active"></span></span><br>
+        "Shift" : Sustain Onscreen Piano<br>
+        a,s,d... : Play Onscreen Piano notes (written on each key)
+      </p>
     </div>
   </div>
 {{/if}}
