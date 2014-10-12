@@ -46,7 +46,7 @@ export default Ember.Mixin.create({
         }
       }).then(function(response) {
         setCurrentUser(response.user);
-      }, function(xhr, status, error) {
+      }, function() {
         self.send('invalidateSession');
       });
     }
@@ -72,7 +72,7 @@ export default Ember.Mixin.create({
         }
       }).then(function(response) {
         setCurrentUser(response.id);
-      }, function(xhr, status, error) {
+      }, function() {
         self.send('invalidateSession');
       });
     }
