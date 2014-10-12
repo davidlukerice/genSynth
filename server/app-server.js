@@ -42,11 +42,11 @@ if (env === 'production') {
   secureServer.listen(secureAppPort);
 
   // Setup a redirect from http to https
-  var http = http.createServer(app);
-  http.get('*',function(req,res){
+  var redirectServer = http.createServer(app);
+  redirectServer.get('*',function(req,res){
       res.redirect('https://'+req.get('host')+req.url)
   });
-  http.listen(80);
+  redirectServer.listen(80);
   console.log('Express production app started on ' + port);
 }
 else {
