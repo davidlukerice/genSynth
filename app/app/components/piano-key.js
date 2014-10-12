@@ -53,7 +53,11 @@ export default Ember.Component.extend({
     var self = this;
     var onkeyDownHandler = function(e) {
       var hotkey = self.get('activeHotkeyKeyCode');
-      if(e.keyCode === hotkey && e.target.tagName !== 'INPUT') {
+      var tag = e.target.tagName;
+      if(e.keyCode === hotkey &&
+         tag !== 'INPUT' &&
+         tag !== 'TEXTAREA')
+      {
         self.set('keyIsDown', true);
         if (!self.get('isPlaying'))
           self.playNote();
