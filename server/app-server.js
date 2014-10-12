@@ -31,8 +31,7 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, 'appDist')));
 
 if (env === 'production') {
-  var http = require('http'),
-      https = require('https'),
+  var https = require('https'),
       ssl_options = {
         key: fs.readFileSync(config.key),
         cert: fs.readFileSync(config.cert)
@@ -42,11 +41,11 @@ if (env === 'production') {
   secureServer.listen(secureAppPort);
 
   // Setup a redirect from http to https
-  var redirectServer = http.createServer(app);
-  redirectServer.get('*',function(req,res){
-      res.redirect('https://'+req.get('host')+req.url)
+  var redirectApp = express();
+  redirectApp.get('*',function(req,res){
+      res.redirect('https://'+req.get('host')+req.url);
   });
-  redirectServer.listen(80);
+  redirectApp.listen(80);
   console.log('Express production app started on ' + port);
 }
 else {
