@@ -1,29 +1,30 @@
 
 <div class="evolver">
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Last Selected Instruments <button {{action "resetParents"}} class="btn btn-primary" data-title="Clear Parents">Reset</button></h3>
-    </div>
-  </div>
-  <div class="row instruments">
-    {{#each parentInstrumentParams}}
-      {{instrument-component
-        instrumentNetwork=this.instrumentNetwork
-        selected=this.selected
-        isLive=this.isLive
-        index=this.index
-        selectable=true
-        instrumentModel=this.instrumentModel
-        branchedParent=controller.branchedParent
-        makeLiveHandler="makeLive"}}
-    {{else}}
+  {{#if hasParents}}
+    <div class="row">
       <div class="col-md-12">
-        No Parent Instruments
+        <h3>Last Selected Instruments <button {{action "resetParents"}} class="btn btn-primary" data-title="Evolves a new Instrument from Scratch" style="position:relative;">Clear</button></h3>
       </div>
-    {{/each}}
-  </div>
-
-  <br>
+    </div>
+    <div class="row instruments">
+      {{#each parentInstrumentParams}}
+        {{instrument-component
+          instrumentNetwork=this.instrumentNetwork
+          selected=this.selected
+          isLive=this.isLive
+          index=this.index
+          selectable=true
+          instrumentModel=this.instrumentModel
+          branchedParent=controller.branchedParent
+          makeLiveHandler="makeLive"}}
+      {{else}}
+        <div class="col-md-12">
+          No Parent Instruments
+        </div>
+      {{/each}}
+    </div>
+    <br>
+  {{/if}}
   <div class="row">
     <div class="col-md-12">
       <h3>New Instruments <small>Select at least one to evolve next generation</small></h3>

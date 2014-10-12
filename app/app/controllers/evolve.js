@@ -36,6 +36,11 @@ export default Ember.Controller.extend({
     return networks[networks.length-1];
   }.property('content.instrumentParams.@each'),
 
+  hasParents: function() {
+    var parentInstruments = this.get('parentInstrumentParams');
+    return parentInstruments.length > 0;
+  }.property('parentInstrumentParams.@each'),
+
   childInstrumentParams: function() {
     var numChildren = 9,
         parentInstrumentParams = this.get('parentInstrumentParams'),
