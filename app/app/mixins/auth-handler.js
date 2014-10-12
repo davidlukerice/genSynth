@@ -28,8 +28,6 @@ export default Ember.Mixin.create({
         sessionContent = this.get('session.content'),
         provider = sessionContent.provider;
 
-    console.log('content: '+JSON.stringify(sessionContent));
-
     if (provider === 'facebook-connect') {
       var accessToken = sessionContent.accessToken;
       if (!accessToken) {
@@ -47,10 +45,8 @@ export default Ember.Mixin.create({
           withCredentials: true
         }
       }).then(function(response) {
-        console.log('loginResponse: '+JSON.stringify(response));
         setCurrentUser(response.user);
       }, function(xhr, status, error) {
-        console.log('error: '+error.message);
         self.send('invalidateSession');
       });
     }
@@ -75,10 +71,8 @@ export default Ember.Mixin.create({
           withCredentials: true
         }
       }).then(function(response) {
-        console.log('loginResponse: '+JSON.stringify(response));
         setCurrentUser(response.id);
       }, function(xhr, status, error) {
-        console.log('error: '+error.message);
         self.send('invalidateSession');
       });
     }
