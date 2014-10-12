@@ -323,7 +323,7 @@ exports.index = function(req, res) {
   var currentUserId = req.user ? req.user.id : null,
       queryParams = req.query,
       sortParams = "",
-      countLimit = queryParams.countLimit || 9,
+      countLimit = queryParams.countLimit || 6,
       searchQuery = queryParams.searchQuery,
       page = queryParams.page || 1,
       isRandom = queryParams.isRandom;
@@ -333,7 +333,7 @@ exports.index = function(req, res) {
     Instrument.findRandom(
       {isPrivate:false},
       {},
-      {limit:6},
+      {limit:countLimit},
       [{path: 'user'}, {path: 'stars'}, {path: 'branchedChildren'}],
       function(err, instruments)
       {
