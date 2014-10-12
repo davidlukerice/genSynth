@@ -40,12 +40,15 @@ if (env === 'production') {
   var secureServer = https.createServer(ssl_options, app);
   secureServer.listen(secureAppPort);
 
-  // Setup a redirect from http to https
-  var redirectApp = express();
-  redirectApp.get('*',function(req,res){
-      res.redirect('https://'+req.get('host')+req.url);
-  });
-  redirectApp.listen(80);
+  var forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    } else {
+        next();
+    }
+  };
+  app.use(forceSsl);
+
   console.log('Express production app started on ' + port);
 }
 else {
