@@ -6,7 +6,7 @@ export default Ember.Route.extend({
     return Ember.Object.create({
       mostStarredInstruments: this.store.find('instrument', {
         isPrivate: false,
-        sortBy: '-stars',
+        sortBy: '-starsCount',
         countLimit: 6
       }),
       mostBranchedInstruments: this.store.find('instrument', {
@@ -20,7 +20,8 @@ export default Ember.Route.extend({
         countLimit: 6
       }),
       randomInstruments: this.store.find('instrument', {
-        isRandom: true
+        isRandom: true,
+        countLimit: 6
       })
     });
   },
