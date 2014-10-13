@@ -40,21 +40,17 @@ if (env === 'production') {
   var secureServer = https.createServer(ssl_options, app);
   secureServer.listen(secureAppPort);
 
-  var forceSsl = function (req, res, next) {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-        return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    } else {
-        next();
-    }
-  };
-  app.use(forceSsl);
-
-  console.log('Express production app started on ' + port);
+  var redirect = express();
+  redirect.get('*', function(req, res) {
+    res.redirect(['https://', 'gensynth.ou.edu', req.url].join(''));
+  });
+  redirect.listen(port);
+  console.log(new Date()+' Express production app started on ' +secureAppPort +' and '+ port);
 }
 else {
   //Start the app by listening on <port>
   app.listen(port);
-  console.log('Express app started on port ' + port);
+  console.log(new Date()+' Express app started on port ' + port);
 }
 
 //expose app

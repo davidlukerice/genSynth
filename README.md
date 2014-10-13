@@ -27,6 +27,9 @@ Notes for running with PM2
  - If you have issues binding on port 80, use `sudo setcap 'cap_net_bind_service=+ep' /usr/bin/nodejs` or `sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node` depending
    on where the non symlinked version of node is
 
+Note on hosting with port 80
+ - Node often has issues listening directly on port 80, so it's easiest to listen to a different port (like 8080) and redirecting all 80 traffic with the iptables: `sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080`
+
 ### Acknowledgements
 The base server is a modified version of the Full Stack JS Boilerplate is created by [Martin Genev](http://www.twitter.com/cyberseer) of [Gemini Connect](http://www.geminiconnect.com) and is largely based on the work of [Amos Haviv](https://twitter.com/amoshaviv) on [meanjs.org](http://www.meanjs.org)
 

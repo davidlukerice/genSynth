@@ -63,11 +63,11 @@ if (env === 'production') {
   };
   var secureServer = https.createServer(ssl_options, app);
   secureServer.listen(port);
-  console.log('GenSynth API Prod started on ' + port);
+  console.log(new Date()+' GenSynth API Prod started on ' + port);
 }
 else {
   app.listen(port);
-  console.log('GenSynth API Dev started on port ' + port);
+  console.log(new Date()+' GenSynth API Dev started on port ' + port);
 }
 
 //expose app

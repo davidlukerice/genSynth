@@ -7,7 +7,7 @@
   "key": "path/to/key.pem",
   "cert": "path/to/cert.pem",
   "apiPort": 3000,
-  "appPort-http": 80,
+  "appPort-http": 8080,
   "appPort-https": 443,
   "accessControlAllowOrigin": "http://localhost:8000",
   "facebook": {
