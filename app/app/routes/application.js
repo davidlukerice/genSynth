@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import config from '../config/environment';
+import analytics from 'gen-synth/mixins/analytics-handler';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(analytics, {
 
   beforeModel: function() {
     this._super();
