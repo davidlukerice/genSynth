@@ -25,9 +25,14 @@ export default Ember.Mixin.create({
 
     screenView: function(screen) {
       console.log('analytics: screenView: ' + screen);
+
+      ga('set', 'dimension1', screen);
+      ga('set', 'metric1', 1);
+
       ga('send', 'screenview', {
         'screenName': screen
       });
+      ga('send', 'pageview', screen);
     }
   }
 });
