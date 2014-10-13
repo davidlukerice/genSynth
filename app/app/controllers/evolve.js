@@ -102,6 +102,8 @@ export default Ember.Controller.extend({
     var self = this;
 
     var onkeyPressHandler = function(e) {
+      var tag = e.target.tagName;
+      if(tag === 'INPUT' || tag === 'TEXTAREA') return;
 
       // one to one mapping of numpad to the layout on screen
       var index = -1;
