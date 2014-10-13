@@ -18,7 +18,7 @@ module.exports = function(environment) {
       'object-src': "'self'",
       'font-src': "'self' data: fonts.gstatic.com",
       'connect-src': "'self' localhost:3000",
-      'img-src': "'self' www.facebook.com www.google-analytics.com",
+      'img-src': "'self' www.facebook.com www.google-analytics.com ct1.addthis.com",
       'style-src': "'self' 'unsafe-inline' fonts.googleapis.com ct1.addthis.com",
       'frame-src': "s-static.ak.facebook.com static.ak.facebook.com www.facebook.com ct1.addthis.com",
       'report-uri': '/_/csp-reports'
