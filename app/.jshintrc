@@ -6,11 +6,12 @@
     "setTimeout": true,
     "require": true,
     "DS": true,
-    "$": true,
-    "_": true,
-    "navigator": true,
-    "-Promise": true,
-    "addthis": true
+    "$": false,
+    "_": false,
+    "navigator": false,
+    "-Promise": false,
+    "addthis": false,
+    "ga":false
   },
   "browser" : true,
   "boss" : true,
