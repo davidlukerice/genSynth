@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     UsersController = require('./users'),
     _ = require('lodash'),
-    async = require('async');
+    async = require('async'),
+    sanitize = require('../config/util').sanitize;
 
 /**
  * Find instrument by id
@@ -38,7 +39,7 @@ exports.create = function(req, res) {
     branchedParent: branchedParentId,
     branchedGeneration: params.branchedGeneration,
     json: params.json,
-    name: params.name,
+    name: sanitize(params.name),
     stars: []
   });
 
@@ -122,9 +123,9 @@ exports.update = function(req, res) {
 
   var publishing  = instrument.isPrivate && !req.body.instrument.isPrivate;
 
-  instrument.name = req.body.instrument.name;
+  instrument.name = sanitize(req.body.instrument.name);
   instrument.isPrivate = req.body.instrument.isPrivate;
-  instrument.tags = req.body.instrument.tags;
+  instrument.tags = sanitize(req.body.instrument.tags);
 
   instrument.save(function(err) {
     if (err) {
@@ -321,10 +322,10 @@ exports.numInstruments = function(req, res) {
  */
 exports.index = function(req, res) {
   var currentUserId = req.user ? req.user.id : null,
-      queryParams = req.query,
+      queryParams = sanitize(req.query),
       sortParams = "",
       countLimit = queryParams.countLimit || 6,
-      searchQuery = queryParams.searchQuery,
+      searchQuery = sanitize(queryParams.searchQuery),
       page = queryParams.page || 1,
       isRandom = queryParams.isRandom;
 

@@ -2,14 +2,15 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Feedback = mongoose.model('Feedback');
+    Feedback = mongoose.model('Feedback'),
+    sanitize = require('../config/util').sanitize;
 
 exports.create = function(req, res) {
   var comment = req.body.comment;
 
   var feedback = new Feedback({
     user: req.user,
-    comment: comment
+    comment: sanitize(comment)
   });
 
   feedback.save(function(err) {
