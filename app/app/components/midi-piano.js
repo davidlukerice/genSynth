@@ -28,6 +28,9 @@ export default Ember.Component.extend({
       lastInput.onmidimessage = null;
     this.set('lastSelectedInput', input);
 
+    if (!input)
+      return;
+
     input.onmidimessage = function(ev) {
       var cmd = ev.data[0] >> 4,
           channel = ev.data[0] & 0xf,
