@@ -7,7 +7,7 @@ $fa-font-path: "/assets/fonts" !default;
 @import "bootstrapTheme.scss";
 
 $selectedColor: #158cba;
-$hoverColor: #15b5ba;
+$hoverColor: lighten(#15b5ba, 10%);
 
 $borderColor: rgb(231, 231, 231);
 $backgroundColor: rgb(248, 248, 248);
@@ -246,6 +246,10 @@ button.panic {
 
   &.selected {
     background: $selectedColor;
+  }
+
+  &.selected:hover {
+    background: lighten($selectedColor, 20%);
   }
 }
 
