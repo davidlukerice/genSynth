@@ -23,7 +23,7 @@ export default Ember.Mixin.create({
       isAuthenticated = false;
     ga('set', 'dimension1', isAuthenticated);
     //ga('set', 'metric1', 1);
-  }.observes('session.isAuthenticated'),
+  }.observes('session.isAuthenticated').on('init'),
 
   actions: {
     willTransition: function(transition) {
