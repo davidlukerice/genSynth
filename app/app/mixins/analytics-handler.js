@@ -17,22 +17,33 @@ export default Ember.Mixin.create({
     });
   },
 
+  updateDimensionsAndMetrics: function() {
+    var isAuthenticated = this.get('session.isAuthenticated');
+    if (typeof isAuthenticated === 'undefined')
+      isAuthenticated = false;
+    ga('set', 'dimension1', isAuthenticated);
+    //ga('set', 'metric1', 1);
+  }.observes('session.isAuthenticated'),
+
   actions: {
     willTransition: function(transition) {
-      console.log('analytics: will Transition: ' + transition.targetName);
       this.send('screenView', transition.targetName);
     },
 
     screenView: function(screen) {
-      console.log('analytics: screenView: ' + screen);
-
-      ga('set', 'dimension1', screen);
-      ga('set', 'metric1', 1);
-
       ga('send', 'screenview', {
         'screenName': screen
       });
-      ga('send', 'pageview', screen);
+    },
+
+    analyticsEvent: function(category, action) {
+      ga('send', {
+        'hitType': 'event',
+        'eventCategory': category, // like 'button',
+        'eventAction': action // like 'click'
+        //'eventLabel': 'nav buttons',
+        //'eventValue': 4
+      });
     }
   }
 });
