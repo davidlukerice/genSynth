@@ -163,7 +163,7 @@ export default Ember.Component.extend({
       var controller = this.get('targetObject'),
           applicationCtrl = controller.get('controllers.application');
 
-      this.send('analyticsEvent', 'stars', 'star');
+      controller.send('analyticsEvent', 'stars', 'star');
 
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
@@ -190,7 +190,7 @@ export default Ember.Component.extend({
       var controller = this.get('targetObject'),
           applicationCtrl = controller.get('controllers.application');
 
-      this.send('analyticsEvent', 'stars', 'unstar');
+      controller.send('analyticsEvent', 'stars', 'unstar');
 
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
