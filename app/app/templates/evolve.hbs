@@ -33,9 +33,19 @@
 
   <div class="row controls">
     <div class="col-md-12">
-      <span class="buttonWrapper title-above title-left" data-title="Go Back a Generation"><button class="btn btn-primary" {{action "backGeneration"}} {{bind-attr disabled="noPreviousParents"}}><span class="glyphicon glyphicon-step-backward"></span> BACK</button></span>
-      <span class="buttonWrapper title-above title-left" data-title="Refresh Current Generation"><button class="btn btn-primary title-above title-left" {{action "refreshGeneration"}}><span class="glyphicon glyphicon-refresh"></span> REFRESH</button></span>
-      <span class="buttonWrapper title-above title-left" data-title="Evolve Next Generation"><button class="btn btn-primary title-above title-left" {{action "nextGeneration"}} {{bind-attr disabled="noNetworksSelected"}}>NEXT <span class="glyphicon glyphicon-step-forward"></span></button></span>
+      <span class="buttonWrapper title-above title-left" {{bind-attr data-title="previousButtonTooltip"}}>
+        <button class="btn btn-primary" {{action "backGeneration"}} {{bind-attr disabled="noPreviousParents"}}><span class="glyphicon glyphicon-step-backward"></span> BACK</button>
+      </span>
+      <span class="buttonWrapper title-above title-left" data-title="Refresh Current Generation">
+        <button class="btn btn-primary title-above title-left" {{action "refreshGeneration"}}><span class="glyphicon glyphicon-refresh"></span> REFRESH</button>
+      </span>
+      <span class="buttonWrapper title-above title-left" {{bind-attr data-title="nextButtonTooltip"}}>
+        <button class="btn btn-primary title-above title-left"
+                {{action "nextGeneration"}}
+                {{bind-attr disabled="noNetworksSelected"}}>
+            NEXT <span class="glyphicon glyphicon-step-forward"></span>
+        </button>
+      </span>
       <div class="advanced">
         {{input type="checkbox" checked=showingAdvancedOptions}} More Options
       </div>

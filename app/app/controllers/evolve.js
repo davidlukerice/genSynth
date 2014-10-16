@@ -97,6 +97,18 @@ export default Ember.Controller.extend({
     return this.get('selectedNetworks').length <= 0;
   }.property('selectedNetworks.@each'),
 
+  previousButtonTooltip: function() {
+    if (this.get('noPreviousParents'))
+      return 'No Previous Generations';
+    return 'Go Back a Generation';
+  }.property('noPreviousParents'),
+
+  nextButtonTooltip: function() {
+    if (this.get('noNetworksSelected'))
+      return 'Select an Instrument to Evolve Next Generation';
+    return 'Evolve Next Generation';
+  }.property('noNetworksSelected'),
+
   onkeyPressHandler: null,
   setupKeyEvents: function() {
     var self = this;
