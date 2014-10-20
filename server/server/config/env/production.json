@@ -6,6 +6,7 @@
   "session": "SESSION_SERCRET",
   "key": "path/to/key.pem",
   "cert": "path/to/cert.pem",
+  "chainCert": "path/to/authority-cert-if-you-have-one.pem",
   "apiPort": 3000,
   "appPort-http": 8080,
   "appPort-https": 443,

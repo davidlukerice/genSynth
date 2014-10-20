@@ -56,11 +56,13 @@ walk(routes_path, function(path) {
 var port = process.env.PORT || config.apiPort;
 
 if (env === 'production') {
-  var https = require('https');
-  var ssl_options = {
-    key: fs.readFileSync(config.key),
-    cert: fs.readFileSync(config.cert)
-  };
+  var https = require('https'),
+      ssl_options = {
+        key: fs.readFileSync(config.key),
+        cert: fs.readFileSync(config.cert)
+      };
+  if (config.chainCert)
+    ssl_options.ca = fs.readFileSynch(config.chainCert);
   var secureServer = https.createServer(ssl_options, app);
   secureServer.listen(port);
   console.log(new Date()+' GenSynth API Prod started on ' + port);
