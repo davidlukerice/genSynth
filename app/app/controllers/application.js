@@ -46,6 +46,10 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
     letUsKnow: function() {
       this.send('toggleHelp');
       this.transitionTo('feedback');
+    },
+
+    unpublishedBadge: function() {
+      this.send('analyticsEventWithRoute', 'instruments', 'unpublishedBadge');
     }
   }
 });

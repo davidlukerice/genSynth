@@ -186,7 +186,7 @@ export default Ember.Mixin.create({
           withCredentials: true
         }
       }).then(function() {
-        self.send('analyticsEventWithRoute', 'loginCreateEmail', this.get('loginReason'));
+        self.send('analyticsEventWithRoute', 'loginCreateEmail', self.get('loginReason'));
         self.send("authenticate", {
           provider: "local-provider",
           email: createEmail,

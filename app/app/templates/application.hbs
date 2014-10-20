@@ -29,7 +29,7 @@
             {{#link-to "user" currentUser}}
               <span data-title="View Your Saved Instruments"><span class="glyphicon glyphicon-user"></span> My Instruments</span>
               {{#if hasUnpublishedInstruments}}
-                <span class="badge" data-title="You have unpublished instruments">{{currentUser.unpublishedCount}}</span>
+                <span {{action 'unpublishedBadge'}} class="badge" data-title="You have unpublished instruments">{{currentUser.unpublishedCount}}</span>
               {{/if}}
             {{/link-to}}
           </li>
@@ -121,8 +121,8 @@
           <div class="lhs pull-left">
             <button type="button" class="btn btn-primary" {{action "facebookLogin"}}>Facebook</button>
             <br><br>
-            {{input type="text" maxlength=30 value=loginEmail placeholder="Email Address" class="form-control" action="login"}}
-            {{input type="password" maxlength=30 value=loginPassword placeholder="Password" class="form-control" action="login"}}
+            {{input type="text" maxlength=30 value=loginEmail placeholder="Email Address" class="form-control" action="emailLogin"}}
+            {{input type="password" maxlength=30 value=loginPassword placeholder="Password" class="form-control" action="emailLogin"}}
             <button type="button" class="btn btn-default" {{action "emailLogin"}}>Login</button>
             {{#if loginError}}
               <br><div class="label label-danger">{{loginError}}</div>
