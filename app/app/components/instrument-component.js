@@ -97,6 +97,8 @@ export default Ember.Component.extend({
   actions: {
     play: function() {
       this.get('instrumentNetwork').play();
+      var controller = this.get('targetObject');
+      controller.send('analyticsEvent', 'instrument', 'play', 'button');
     },
 
     save: function() {
