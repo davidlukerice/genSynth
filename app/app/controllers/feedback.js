@@ -25,7 +25,8 @@ export default Ember.Controller.extend({
 
       // Check if user is logged in first
       if (!this.get('session').get('isAuthenticated')) {
-        applicationCtrl.send('showLogin');
+        applicationCtrl.send('showLogin', 'feedback');
+        this.send('analyticsEventWithRoute', 'showLogin', 'feedback');
         return;
       }
 

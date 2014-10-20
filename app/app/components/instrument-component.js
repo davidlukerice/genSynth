@@ -106,7 +106,7 @@ export default Ember.Component.extend({
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
         controller.send('analyticsEventWithRoute', 'showLogin', 'save');
-        applicationCtrl.send('showLogin');
+        applicationCtrl.send('showLogin', 'save');
         return;
       }
 
@@ -168,7 +168,7 @@ export default Ember.Component.extend({
 
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
-        applicationCtrl.send('showLogin');
+        applicationCtrl.send('showLogin', 'star');
         controller.send('analyticsEventWithRoute', 'showLogin', 'star');
         return;
       }
@@ -196,7 +196,7 @@ export default Ember.Component.extend({
 
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
-        applicationCtrl.send('showLogin');
+        applicationCtrl.send('showLogin', 'unstar');
         controller.send('analyticsEventWithRoute', 'showLogin', 'unstar');
         return;
       }

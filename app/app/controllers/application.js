@@ -33,10 +33,14 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
   actions: {
     toggleHelp: function() {
       this.set('showHelp', !this.get('showHelp'));
+      if (this.get('showHelp'))
+        this.send('analyticsEventWithRoute', 'showHelp', '');
     },
 
     toggleSettings: function() {
       this.set('showSettings', !this.get('showSettings'));
+      if (this.get('showSettings'))
+        this.send('analyticsEventWithRoute', 'showSettings', '');
     },
 
     letUsKnow: function() {

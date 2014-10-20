@@ -9,6 +9,7 @@ function validateEmail(email) {
 // Can hold a current midi input
 export default Ember.Mixin.create({
   showingLogin: false,
+  loginReason: '',
 
   loginEmail: "",
   loginPassword: "",
@@ -85,6 +86,7 @@ export default Ember.Mixin.create({
   }.observes('session.isAuthenticated').on('init'),
 
   clear: function() {
+    this.set('loginReason', '');
     this.set('loginEmail', '');
     this.set('loginPassword', '');
     this.set('loginError', '');
@@ -98,22 +100,24 @@ export default Ember.Mixin.create({
   actions: {
     captureAction: function() {
     },
-    showLogin: function() {
+    showLogin: function(reason) {
       this.clear();
       this.set('showLogin', true);
-      this.send('analyticsEventWithRoute', 'showLogin', 'loginClick');
+      this.set('loginReason', reason);
+      this.send('analyticsEventWithRoute', 'showLogin', reason);
     },
-    hideLogin: function() {
-      this.clear();
+    hideLogin: function(emitAnalytics) {
       this.set('showLogin', false);
-      this.send('analyticsEventWithRoute', 'login', 'hideLogin');
+      if (emitAnalytics)
+        this.send('analyticsEventWithRoute', 'hideLogin', this.get('loginReason'));
+      this.clear();
     },
 
     openTerms: function() {
       window.open('https://gensynth.ou.edu/#terms','_blank');
     },
 
-    login: function() {
+    emailLogin: function() {
       var email = this.get('loginEmail'),
           password = this.get('loginPassword');
       if (!validateEmail(email)) {
@@ -124,11 +128,22 @@ export default Ember.Mixin.create({
         this.set('loginError', 'password not valid');
         return;
       }
+      this.send('analyticsEventWithRoute', 'loginEmail', this.get('loginReason'));
       this.send("authenticate", {
-          provider: "local-provider",
-          email: email,
-          password: password
-        });
+        provider: "local-provider",
+        email: email,
+        password: password
+      });
+    },
+
+    facebookLogin: function() {
+      this.send('analyticsEventWithRoute', 'loginFacebook', this.get('loginReason'));
+      this.send("authenticate", "facebook-connect");
+    },
+
+    logout: function() {
+      this.send('analyticsEventWithRoute', 'logout', '');
+      this.send('invalidateSession');
     },
 
     toggleCreateAcceptToS: function() {
@@ -171,6 +186,7 @@ export default Ember.Mixin.create({
           withCredentials: true
         }
       }).then(function() {
+        self.send('analyticsEventWithRoute', 'loginCreateEmail', this.get('loginReason'));
         self.send("authenticate", {
           provider: "local-provider",
           email: createEmail,
