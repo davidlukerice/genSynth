@@ -211,6 +211,12 @@ export default Ember.Component.extend({
         model.set('starsCount', output.starsCount);
         model.get('stars').removeObject(currentUser);
       });
+    },
+
+    searchLabel: function(label) {
+      var controller = this.get('targetObject');
+      controller.send('analyticsEvent', 'searches', 'tag', label);
+      controller.transitionToRoute('search', {queryParams: {query: label}});
     }
   }
 });

@@ -230,6 +230,11 @@ button.panic {
 
       .label {
         background-color: rgba($genSynthBlue, 0.6);
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba($genSynthBlue, 0.5);
+        }
       }
     }
   }

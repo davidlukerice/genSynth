@@ -69,6 +69,9 @@ export default Ember.Controller.extend({
       if (!query)
         return;
 
+      this.send('analyticsEvent', 'searches', 'query', query, page);
+      this.send('analyticsEvent', 'searches', 'sorting', sorting, page);
+
       Ember.$.ajax({
         url: config.apiUrl+'/numInstruments/',
         type: 'GET',
