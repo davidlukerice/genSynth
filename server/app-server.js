@@ -37,7 +37,7 @@ if (env === 'production') {
         cert: fs.readFileSync(config.cert)
       };
   if (config.chainCert)
-    ssl_options.ca = fs.readFileSynch(config.chainCert);
+    ssl_options.ca = fs.readFileSync(config.chainCert);
 
   var secureServer = https.createServer(ssl_options, app);
   secureServer.listen(secureAppPort);
