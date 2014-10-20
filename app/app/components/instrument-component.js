@@ -105,6 +105,7 @@ export default Ember.Component.extend({
 
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
+        controller.send('analyticsEventWithRoute', 'showLogin', 'save');
         applicationCtrl.send('showLogin');
         return;
       }
@@ -168,6 +169,7 @@ export default Ember.Component.extend({
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
         applicationCtrl.send('showLogin');
+        controller.send('analyticsEventWithRoute', 'showLogin', 'star');
         return;
       }
 
@@ -195,6 +197,7 @@ export default Ember.Component.extend({
       // Check if user is logged in first
       if (!controller.get('session').get('isAuthenticated')) {
         applicationCtrl.send('showLogin');
+        controller.send('analyticsEventWithRoute', 'showLogin', 'unstar');
         return;
       }
 
@@ -217,6 +220,24 @@ export default Ember.Component.extend({
       var controller = this.get('targetObject');
       controller.send('analyticsEvent', 'searches', 'tag', label);
       controller.transitionToRoute('search', {queryParams: {query: label}});
+    },
+
+    seeUser: function() {
+      var controller = this.get('targetObject');
+      controller.send('analyticsEvent', 'instrument', 'user');
+      controller.transitionToRoute('user', this.get('instrumentModel.user'));
+    },
+
+    seeInstrument: function() {
+      var controller = this.get('targetObject');
+      controller.send('analyticsEvent', 'instrument', 'details');
+      controller.transitionToRoute('instrument', this.get('instrumentModel'));
+    },
+
+    seePrivateInstrument: function() {
+      var controller = this.get('targetObject');
+      controller.send('analyticsEvent', 'instrument', 'private');
+      controller.transitionToRoute('instrument', this.get('instrumentModel'));
     }
   }
 });

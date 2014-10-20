@@ -32,7 +32,9 @@ export default Ember.Mixin.create(MidiSelectable, {
 
     var self = this;
     MIDISelector.setupMIDI.call(this, function(inputs) {
-      self.set('selectedMidiInput', inputs.selectedInput);
+      if (inputs)
+        self.set('selectedMidiInput', inputs.selectedInput);
+      self.send('updateAnalyticsMetric', 'metric1', inputs?inputs.inputList.length:0);
     });
   }.on('init'),
 
@@ -60,11 +62,13 @@ export default Ember.Mixin.create(MidiSelectable, {
       var scrollAmount;
 
       // Scroll down/up when showing/hiding the piano
-      if (this.get('usingOnscreenPiano'))
+      var usingOnscreenPiano = this.get('usingOnscreenPiano');
+      if (usingOnscreenPiano)
         scrollAmount = $(document).scrollTop()+100;
       else
         scrollAmount = $(document).scrollTop()-100;
-      this.send('updateAnalyticsDimension', 'dimension2', this.get('usingOnscreenPiano'));
+      this.send('updateAnalyticsDimension', 'dimension2', usingOnscreenPiano);
+      this.send('analyticsEvent', 'settings', 'onscreenPiano', usingOnscreenPiano?'on':'off');
 
       Ember.run.scheduleOnce('afterRender', function() {
         $(document).scrollTop(scrollAmount);
@@ -73,7 +77,9 @@ export default Ember.Mixin.create(MidiSelectable, {
 
     toggleMIDI: function() {
       this.set('usingMIDI', !this.get('usingMIDI'));
-      this.send('updateAnalyticsDimension', 'dimension3', this.get('usingMIDI'));
+      var usingMIDI = this.get('usingMIDI');
+      this.send('updateAnalyticsDimension', 'dimension3', usingMIDI);
+      this.send('analyticsEvent', 'settings', 'MIDI', usingMIDI?'on':'off');
     },
 
     makeLive: function(instrumentParentContent) {
@@ -91,6 +97,7 @@ export default Ember.Mixin.create(MidiSelectable, {
 
     panic: function() {
       asNEAT.resetOutNodes();
+      this.send('analyticsEvent', 'util', 'killSound');
     }
   }
 });

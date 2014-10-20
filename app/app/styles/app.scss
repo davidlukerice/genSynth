@@ -66,6 +66,14 @@ html, body {
   }
 }
 
+.link {
+  color: $genSynthBlue;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .topLinkIcon {
   margin-top: -2px;
   padding-bottom: 9px !important;

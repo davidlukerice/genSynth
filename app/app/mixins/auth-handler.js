@@ -101,10 +101,12 @@ export default Ember.Mixin.create({
     showLogin: function() {
       this.clear();
       this.set('showLogin', true);
+      this.send('analyticsEventWithRoute', 'showLogin', 'loginClick');
     },
     hideLogin: function() {
       this.clear();
       this.set('showLogin', false);
+      this.send('analyticsEventWithRoute', 'login', 'hideLogin');
     },
 
     openTerms: function() {

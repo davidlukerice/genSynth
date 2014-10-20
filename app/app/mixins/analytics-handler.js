@@ -14,17 +14,21 @@ export default Ember.Mixin.create({
   init: function() {
     this._super();
 
+    var self = this,
+        route = this.getCurrentRoute();
+    console.log('analytics: init:'+route);
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      self.send('screenView', route);
+    });
+  },
+
+  getCurrentRoute: function() {
     var route = this.get('router.url').split(/[/?]/);
     if (route.length === 1 || route[1] === "")
       route = 'index';
     else
       route = route[1];
-
-    console.log('analytics: init:'+route);
-    var self = this;
-    Ember.run.scheduleOnce('afterRender', this, function() {
-      self.send('screenView', route);
-    });
+    return route;
   },
 
   updateDimensions: function() {
@@ -45,6 +49,10 @@ export default Ember.Mixin.create({
       });
     },
 
+    analyticsEventWithRoute: function(category, action) {
+      this.send('analyticsEvent', category, action, this.getCurrentRoute());
+    },
+
     analyticsEvent: function(category, action, label, value) {
       var eventParams = {
         'hitType': 'event',
@@ -59,8 +67,12 @@ export default Ember.Mixin.create({
       ga('send', eventParams);
     },
 
-    updateAnalyticsDimension: function(dimension, value) {
-      ga('set', dimension, value);
+    updateAnalyticsMetric: function(metricId, value) {
+      ga('set', metricId, value);
+    },
+
+    updateAnalyticsDimension: function(dimensionId, value) {
+      ga('set', dimensionId, value);
     }
   }
 });

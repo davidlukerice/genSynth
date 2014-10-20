@@ -14,6 +14,9 @@ var MIDISelector = Ember.Component.extend({
   setupMIDI: function() {
     var self = this;
     MIDISelector.setupMIDI.call(this, function(inputs) {
+      if (!inputs) {
+        return;
+      }
       self.set('inputList', inputs.inputList);
       self.set('selectedInput', inputs.selectedInput);
     });
@@ -48,14 +51,18 @@ MIDISelector.setupMIDI = function(callback) {
 
     var selectedInput = inputList[preferredIndex];
 
-    if (typeof callback === 'function')
+    if (typeof callback === 'function') {
       callback({
         inputList: inputList,
         selectedInput: selectedInput
       });
+    }
   }
   function onError(error) {
     Utils.log("No MIDI? " + error.code);
+    if (typeof callback === 'function') {
+      callback(false);
+    }
   }
 };
 

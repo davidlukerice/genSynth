@@ -4,9 +4,7 @@
       <i {{action "play" bubbles=false}} class="fa fa-play fa-2x fa-fw control" data-title="Play"></i>
       <i {{action "toggleNetwork" bubbles=false}} {{bind-attr class=":fa :fa-share-alt :fa-2x :fa-fw :control isShowingNetwork:active"}} data-title="Show/Hide network"></i>
       {{#if isSaved}}
-        {{#link-to "instrument" instrumentModel}}
-          <i class="fa fa-sitemap fa-2x fa-fw control" data-title="Details"></i>
-        {{/link-to}}
+        <i {{action 'seeInstrument'}} class="fa fa-sitemap fa-2x fa-fw control" data-title="Details"></i>
       {{else}}
         <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" data-title="Save"></i>
       {{/if}}
@@ -36,9 +34,7 @@
         </div>
       {{else}}
         {{#if isSaved}}
-          {{#link-to "instrument" instrumentModel}}
-            <i class="fa fa-lock fa-fw fa-2x pull-right locked control title-above title-left" data-title="Not Published"></i>
-          {{/link-to}}
+          <i {{action 'seePrivateInstrument'}} class="fa fa-lock fa-fw fa-2x pull-right locked control title-above title-left" data-title="Not Published"></i>
         {{/if}}
       {{/if}}
     </div>
@@ -46,9 +42,7 @@
       <div class="bottomInfo">
         <h4>{{instrumentModel.name}}
           <small>
-            by: {{#link-to "user" instrumentModel.user}}
-                {{instrumentModel.user.username}}
-              {{/link-to}}
+            by: <span {{action 'seeUser'}} class="link">{{instrumentModel.user.username}}</span>
           </small>
         </h4>
         <div class="tagContainer">
