@@ -64,6 +64,7 @@ export default Ember.Mixin.create(MidiSelectable, {
         scrollAmount = $(document).scrollTop()+100;
       else
         scrollAmount = $(document).scrollTop()-100;
+      this.send('updateAnalyticsDimension', 'dimension2', this.get('usingOnscreenPiano'));
 
       Ember.run.scheduleOnce('afterRender', function() {
         $(document).scrollTop(scrollAmount);
@@ -72,6 +73,7 @@ export default Ember.Mixin.create(MidiSelectable, {
 
     toggleMIDI: function() {
       this.set('usingMIDI', !this.get('usingMIDI'));
+      this.send('updateAnalyticsDimension', 'dimension3', this.get('usingMIDI'));
     },
 
     makeLive: function(instrumentParentContent) {

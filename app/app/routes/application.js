@@ -28,10 +28,6 @@ export default Ember.Route.extend(analytics, {
         options);
     },
 
-    createUser: function() {
-
-    },
-
     invalidateSession: function() {
       var self = this;
       Ember.$.ajax({

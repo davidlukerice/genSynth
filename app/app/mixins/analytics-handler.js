@@ -1,5 +1,15 @@
 import Ember from 'ember';
 
+/**
+ * Dimensions:
+ *   dimension1: isAuthenticated: true/false
+ *   dimension2: onscreenPianoIsOn: true/false
+ *   dimension3: MIDIIsTurnedOn: true/false
+ * metrics:
+ *
+ * Events:
+ *
+ */
 export default Ember.Mixin.create({
   init: function() {
     this._super();
@@ -17,12 +27,11 @@ export default Ember.Mixin.create({
     });
   },
 
-  updateDimensionsAndMetrics: function() {
+  updateDimensions: function() {
     var isAuthenticated = this.get('session.isAuthenticated');
     if (typeof isAuthenticated === 'undefined')
       isAuthenticated = false;
     ga('set', 'dimension1', isAuthenticated);
-    //ga('set', 'metric1', 1);
   }.observes('session.isAuthenticated').on('init'),
 
   actions: {
@@ -44,6 +53,10 @@ export default Ember.Mixin.create({
         //'eventLabel': 'nav buttons',
         //'eventValue': 4
       });
+    },
+
+    updateAnalyticsDimension: function(dimension, value) {
+      ga('set', dimension, value);
     }
   }
 });
