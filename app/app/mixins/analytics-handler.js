@@ -45,14 +45,18 @@ export default Ember.Mixin.create({
       });
     },
 
-    analyticsEvent: function(category, action) {
-      ga('send', {
+    analyticsEvent: function(category, action, label, value) {
+      var eventParams = {
         'hitType': 'event',
         'eventCategory': category, // like 'button',
         'eventAction': action // like 'click'
-        //'eventLabel': 'nav buttons',
-        //'eventValue': 4
-      });
+      };
+      if (typeof label !== 'undefined')
+        eventParams.eventLabel = label;
+      if (typeof value !== 'undefined')
+        eventParams.eventValue = value;
+
+      ga('send', eventParams);
     },
 
     updateAnalyticsDimension: function(dimension, value) {
