@@ -119,6 +119,9 @@ export default Ember.Component.extend({
       return;
     }
 
+    var controller = this.get('targetObject');
+    controller.send('analyticsEvent', 'instrument', 'play', 'MIDI');
+
     var noteOscillators = instrumentNetwork.getNoteOscillatorNodes();
     _.forEach(noteOscillators, function(node) {
       node.stepFromRootNote = steps;

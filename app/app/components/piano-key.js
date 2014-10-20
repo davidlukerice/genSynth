@@ -60,7 +60,7 @@ export default Ember.Component.extend({
       {
         self.set('keyIsDown', true);
         if (!self.get('isPlaying'))
-          self.playNote();
+          self.playNote('hotkey');
       }
     };
     var onkeyUpHandler = function(e) {
@@ -80,7 +80,7 @@ export default Ember.Component.extend({
 
   }.on('init'),
 
-  playNote: function() {
+  playNote: function(callerLabel) {
     var instrumentNetwork = this.get('instrumentNetwork'),
         note = this.get('note'),
         releaseHandler = this.get('releaseHandler');
@@ -91,6 +91,9 @@ export default Ember.Component.extend({
 
     if (!instrumentNetwork)
       return;
+
+    var controller = this.get('targetObject.targetObject');
+    controller.send('analyticsEvent', 'instrument', 'play', callerLabel);
 
     var steps = Utils.stepsFromRootNote(note);
     //Utils.log('Playing note: '+note+' ('+steps+')');
@@ -119,7 +122,7 @@ export default Ember.Component.extend({
 
   mouseDown: function() {
     this.set('keyIsDown', true);
-    this.playNote();
+    this.playNote('pianoClick');
   },
 
   mouseUp: function() {

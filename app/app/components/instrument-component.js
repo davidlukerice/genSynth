@@ -148,6 +148,8 @@ export default Ember.Component.extend({
     makeLive: function() {
       var makeLiveHandler = this.get('makeLiveHandler');
       this.get('targetObject').send(makeLiveHandler, this);
+      var controller = this.get('targetObject');
+      controller.send('analyticsEventWithRoute', 'instrument', 'makeLive');
     },
 
     toggleNetwork: function() {
@@ -157,6 +159,8 @@ export default Ember.Component.extend({
         this.set('isShowingNetwork', false);
       }
       else {
+        var controller = this.get('targetObject');
+        controller.send('analyticsEventWithRoute', 'instrument', 'showForceNetwork');
         vis.showNetwork();
         this.set('isShowingNetwork', true);
       }

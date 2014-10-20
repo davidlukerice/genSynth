@@ -149,6 +149,7 @@ export default Ember.Controller.extend({
       {
         instrument.set('name', temp);
         instrument.save();
+        this.send('analyticsEventWithRoute', 'instrument', 'saveName');
       }
     },
     cancelName: function() {
@@ -173,6 +174,7 @@ export default Ember.Controller.extend({
       if (instrument && temp !== instrument.get('tags')) {
         instrument.set('tags', temp);
         instrument.save();
+        this.send('analyticsEventWithRoute', 'instrument', 'saveTags');
       }
     },
     cancelTags: function() {
@@ -190,6 +192,7 @@ export default Ember.Controller.extend({
         var application = this.get('controllers.application');
         application.set('currentUser.unpublishedCount',
           application.get('currentUser.unpublishedCount') - 1);
+        this.send('analyticsEventWithRoute', 'instrument', 'publish');
       }
       else {
         this.set('publishErrorMessage', 'Instrument must be named.');
