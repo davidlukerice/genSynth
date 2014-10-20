@@ -44,8 +44,10 @@ export default Ember.Mixin.create(MidiSelectable, {
 
     // Panic on spacebar
     var onkeyDownHandler = function(e) {
+      var tag = e.target.tagName;
+      var isInTextArea = tag === 'INPUT' || tag === 'TEXTAREA';
       if(e.keyCode === 32)
-        self.send('panic');
+        self.send('panic', !isInTextArea);
     };
     this.set('onkeyDownHandler', onkeyDownHandler);
     $(document).keydown(onkeyDownHandler);
@@ -95,9 +97,10 @@ export default Ember.Mixin.create(MidiSelectable, {
       this.set('activeInstrument', instrumentParentContent);
     },
 
-    panic: function() {
+    panic: function(sendAnalytics) {
       asNEAT.resetOutNodes();
-      this.send('analyticsEvent', 'util', 'killSound');
+      if (sendAnalytics)
+        this.send('analyticsEvent', 'util', 'killSound');
     }
   }
 });
