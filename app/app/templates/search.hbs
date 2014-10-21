@@ -23,19 +23,24 @@
       changePageHandler="changePageHandler"}}
 
     <div class="row instruments">
-      {{#each instrumentParams}}
-        {{instrument-component
-          instrumentNetwork=this.instrumentNetwork
-          selected=this.selected
-          isLive=this.isLive
-          index=this.index
-          instrumentModel=this.instrumentModel
-          makeLiveHandler="makeLive"}}
-      {{else}}
-        <div class="col-md-12">
-          None found
-        </div>
-      {{/each}}
+      {{#with this as controller}}
+        {{#each instrumentParams}}
+          {{instrument-component
+            instrumentNetwork=this.instrumentNetwork
+            selected=this.selected
+            isLive=this.isLive
+            index=this.index
+            instrumentModel=this.instrumentModel
+            makeLiveHandler="makeLive"
+            analyticsOrigin="searchPage"
+            analyticsType=controller.sorting
+            analyticsOptionalValue=controller.page}}
+        {{else}}
+          <div class="col-md-12">
+            None found
+          </div>
+        {{/each}}
+      {{/with}}
     </div>
 
     {{instrument-pagination

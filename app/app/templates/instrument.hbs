@@ -48,7 +48,9 @@
         isLive=instrumentParams.isLive
         index=instrumentParams.index
         instrumentModel=instrumentParams.instrumentModel
-        makeLiveHandler="makeLive"}}
+        makeLiveHandler="makeLive"
+        analyticsOrigin="instrumentPage"
+        analyticsType="self"}}
     {{/if}}
   </div>
   <div class="row">
@@ -107,7 +109,9 @@
         isLive=branchedParentParams.isLive
         index=branchedParentParams.index
         instrumentModel=branchedParentParams.instrumentModel
-        makeLiveHandler="makeLive"}}
+        makeLiveHandler="makeLive"
+        analyticsOrigin="instrumentPage"
+        analyticsType="parent"}}
     {{/if}}
   </div>
   {{/if}}
@@ -125,7 +129,9 @@
           isLive=this.isLive
           index=this.index
           instrumentModel=this.instrumentModel
-          makeLiveHandler="makeLive"}}
+          makeLiveHandler="makeLive"
+          analyticsOrigin="instrumentPage"
+          analyticsType="child"}}
       {{else}}
         <div class="col-md-4 col-sm-4">
           <h4>{{#link-to "branch" instrument}}

@@ -9,10 +9,10 @@
         <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" data-title="Save"></i>
       {{/if}}
       {{#if isPublished}}
-        {{#link-to "branch" instrumentModel}}
+        <span {{action "branchFrom"}}>
           <i class="fa fa-code-fork fa-2x fa-fw control" data-title="Branch New Instrument"></i>
           <span class="badge" data-title="Branch New Instrument">{{instrumentModel.branchedChildrenCount}}</span>
-        {{/link-to}}
+        </span>
       {{/if}}
 
       <i {{action makeLive bubbles=false}}

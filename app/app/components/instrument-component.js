@@ -28,6 +28,10 @@ export default Ember.Component.extend({
   width: "100%",
   height: "100%",
 
+  analyticsOrigin: null, //ex: 'showCase'
+  analyticsType: null, //ex: 'mostStar'
+  analyticsOptionalValue: null, //(number) ex: pageNumber
+
   // created on init
   visualization: null,
   isShowingNetwork: false,
@@ -249,6 +253,20 @@ export default Ember.Component.extend({
       var controller = this.get('targetObject');
       controller.send('analyticsEvent', 'instrument', 'private');
       controller.transitionToRoute('instrument', this.get('instrumentModel'));
+    },
+
+    branchFrom: function() {
+      var controller = this.get('targetObject'),
+          origin = this.get('analyticsOrigin'),
+          type = this.get('analyticsType'),
+          optionalValue = this.get('analyticsOptionalValue');
+      if (type === null)
+        controller.send('analyticsEvent', 'branch', origin);
+      else if (optionalValue === null)
+        controller.send('analyticsEvent', 'branch', origin, type);
+      else
+        controller.send('analyticsEvent', 'branch', origin, type, optionalValue);
+      controller.transitionToRoute('branch', this.get('instrumentModel'));
     }
   }
 });
