@@ -38,6 +38,12 @@ export default Ember.Mixin.create({
     ga('set', 'dimension1', isAuthenticated);
   }.observes('session.isAuthenticated').on('init'),
 
+  setInitialNonObservedDimensions: function() {
+    // both usingKeyboard and usingMIDI are enabled by default
+    ga('set', 'dimension2', true);
+    ga('set', 'dimension3', true);
+  }.on('init'),
+
   actions: {
     willTransition: function(transition) {
       this.send('screenView', transition.targetName);
