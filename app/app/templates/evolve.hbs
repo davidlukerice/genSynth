@@ -57,7 +57,12 @@
             {{input type="checkbox" checked=freezeTopology}} Lock Hardware
           </div>
           <div class="col-md-4 title-above title-left" data-title="How Much To Change Each Generation">
-            {{input type="range" min="0" max="1" step="0.05" value=mutationDistance}} Mutation Amount
+            {{input type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value=mutationDistance
+                    focus-out="mutationDistanceBlur"}} Mutation Amount
           </div>
         <div>
       </div>

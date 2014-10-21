@@ -134,6 +134,8 @@ export default Ember.Component.extend({
         }
         applicationCtrl.set('currentUser.unpublishedCount',
           applicationCtrl.get('currentUser.unpublishedCount') + 1);
+
+        controller.send('analyticsEventWithRoute', 'evolve', 'save');
       }, function(error) {
         // TODO: Show error?
         console.log('error saving: '+error);
@@ -143,6 +145,9 @@ export default Ember.Component.extend({
     toggleSelected: function() {
       if (this.get('selectable'))
         this.set('selected', !this.get('selected'));
+
+      var controller = this.get('targetObject');
+      controller.send('analyticsEvent', 'evolve', 'selectInstrument', this.get('index'));
     },
 
     makeLive: function() {

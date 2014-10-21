@@ -169,6 +169,16 @@ export default Ember.Controller.extend({
     $(document).off('keypress', this.get('onkeyPressHandler'));
   },
 
+  showingAdvancedOptionsObserver: function() {
+    var showing = this.get('showingAdvancedOptions') ? 'show' : 'hide';
+    this.send('analyticsEvent', 'evolve', 'advanced', showing);
+  }.observes('showingAdvancedOptions'),
+
+  freezeTopologyObserver: function() {
+    var locked = this.get('freezeTopology') ? 'on' : 'off';
+    this.send('analyticsEvent', 'evolve', 'hardwareLock', locked);
+  }.observes('freezeTopology'),
+
   actions: {
     resetParents: function() {
       this.set('content.instrumentParams', [[]]);
@@ -191,9 +201,18 @@ export default Ember.Controller.extend({
         network.set('isLive', false);
       });
 
+      var locked = this.get('freezeTopology') ? 'locked' : 'unlocked';
+      var distance = this.get('mutationDistance');
+      this.send('analyticsEvent', 'evolve', 'newGeneration', locked, distance);
+
       // push the currently selected networks on top
       this.get('content.instrumentParams').pushObject(selected);
       scrollToBottom();
+    },
+
+    mutationDistanceBlur: function() {
+      var distance = this.get('mutationDistance');
+      this.send('analyticsEvent', 'evolve', 'mutationDistance', 'change', distance);
     }
   }
 });

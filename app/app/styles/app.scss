@@ -154,6 +154,11 @@ button.panic {
     margin-top: 20px;
     border: 2px $borderColor solid;
 
+    .title-above {
+      height: 30px;
+      padding-top: 4px;
+    }
+
     input[type="range"]{
       display: inline-block;
       width: 50%;
