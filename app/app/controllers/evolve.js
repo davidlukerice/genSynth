@@ -219,6 +219,6 @@ export default Ember.Controller.extend({
 
 function scrollToBottom() {
   Ember.run.scheduleOnce('afterRender', function() {
-    $(document).scrollTop($(document).height());
+    $(document).scrollTop($('.row.controls').offset().top - 5);
   });
 }
