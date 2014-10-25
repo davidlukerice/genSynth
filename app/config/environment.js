@@ -14,7 +14,7 @@ module.exports = function(environment) {
       }
     },
     contentSecurityPolicy: {
-      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' connect.facebook.net ct1.addthis.com s7.addthis.com www.google-analytics.com",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' connect.facebook.net ct1.addthis.com s7.addthis.com www.addthis.com www.google-analytics.com",
       'object-src': "'self'",
       'font-src': "'self' data: fonts.gstatic.com",
       'connect-src': "'self' localhost:3000",
