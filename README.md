@@ -6,7 +6,7 @@ Branch of a showcased instrument below or evolve your own!
 
 ### Install Instructions
  - Install [MongoDB](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/) (Currently using 2.6.5)
- - Install Node, global bower, global grunt-cli, and global ember-cli 0.0.46
+ - Install Node, global bower, global grunt-cli, and global ember-cli v0.1.1
  - Update Config Keys
    - /app/app/index.html: Change AddThis pub-ID && Google Analytics Id
    - /app/config/providers: Change urls and Facebook-Connect
