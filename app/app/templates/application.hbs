@@ -29,7 +29,7 @@
             {{#link-to "user" currentUser}}
               <span data-title="View Your Saved Instruments"><span class="glyphicon glyphicon-user"></span> My Instruments</span>
               {{#if hasUnpublishedInstruments}}
-                <span {{action 'unpublishedBadge'}} class="badge" data-title="You have unpublished instruments">{{currentUser.unpublishedCount}}</span>
+                <span {{action 'unpublishedBadge'}} class="badge" data-title="You have unpublished instruments">{{currentUser.unpublishedCount}} Unpublished</span>
               {{/if}}
             {{/link-to}}
           </li>
