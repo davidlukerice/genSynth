@@ -48,6 +48,11 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
       this.transitionTo('feedback');
     },
 
+    evolveAnInstrument: function() {
+      this.send('toggleHelp');
+      this.transitionTo('evolve');
+    },
+
     unpublishedBadge: function() {
       this.send('analyticsEventWithRoute', 'instruments', 'unpublishedBadge');
     }
