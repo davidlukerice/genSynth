@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('feedback');
   this.route('credits');
   this.route('terms');
+  this.route('redirect', { path: '*:' });
 });
 
 export default Router;
