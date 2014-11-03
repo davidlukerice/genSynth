@@ -2,9 +2,11 @@ import Ember from 'ember';
 
 /**
  * Dimensions:
- *   dimension1: isAuthenticated: true/false
+ *   dimension1: isAuthenticated: true/false [0|1]
  *   dimension2: onscreenPianoIsOn: true/false
  *   dimension3: MIDIIsTurnedOn: true/false
+ *   dimension4: webAudioSupported: true/false
+ *   dimension5: numberMIDIDevices: 0,1,2,3,4...
  * metrics:
  *
  * Events:

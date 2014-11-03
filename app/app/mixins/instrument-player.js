@@ -34,7 +34,7 @@ export default Ember.Mixin.create(MidiSelectable, {
     MIDISelector.setupMIDI.call(this, function(inputs) {
       if (inputs)
         self.set('selectedMidiInput', inputs.selectedInput);
-      self.send('updateAnalyticsMetric', 'metric1', inputs?inputs.inputList.length:0);
+      self.send('updateAnalyticsDimension', 'dimension5', ""+(inputs?inputs.inputList.length:0));
     });
   }.on('init'),
 
