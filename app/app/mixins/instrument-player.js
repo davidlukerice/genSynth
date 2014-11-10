@@ -20,7 +20,8 @@ export default Ember.Mixin.create(MidiSelectable, {
   }.property('minGlobalGainLevel', 'maxGlobalGainLevel', 'globalGainLevel'),
 
   updateGainHandler: function() {
-    asNEAT.globalGain.gain.value = this.get('globalGainLevel');
+    if (asNEAT.globalGain)
+      asNEAT.globalGain.gain.value = this.get('globalGainLevel');
   }.observes('globalGainLevel').on('init'),
 
   /**
