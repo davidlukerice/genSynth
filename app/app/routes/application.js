@@ -68,6 +68,11 @@ export default Ember.Route.extend(analytics, {
     makeLive: function(instrument) {
       this.controllerFor('application')
           .send('makeLive', instrument);
+    },
+
+    toggleHelp: function() {
+      this.controllerFor('application')
+          .send('toggleHelp');
     }
   }
 });
