@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 var Population = require('asNEAT/population')['default'],
-    EvolutionTypes = require('asNEAT/network')['default'].EvolutionTypes;
+    EvolutionTypes = require('asNEAT/network')['default'].EvolutionTypes,
+    asNEAT = require('asNEAT/asNEAT')['default'];
 
 var MINUS_CODE = "-".charCodeAt(),
     MULT_CODE = "*".charCodeAt(),
@@ -181,19 +182,23 @@ export default Ember.Controller.extend({
 
   actions: {
     resetParents: function() {
+      asNEAT.resetOutNodes();
       this.set('content.instrumentParams', [[]]);
     },
 
     refreshGeneration: function() {
+      asNEAT.resetOutNodes();
       this.notifyPropertyChange('childInstrumentParams');
     },
 
     backGeneration: function() {
+      asNEAT.resetOutNodes();
       this.get('content.instrumentParams').popObject();
       scrollToBottom();
     },
 
     nextGeneration: function() {
+      asNEAT.resetOutNodes();
       var selected = this.get('selectedNetworks');
       // reset selected and isLive
       _.forEach(selected, function(network) {
