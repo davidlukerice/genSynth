@@ -47,7 +47,7 @@ export default Ember.Mixin.create({
   }.on('init'),
 
   actions: {
-    willTransition: function(transition) {
+    analyticsWillTransition: function(transition) {
       this.send('screenView', transition.targetName);
     },
 

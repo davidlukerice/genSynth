@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import analytics from 'gen-synth/mixins/analytics-handler';
+var asNEAT = require('asNEAT/asNEAT')['default'];
 
 export default Ember.Route.extend(analytics, {
 
@@ -22,6 +23,11 @@ export default Ember.Route.extend(analytics, {
   },
 
   actions: {
+    willTransition: function(transition) {
+      this.send('analyticsWillTransition', transition);
+      asNEAT.resetOutNodes();
+    },
+
     authenticate: function(options) {
       this.get('session').authenticate(
         'simple-auth-authenticator:torii',
