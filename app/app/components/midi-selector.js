@@ -34,7 +34,10 @@ MIDISelector.setupMIDI = function(callback) {
 
   function onSuccess(access) {
     var preferredIndex = -1;
-    var inputList=access.inputs();
+    var inputList = [];
+    access.inputs.values(function(input) {
+      inputList.push(input);
+    });
 
     // If any of the inputs have "keyboard" or "qx25" in them, selected them first
     _.forEach(inputList, function(input, i) {
