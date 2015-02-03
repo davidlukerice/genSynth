@@ -510,6 +510,14 @@ footer.page {
   }
 }
 
+.index {
+  .introVideo {
+    left: 50%;
+    position: relative;
+    margin-left: -280px;
+  }
+}
+
 .search {
   .instrumentSorting {
     display: block;
