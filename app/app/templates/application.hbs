@@ -215,6 +215,20 @@
   </div>
 {{/if}}
 
+{{#if showInstrumentJSON}}
+  <div class="genSynthModal">
+    <div class="modalContent">
+      <span class="toggleText pull-right" {{action "toggleShowInstrumentJSON"}}>Close</span>
+      <h4>
+        <span class="fa fa-clipboard fa-2x fa-fw"></span> asNEAT.js Instrument JSON
+      </h4>
+      <p>
+        {{textarea value=shownInstrumentJSON cols="50" rows="20"}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+
 {{#if usingMIDI}}
   {{midi-piano
     instrumentNetwork=activeInstrument.instrumentNetwork

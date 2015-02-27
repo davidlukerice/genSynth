@@ -8,6 +8,7 @@
       {{else}}
         <i {{action "save" bubbles=false}} class="fa fa-floppy-o fa-2x fa-fw control" data-title="Save"></i>
       {{/if}}
+      <i {{action "showInstrumentJSON"}} class="fa fa-clipboard fa-2x fa-fw control" data-title="Copy asNEAT.js JSON"></i>
       {{#if isPublished}}
         <span {{action "branchFrom"}}>
           <i class="fa fa-code-fork fa-2x fa-fw control" data-title="Branch New Instrument"></i>

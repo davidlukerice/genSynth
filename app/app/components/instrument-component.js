@@ -105,6 +105,12 @@ export default Ember.Component.extend({
       controller.send('analyticsEvent', 'instrument', 'play', 'button');
     },
 
+    showInstrumentJSON: function() {
+      var controller = this.get('targetObject'),
+          applicationCtrl = controller.get('controllers.application');
+      applicationCtrl.send('toggleShowInstrumentJSON', this.get('instrumentNetwork').toJSON());
+    },
+
     save: function() {
       var controller = this.get('targetObject'),
           applicationCtrl = controller.get('controllers.application');

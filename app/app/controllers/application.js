@@ -30,6 +30,9 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
   showSettings: false,
   showHelp: false,
 
+  showInstrumentJSON: false,
+  shownInstrumentJSON: '',
+
   actions: {
     toggleHelp: function() {
       this.set('showHelp', !this.get('showHelp'));
@@ -41,6 +44,13 @@ export default Ember.Controller.extend(InstrumentPlayer, AuthHandler, {
       this.set('showSettings', !this.get('showSettings'));
       if (this.get('showSettings'))
         this.send('analyticsEventWithRoute', 'showSettings', '');
+    },
+
+    toggleShowInstrumentJSON: function(instrumentJSON) {
+      this.set('shownInstrumentJSON', instrumentJSON);
+      this.set('showInstrumentJSON', !this.get('showInstrumentJSON'));
+      if (this.get('showInstrumentJSON'))
+        this.send('analyticsEventWithRoute', 'showInstrumentJSON', '');
     },
 
     letUsKnow: function() {
